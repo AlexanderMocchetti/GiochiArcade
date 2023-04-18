@@ -15,7 +15,7 @@ public class Paddle {
 
     public void update(){
         int cursorXPosition = Gdx.input.getX();
-        if(cursorXPosition - width > 0 && cursorXPosition + width < Gdx.graphics.getWidth())
+        if(cursorXPosition > 0 && cursorXPosition + width < Gdx.graphics.getWidth())
             x = cursorXPosition;
     }
     public void draw(ShapeRenderer shape){
