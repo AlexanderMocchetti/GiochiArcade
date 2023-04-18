@@ -27,7 +27,7 @@ public class Application extends ApplicationAdapter {
 			));
 		}
 		ball = balls.get(0);
-		paddle = new Paddle(5, 10, Gdx.graphics.getWidth() / 2, 50);
+		paddle = new Paddle(50, 10, Gdx.graphics.getWidth() / 2, 50);
 	}
 	@Override
 	public void render () {
