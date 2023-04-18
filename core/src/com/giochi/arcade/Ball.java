@@ -16,13 +16,17 @@ public class Ball {
         x += xSpeed;
         y += ySpeed;
 
-        if(x < 0 || x > Gdx.graphics.getWidth())
+        if(x - size < 0 || x + size > Gdx.graphics.getWidth())
             xSpeed *= -1;
 
-        if(y < 0 || y > Gdx.graphics.getHeight())
+        if(y - size < 0 || y + size > Gdx.graphics.getHeight())
             ySpeed *= -1;
     }
     public void draw(ShapeRenderer shape){
         shape.circle(x, y, size);
+    }
+
+    public boolean collidesWith(Paddle paddle){
+        return true;
     }
 }

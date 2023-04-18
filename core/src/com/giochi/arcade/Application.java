@@ -12,6 +12,8 @@ public class Application extends ApplicationAdapter {
 	ShapeRenderer shape;
 	Random random = new Random();
 	ArrayList<Ball> balls = new ArrayList<>(10);
+	Ball ball;
+	Paddle paddle;
 	@Override
 	public void create () {
 		shape = new ShapeRenderer();
@@ -24,15 +26,17 @@ public class Application extends ApplicationAdapter {
 					random.nextInt(15)
 			));
 		}
+		ball = balls.get(0);
+		paddle = new Paddle(5, 10, Gdx.graphics.getWidth() / 2, 50);
 	}
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		shape.begin(ShapeRenderer.ShapeType.Filled);
-		for(Ball ball: balls){
-			ball.update();
-			ball.draw(shape);
-		}
+		ball.update();
+		paddle.update();
+		paddle.draw(shape);
+		ball.draw(shape);
 		shape.end();
 	}
 }
