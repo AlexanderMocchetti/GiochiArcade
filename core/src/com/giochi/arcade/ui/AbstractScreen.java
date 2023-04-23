@@ -1,4 +1,4 @@
-package com.giochi.arcade.view;
+package com.giochi.arcade.ui;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;

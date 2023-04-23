@@ -1,8 +1,9 @@
 package com.giochi.arcade;
 
 import com.badlogic.gdx.Game;
-import com.giochi.arcade.view.LoadingScreen;
-import com.giochi.arcade.view.MenuScreen;
+import com.giochi.arcade.ui.LoadingScreen;
+import com.giochi.arcade.ui.MenuScreen;
+import com.giochi.arcade.ui.Screens;
 
 public class ArcadeGame extends Game{
     LoadingScreen loadingScreen;

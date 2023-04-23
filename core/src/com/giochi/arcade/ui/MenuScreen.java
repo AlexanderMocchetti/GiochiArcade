@@ -1,4 +1,4 @@
-package com.giochi.arcade.view;
+package com.giochi.arcade.ui;
 
 import com.giochi.arcade.ArcadeGame;
 
