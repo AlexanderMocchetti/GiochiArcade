@@ -24,6 +24,8 @@ public class GameScreenSnake extends ScreenAdapter {
 
     private Snake snake;
 
+    private Food food;
+
     private Controller controller;
 
     // costants
@@ -44,7 +46,9 @@ public class GameScreenSnake extends ScreenAdapter {
 
         shapeRenderer = new ShapeRenderer();
 
-        snake = new Snake(2 , 4);
+        snake = new Snake(1 , 4);
+
+        food = new Food(snake);
 
         controller = new Controller();
     }
@@ -65,24 +69,19 @@ public class GameScreenSnake extends ScreenAdapter {
 
         snake.Update(delta);
 
+        food.updatePosition();
+
+        food.checkFoodCollision();
+
         clearScreen();
 
         batch.begin(); // start drawing
 
-        snake.Draw(batch , shapeRenderer);
+        snake.Draw(shapeRenderer);
+
+        food.Draw(shapeRenderer);
 
         batch.end(); // end drawing
 
-    }
-
-
-
-    private void queryInput ()
-    {
-        DIRECTIONS direction = controller.queryInput();
-        if (direction != DIRECTIONS.NONE)
-        {
-            snake.updateDirection(direction);
-        }
     }
 }
