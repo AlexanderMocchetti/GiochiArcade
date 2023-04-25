@@ -4,28 +4,28 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.giochi.arcade.ArcadeGame;
 
 abstract class AbstractScreen implements Screen {
-    final Camera camera;
-    final Viewport viewport;
-    final Batch batch;
+    Camera camera;
+    Viewport viewport;
+    Batch batch;
     final ArcadeGame parent;
-    public static final int WORLD_WIDTH = 1600;
-    public static final int WORLD_HEIGHT = 1000;
+    public static float WORLD_WIDTH = 1600;
+    public static float WORLD_HEIGHT = 1000;
 
-    /**
-     * @param parent Parent object
-     * @see ArcadeGame
-     */
     public AbstractScreen(ArcadeGame parent){
+        this.parent = parent;
+        batch = parent.getBatch();
         camera = new OrthographicCamera();
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-        batch = new SpriteBatch();
-        this.parent = parent;
+    }
+
+    @Override
+    public void show() {
+        viewport.apply(true);
     }
 
     @Override
@@ -43,7 +43,6 @@ abstract class AbstractScreen implements Screen {
     }
     @Override
     public void dispose(){
-        batch.dispose();
-    }
 
+    }
 }

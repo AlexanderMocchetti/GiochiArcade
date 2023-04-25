@@ -8,15 +8,17 @@ import com.giochi.arcade.ArcadeGame;
 
 public class LoadingScreen extends AbstractScreen{
     Sprite sprite;
-
     public LoadingScreen(ArcadeGame parent) {
         super(parent);
+        WORLD_WIDTH = 612.0f;
+        WORLD_HEIGHT = 408.0f;
+        viewport.setWorldSize(WORLD_WIDTH, WORLD_HEIGHT);
+        sprite = new Sprite(new Texture(Gdx.files.internal("cosi.jpeg")));
     }
 
     @Override
     public void show() {
-        viewport.apply(true);
-        sprite = new Sprite(new Texture(Gdx.files.internal("cosi.jpeg")));
+        super.show();
         sprite.setPosition(0, 0);
         sprite.setSize(WORLD_WIDTH, WORLD_HEIGHT);
     }

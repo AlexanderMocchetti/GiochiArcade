@@ -3,8 +3,6 @@ package com.giochi.arcade.ui;
 import com.giochi.arcade.ArcadeGame;
 
 public class MenuScreen extends AbstractScreen {
-
-
     public MenuScreen(ArcadeGame parent) {
         super(parent);
     }
