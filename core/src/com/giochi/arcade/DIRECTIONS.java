@@ -6,5 +6,5 @@ public enum DIRECTIONS {
     LEFT ,
     UP ,
     DOWN ,
-    NONE;
+    NONE
 }

@@ -5,6 +5,14 @@ import com.badlogic.gdx.Input;
 
 public class Controller
 {
+
+    private int score;
+
+    private STATE state;
+
+
+
+
     public DIRECTIONS queryInput ()
     {
         boolean rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
@@ -26,4 +34,28 @@ public class Controller
         return DIRECTIONS.NONE;
 
     }
+
+
+
+    public boolean checkForRestart ()
+    {
+        return Gdx.input.isKeyPressed(Input.Keys.SPACE);
+
+    }
+
+    public int getScore ()  {
+        return score;
+    }
+
+    public void resetScore ()
+    {
+        score = 0;
+    }
+
+    public void increasedScore () {
+        score++;
+    }
+
+
+
 }
