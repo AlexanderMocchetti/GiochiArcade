@@ -5,22 +5,29 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.giochi.arcade.ArcadeGame;
+import com.giochi.arcade.controller.PacmanController;
+import com.giochi.arcade.logic.pacman.Player;
 
 public class LoadingScreen extends AbstractScreen{
     Sprite sprite;
+    PacmanController pacmanController;
+    Player player;
     public LoadingScreen(ArcadeGame parent) {
         super(parent);
-        WORLD_WIDTH = 612.0f;
-        WORLD_HEIGHT = 408.0f;
+        WORLD_WIDTH = 15;
+        WORLD_HEIGHT = 17;
         viewport.setWorldSize(WORLD_WIDTH, WORLD_HEIGHT);
-        sprite = new Sprite(new Texture(Gdx.files.internal("cosi.jpeg")));
+        sprite = new Sprite(new Texture(Gdx.files.internal("mazeT.png")));
+        player = new Player(1,1.60f, 0.01f);
+        pacmanController = new PacmanController(player);
     }
 
     @Override
     public void show() {
         super.show();
-        sprite.setPosition(0, 0);
-        sprite.setSize(WORLD_WIDTH, WORLD_HEIGHT);
+        sprite.setPosition(0, 1);
+        sprite.setSize(WORLD_WIDTH, WORLD_HEIGHT-2);
+        Gdx.input.setInputProcessor(pacmanController);
     }
 
     @Override
@@ -29,6 +36,8 @@ public class LoadingScreen extends AbstractScreen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         sprite.draw(batch);
+        player.update();
+        player.draw(batch);
         batch.end();
     }
 

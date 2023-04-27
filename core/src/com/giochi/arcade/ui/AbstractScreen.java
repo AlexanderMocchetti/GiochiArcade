@@ -19,7 +19,7 @@ abstract class AbstractScreen implements Screen {
     public AbstractScreen(ArcadeGame parent){
         this.parent = parent;
         batch = parent.getBatch();
-        camera = new OrthographicCamera();
+        camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
     }
 
