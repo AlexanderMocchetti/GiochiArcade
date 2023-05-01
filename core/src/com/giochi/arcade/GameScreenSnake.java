@@ -158,7 +158,7 @@ public class GameScreenSnake extends ScreenAdapter { // Main class for snake gam
 
         food.Draw(shapeRenderer);
 
-        //drawGrid(shapeRenderer);
+        drawGrid(shapeRenderer);
 
         batch.end();
 
@@ -208,18 +208,5 @@ public class GameScreenSnake extends ScreenAdapter { // Main class for snake gam
             layout.setText(bitmap , scoreToString);
             bitmap.draw(batch , "Score: " + scoreToString , layout.width,  viewport.getWorldHeight() - layout.height / 2);
         }
-    }
-
-    public STATE getState() {
-        return state;
-    }
-
-    public void setState(STATE state) {
-        this.state = state;
-    }
-
-    public boolean isGameOver ()
-    {
-        return state == STATE.GAME_OVER;
     }
 }
