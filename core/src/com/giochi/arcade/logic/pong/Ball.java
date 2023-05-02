@@ -14,10 +14,12 @@ public class Ball {
         this.ySpeed = ySpeed;
     }
     public void update(float delta){
-        if(y > PongScreen.WORLD_HEIGHT || y < 0)
+        if(y + radius> 200 || y - radius < 0)
             ySpeed *= -1;
-        if(x > PongScreen.WORLD_WIDTH || x < 0)
+        if(x + radius > 200 || x - radius < 0)
             xSpeed *= -1;
+        x += xSpeed;
+        y += ySpeed;
     }
     public void draw(ShapeRenderer shape){
         shape.circle(x, y, radius);
