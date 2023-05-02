@@ -11,7 +11,7 @@ public class PacmanController extends InputAdapter {
     }
     @Override
     public boolean keyDown(int keycode) {
-        Direction direction = null;
+        Direction direction;
         switch(keycode){
             case 19:
             case 51:
@@ -29,6 +29,8 @@ public class PacmanController extends InputAdapter {
             case 32:
                 direction = Direction.RIGHT;
                 break;
+            default:
+                return false;
         }
         player.setDirection(direction);
         return true;

@@ -18,10 +18,11 @@ public class Player {
         float[] coordinates = advance();
         x = coordinates[0];
         y = coordinates[1];
+        System.out.println("X: " + x + "\tY: " + y);
     }
 
     public void draw(Batch batch){
-        batch.draw(img, x, y, 0.75f, 0.75f);
+        batch.draw(img, x, y, 1, 1);
     }
     private float[] advance(){
         float[] returnCoordinates = {x, y};
