@@ -14,9 +14,9 @@ public class Ball {
         this.ySpeed = ySpeed;
     }
     public void update(float delta){
-        if(y + radius> 200 || y - radius < 0)
+        if(y + radius > PongScreen.WORLD_HEIGHT || y - radius < 0)
             ySpeed *= -1;
-        if(x + radius > 200 || x - radius < 0)
+        if(x + radius > PongScreen.WORLD_WIDTH || x - radius < 0)
             xSpeed *= -1;
         x += xSpeed;
         y += ySpeed;

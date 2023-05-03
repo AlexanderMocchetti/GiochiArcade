@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("GiochiArcade");
-		config.setWindowedMode(960,600);
+		config.setWindowedMode(700,700);
 		new Lwjgl3Application(new ArcadeGame(), config);
 	}
 }

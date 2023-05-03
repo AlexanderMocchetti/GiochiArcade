@@ -2,11 +2,8 @@ package com.giochi.arcade.ui;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.giochi.arcade.ArcadeGame;
 
@@ -16,20 +13,21 @@ abstract class AbstractScreen implements Screen {
     Batch batch;
     ShapeRenderer shape;
     final ArcadeGame parent;
-    public static float WORLD_WIDTH = 1600;
-    public static float WORLD_HEIGHT = 1000;
 
     public AbstractScreen(ArcadeGame parent){
         this.parent = parent;
         batch = parent.getBatch();
         shape = parent.getShape();
-        camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
-        viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
     }
 
     @Override
     public void show() {
-        viewport.apply(true);
+
+    }
+
+    @Override
+    public void render(float delta) {
+
     }
 
     @Override
@@ -46,6 +44,12 @@ abstract class AbstractScreen implements Screen {
     public void resume() {
 
     }
+
+    @Override
+    public void hide() {
+
+    }
+
     @Override
     public void dispose(){
 
