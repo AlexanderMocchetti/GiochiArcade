@@ -67,6 +67,10 @@ public class SpaceInvadersScreenGame extends ScreenAdapter {
     private int directionAliens = 1;
 
     private float speedAliens = 100;
+
+    private static final int WORLD_WIDTH = 640;
+
+    private static final int WORLD_HEIGHT = 480;
     @Override
     public void show() {
         camera = new OrthographicCamera(Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
