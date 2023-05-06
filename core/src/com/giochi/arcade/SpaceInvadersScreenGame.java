@@ -74,7 +74,9 @@ public class SpaceInvadersScreenGame extends ScreenAdapter {
     @Override
     public void show() {
         camera = new OrthographicCamera(Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
-        viewport = new FitViewport(600 , 600 , camera);
+        camera.position.set(WORLD_WIDTH / 2 , WORLD_HEIGHT / 2 , 0);
+        camera.update();
+        viewport = new FitViewport(WORLD_WIDTH , WORLD_HEIGHT , camera);
         stage = new Stage();
         skin = new Skin(Gdx.files.internal("assets/skins/gdx-skins-master/gdx-skins-master/arcade/skin/arcade-ui.json"));
         ShapeRenderer renderer = new ShapeRenderer();
