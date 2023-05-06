@@ -10,8 +10,8 @@ import com.giochi.arcade.ArcadeGame;
 abstract class AbstractScreen implements Screen {
     Camera camera;
     Viewport viewport;
-    Batch batch;
-    ShapeRenderer shape;
+    final Batch batch;
+    final ShapeRenderer shape;
     final ArcadeGame parent;
 
     public AbstractScreen(ArcadeGame parent){

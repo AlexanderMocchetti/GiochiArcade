@@ -40,7 +40,7 @@ public class LoadingScreen extends AbstractScreen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         sprite.draw(batch);
-        player.update();
+        player.update(delta);
         player.draw(batch);
         batch.end();
     }

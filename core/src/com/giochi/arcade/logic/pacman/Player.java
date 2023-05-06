@@ -14,7 +14,7 @@ public class Player {
         this.y = y;
         this.speed = speed;
     }
-    public void update(){
+    public void update(float delta){
         float[] coordinates = advance();
         x = coordinates[0];
         y = coordinates[1];

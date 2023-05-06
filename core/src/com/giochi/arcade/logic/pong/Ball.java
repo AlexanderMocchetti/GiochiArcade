@@ -21,6 +21,7 @@ public class Ball {
         x += xSpeed;
         y += ySpeed;
     }
+
     public void draw(ShapeRenderer shape){
         shape.circle(x, y, radius);
     }

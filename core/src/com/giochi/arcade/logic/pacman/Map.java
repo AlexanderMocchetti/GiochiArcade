@@ -6,8 +6,8 @@ public class Map {
     public static final boolean[][] edgeTable = {
             {false, true, false, true, false, true},
             {true, false, true, false, true, false},
-            {true},
-            {false},
+            {true, },
+            {false, true, false, true, true},
             {true},
             {true}
     };

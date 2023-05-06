@@ -20,7 +20,6 @@ public class ArcadeGame extends Game{
         batch = new SpriteBatch();
         shape = new ShapeRenderer();
         pongScreen = new PongScreen(this);
-        loadingScreen = new LoadingScreen(this);
         setScreen(pongScreen);
     }
     public void changeScreens(Screens screen){
