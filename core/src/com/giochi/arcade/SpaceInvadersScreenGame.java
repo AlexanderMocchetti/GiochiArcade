@@ -92,7 +92,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter {
         aliens = new AlienSpaceInvaders[numWidthAliens * numHeightAliens];
         Table table = new Table();
         table.add(labelScore);
-        table.setPosition(50 , 40);
+        table.setPosition(50 , 40); //
         table.pack();
         stage.addActor(table);
         int i = 0;
