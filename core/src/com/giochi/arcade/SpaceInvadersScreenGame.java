@@ -212,4 +212,10 @@ public class SpaceInvadersScreenGame extends ScreenAdapter {
         super.resize(width, height);
         camera.update();
     }
+
+    @Override
+    public void dispose() {
+        batch.dispose();
+        imgPlayer.dispose();
+    }
 }
