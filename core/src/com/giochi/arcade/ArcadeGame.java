@@ -21,7 +21,7 @@ public class ArcadeGame extends Game{
         shape = new ShapeRenderer();
         pongScreen = new PongScreen(this);
         loadingScreen = new LoadingScreen(this);
-        setScreen(loadingScreen);
+        setScreen(pongScreen);
     }
     public void changeScreens(Screens screen){
         switch(screen){
