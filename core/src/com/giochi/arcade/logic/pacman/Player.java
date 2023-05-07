@@ -1,28 +1,24 @@
 package com.giochi.arcade.logic.pacman;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 
 public class Player {
     private float x, y;
     private final float speed;
     private Direction direction = Direction.RIGHT;
-    private final Texture img = new Texture(Gdx.files.internal("frog.png"));
-    public Player(float x, float y, float speed){
+    private final TiledMap map;
+    public Player(float x, float y, float speed, TiledMap map){
         this.x = x;
         this.y = y;
         this.speed = speed;
+        this.map = map;
     }
     public void update(float delta){
         float[] coordinates = advance();
         x = coordinates[0];
         y = coordinates[1];
         System.out.println("X: " + x + "\tY: " + y);
-    }
-    public void draw(Batch batch){
-        batch.draw(img, x, y, 1, 1);
     }
     public void draw(ShapeRenderer shape) {
         shape.circle(x, y, 0.02f, 100);
