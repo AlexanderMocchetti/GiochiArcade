@@ -3,6 +3,7 @@ package com.giochi.arcade.logic.pacman;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Player {
     private float x, y;
@@ -20,9 +21,11 @@ public class Player {
         y = coordinates[1];
         System.out.println("X: " + x + "\tY: " + y);
     }
-
     public void draw(Batch batch){
         batch.draw(img, x, y, 1, 1);
+    }
+    public void draw(ShapeRenderer shape) {
+        shape.circle(x, y, 0.02f, 100);
     }
     private float[] advance(){
         float[] returnCoordinates = {x, y};
