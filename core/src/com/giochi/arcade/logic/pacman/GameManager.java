@@ -11,6 +11,7 @@ public class GameManager {
     public static final GameManager instance = new GameManager();
     public static final float pixelToGrid = 1/32f;
     private ArrayList<Rectangle> walls;
+    public static final float cornerTightness = 0.3f;
     private TiledMap map;
     private GameManager(){
         map = new TmxMapLoader().load("PacmanMap.tmx");

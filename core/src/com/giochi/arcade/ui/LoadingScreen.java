@@ -2,12 +2,10 @@ package com.giochi.arcade.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -32,7 +30,7 @@ public class LoadingScreen extends AbstractScreen{
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         camera.setToOrtho(false, WORLD_WIDTH * 100, WORLD_HEIGHT * 100);
         cameraControl = new OrthographicCamera();
-        player = new Player(1, 1, 0.01f);
+        player = new Player(1, 1, 0.1f);
         pacmanController = new PacmanController(player);
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1/32f, batch);
         mapRenderer.setView(camera);

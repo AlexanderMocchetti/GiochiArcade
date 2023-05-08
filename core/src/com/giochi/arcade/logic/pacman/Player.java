@@ -4,9 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ArrayList;
@@ -27,7 +24,7 @@ public class Player {
     public void update(float delta){
         float[] coordinates = advance();
         System.out.println("X: " + x + "\tY: " + y);
-        if(!checkMovable(new Rectangle(coordinates[0], coordinates[1], sprite.getWidth(), sprite.getHeight())))
+        if(!checkWallCollision(new Rectangle(coordinates[0], coordinates[1], sprite.getWidth(), sprite.getHeight())))
             return;
         x = coordinates[0];
         y = coordinates[1];
@@ -39,7 +36,10 @@ public class Player {
     public void draw(ShapeRenderer shape) {
         shape.circle(x, y, 0.02f, 100);
     }
-    private boolean checkMovable(Rectangle rectangle){
+    private boolean checkCornerCloseness(float coordinate){
+        return coordinate - Math.ceil(coordinate) > GameManager.cornerTightness || coordinate - Math.floor(coordinate) > GameManager.cornerTightness;
+    }
+    private boolean checkWallCollision(Rectangle rectangle){
         ArrayList<Rectangle> walls = GameManager.instance.getWalls();
         for(Rectangle wall: walls){
             if(rectangle.overlaps(wall))
