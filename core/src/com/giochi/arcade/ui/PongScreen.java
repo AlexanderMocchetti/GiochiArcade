@@ -20,8 +20,8 @@ public class PongScreen extends AbstractScreen{
         ball = new Ball(20, WORLD_WIDTH / 2, 10, 2, 2);
         camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-        p1 = new Player(WORLD_WIDTH/2,20,50,5,1,1);
-        p2 = new Player(WORLD_WIDTH/2,WORLD_WIDTH-20,50,5,1,2);
+        p1 = new Player(20,WORLD_HEIGHT/2,5,50,1,1);
+        p2 = new Player(WORLD_WIDTH-20,WORLD_HEIGHT/2,5,50,1,2);
     }
     @Override
     public void render(float delta) {

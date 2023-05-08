@@ -18,21 +18,21 @@ public class Player {
     public void update(){
         if(p==1) {
 
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-                x -= speed;
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                y -= speed;
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-                x += speed;
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                y += speed;
             }
         }
         if(p==2) {
-            if (Gdx.input.isKeyPressed(Input.Keys.J)) {
-                x -= speed;
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+                y -= speed;
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-                x += speed;
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+                y += speed;
             }
         }
     }
