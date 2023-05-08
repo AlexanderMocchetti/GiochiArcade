@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class AlienSpaceInvaders {
+public class AlienSpaceInvaders
+{
 
     private Vector2 positionAlien;
 
@@ -16,7 +17,7 @@ public class AlienSpaceInvaders {
 
     private boolean alive = true;
 
-    public AlienSpaceInvaders (Vector2 positionAlien , Texture imgAlien , Color color)
+    public AlienSpaceInvaders(Vector2 positionAlien, Texture imgAlien, Color color)
     {
         this.positionAlien = positionAlien;
         initialPosition = positionAlien;
@@ -25,9 +26,9 @@ public class AlienSpaceInvaders {
         spriteAlien.setScale(1);
     }
 
-    public void Draw (SpriteBatch  batchAlien)
+    public void draw(SpriteBatch batchAlien)
     {
-        spriteAlien.setPosition(positionAlien.x , positionAlien.y);
+        spriteAlien.setPosition(positionAlien.x, positionAlien.y);
         spriteAlien.draw(batchAlien);
     }
 
@@ -35,9 +36,6 @@ public class AlienSpaceInvaders {
         return spriteAlien;
     }
 
-    public void setSpriteAlien(Sprite spriteAlien) {
-        this.spriteAlien = spriteAlien;
-    }
 
     public boolean isAlive() {
         return alive;
@@ -51,9 +49,6 @@ public class AlienSpaceInvaders {
         return initialPosition;
     }
 
-    public void setInitialPosition(Vector2 initialPosition) {
-        this.initialPosition = initialPosition;
-    }
 
     public Vector2 getPositionAlien() {
         return positionAlien;
