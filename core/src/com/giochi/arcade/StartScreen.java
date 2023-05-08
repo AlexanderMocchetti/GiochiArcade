@@ -4,9 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -54,6 +51,8 @@ public class StartScreen extends ScreenAdapter
 
         group.setFillParent(true); // diventa il "genitore" dei componenti a lui collegati
 
+
+
         startButton = new TextButton("Start" , new Skin(Gdx.files.internal("assets/gdx-skins-master/glassy/skin/glassy-ui.json")));
 
         startButton.addListener(new InputListener()
@@ -74,6 +73,10 @@ public class StartScreen extends ScreenAdapter
             }
         });
 
+
+
+        group.pack();
+
         group.addActor(exitButton);
 
         stage.addActor(group);
@@ -82,7 +85,7 @@ public class StartScreen extends ScreenAdapter
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0.2f, 0.2f, 0.2f, 1);
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        stage.act(Math.min(delta, 1 / 30f));
         stage.draw();
     }
 
