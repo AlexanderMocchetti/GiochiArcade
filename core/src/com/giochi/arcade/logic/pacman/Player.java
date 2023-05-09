@@ -3,7 +3,6 @@ package com.giochi.arcade.logic.pacman;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class Player {
         this.speed = speed;
         sprite = new Sprite(new Texture("pac_man_0.png"));
         sprite.setPosition(x, y);
-        sprite.setSize(0.999f,0.999f);
+        sprite.setSize(0.9f,0.9f);
     }
     public void update(float delta){
         float[] coordinates = advance();
@@ -33,11 +32,19 @@ public class Player {
     public void draw(Batch batch){
         sprite.draw(batch);
     }
-    public void draw(ShapeRenderer shape) {
-        shape.circle(x, y, 0.02f, 100);
-    }
-    private boolean checkCornerCloseness(float coordinate){
-        return coordinate - Math.ceil(coordinate) > GameManager.cornerTightness || coordinate - Math.floor(coordinate) > GameManager.cornerTightness;
+    private boolean checkCornerCloseness(){
+        float coordinate = Float.MAX_VALUE;
+        switch (direction) {
+            case UP:
+            case DOWN:
+                coordinate = y;
+                break;
+            case RIGHT:
+            case LEFT:
+                coordinate = x;
+                break;
+        }
+        return Math.abs(coordinate - Math.floor(coordinate)) < GameManager.cornerTightness || Math.abs(coordinate - Math.ceil(coordinate)) < GameManager.cornerTightness;
     }
     private boolean checkWallCollision(Rectangle rectangle){
         ArrayList<Rectangle> walls = GameManager.instance.getWalls();
