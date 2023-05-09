@@ -19,7 +19,7 @@ public class GameManager {
     }
 
     private void correctRectangles(){
-        walls = new ArrayList<>();
+        walls = new ArrayList<>(35);
         Rectangle rect;
         for(MapObject object : map.getLayers().get("CollisionLayer").getObjects()) {
             rect = ((RectangleMapObject) object).getRectangle();

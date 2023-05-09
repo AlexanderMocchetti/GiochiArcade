@@ -28,9 +28,9 @@ public class LoadingScreen extends AbstractScreen{
         map = GameManager.instance.getMap();
         camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-        camera.setToOrtho(false, WORLD_WIDTH * 100, WORLD_HEIGHT * 100);
+        camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         cameraControl = new OrthographicCamera();
-        player = new Player(1, 1, 0.1f);
+        player = new Player(1, 1, 2.5f);
         pacmanController = new PacmanController(player);
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1/32f, batch);
         mapRenderer.setView(camera);
@@ -53,11 +53,6 @@ public class LoadingScreen extends AbstractScreen{
         shape.begin(ShapeRenderer.ShapeType.Line);
         shape.rect(rect.x, rect.y, rect.width, rect.height);
         shape.end();
-    }
-
-    @Override
-    public void hide() {
-
     }
 
     @Override

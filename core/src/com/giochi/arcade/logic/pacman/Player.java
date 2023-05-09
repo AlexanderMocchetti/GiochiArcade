@@ -21,7 +21,7 @@ public class Player {
         sprite.setSize(0.9f,0.9f);
     }
     public void update(float delta){
-        float[] coordinates = advance();
+        float[] coordinates = advance(delta);
         System.out.println("X: " + x + "\tY: " + y);
         if(!checkWallCollision(new Rectangle(coordinates[0], coordinates[1], sprite.getWidth(), sprite.getHeight())))
             return;
@@ -55,20 +55,20 @@ public class Player {
         return true;
     }
 
-    private float[] advance(){
+    private float[] advance(float delta){
         float[] returnCoordinates = {x, y};
         switch(direction){
             case RIGHT:
-                returnCoordinates[0] += speed;
+                returnCoordinates[0] += speed * delta;
                 break;
             case LEFT:
-                returnCoordinates[0] -= speed;
+                returnCoordinates[0] -= speed * delta;
                 break;
             case UP:
-                returnCoordinates[1] += speed;
+                returnCoordinates[1] += speed * delta;
                 break;
             case DOWN:
-                returnCoordinates[1] -= speed;
+                returnCoordinates[1] -= speed * delta;
                 break;
         }
         return returnCoordinates;
