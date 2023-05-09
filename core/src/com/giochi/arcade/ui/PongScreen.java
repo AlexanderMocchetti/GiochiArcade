@@ -17,7 +17,7 @@ public class PongScreen extends AbstractScreen{
     private final Player p1,p2;
     public PongScreen(ArcadeGame parent) {
         super(parent);
-        ball = new Ball(20, WORLD_WIDTH / 2, 10, 2, 2);
+        ball = new Ball(WORLD_HEIGHT/2, WORLD_WIDTH / 2, 5, 2, 2);
         camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         p1 = new Player(20,WORLD_HEIGHT/2,5,50,1,1);

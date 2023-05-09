@@ -4,11 +4,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.giochi.arcade.ui.PongScreen;
 
 public class Ball {
-    private float x, y, xSpeed, ySpeed;
+    private float x, y, xSpeed, ySpeed,xBase,yBase;
     private final float radius;
     public Ball(float x, float y, float radius, float xSpeed, float ySpeed) {
         this.x = x;
         this.y = y;
+        xBase=x;
+        yBase=y;
         this.radius = radius;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
@@ -20,6 +22,10 @@ public class Ball {
             xSpeed *= -1;
         x += xSpeed;
         y += ySpeed;
+        if(x<(20-radius) || x>PongScreen.WORLD_WIDTH-(20-radius)) {
+            x = xBase;
+            y=yBase;
+        }
     }
 
     public void draw(ShapeRenderer shape){
