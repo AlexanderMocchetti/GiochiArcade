@@ -25,7 +25,7 @@ public class Player {
         sprite.setSize(width, height);
     }
     public void update(float delta){
-        handleAutomatedTurn(delta);
+        handleAssistedTurn(delta);
         advance(delta);
         System.out.println("X: " + positionVector.x + "\tY: " + positionVector.y + "\tCentered: " + checkCenteredInTile());
         if(checkWallCollision(targetPositionVector.x, targetPositionVector.y, width, height))
@@ -56,7 +56,8 @@ public class Player {
         return Math.abs(xCenter - xCenterTile) < GameManager.centerTileError &&
                 Math.abs(yCenter - yCenterTile) < GameManager.centerTileError;
     }
-    private void handleAutomatedTurn(float delta){
+    // TODO: Figure out tf is going on with player random blockings
+    private void handleAssistedTurn(float delta){
         float x, y;
         x = positionVector.x + targetSpeedVector.x * delta;
         y = positionVector.y + targetSpeedVector.y * delta;
