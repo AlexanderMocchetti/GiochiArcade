@@ -40,6 +40,7 @@ public class ArcadeGame extends Game{
     public void dispose() {
         super.dispose();
         batch.dispose();
+        shape.dispose();
     }
 
     public Batch getBatch() {

@@ -60,7 +60,6 @@ public class Player {
         float x, y;
         x = positionVector.x + targetSpeedVector.x * delta;
         y = positionVector.y + targetSpeedVector.y * delta;
-        //TODO: controllare se secondo checkWallCollision è necessario
         if(!checkWallCollision(x, y, width, height) && checkCenteredInTile())
             speedVector = targetSpeedVector;
     }
@@ -71,11 +70,9 @@ public class Player {
     public float getSpeed() {
         return speed;
     }
-
     public void setTargetSpeedVector(Vector2 targetSpeedVector) {
         this.targetSpeedVector = targetSpeedVector;
     }
-
     public Rectangle getRectangle(){
         return sprite.getBoundingRectangle();
     }

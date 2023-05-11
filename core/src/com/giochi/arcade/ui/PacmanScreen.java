@@ -31,7 +31,7 @@ public class PacmanScreen extends AbstractScreen{
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         cameraControl = new OrthographicCamera();
-        player = new Player(1, 1, 0.93f, 0.93f, 4);
+        player = new Player(1, 1, 0.9399f, 0.9399f, 4);
         pacmanController = new PacmanController(player);
         mapRenderer = new OrthogonalTiledMapRenderer(map, GameManager.pixelToGrid, batch);
         mapRenderer.setView(camera);
