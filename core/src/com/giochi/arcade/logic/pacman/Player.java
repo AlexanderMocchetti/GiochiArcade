@@ -53,8 +53,8 @@ public class Player {
         yCenter = positionVector.y + height/2;
         xCenterTile = (float) Math.floor(xCenter) + 0.5f;
         yCenterTile = (float) Math.floor(yCenter) + 0.5f;
-        return Math.abs(xCenter - xCenterTile) < GameManager.centerTileError &&
-                Math.abs(yCenter - yCenterTile) < GameManager.centerTileError;
+        return Math.abs(xCenter - xCenterTile) <= GameManager.centerTileError &&
+                Math.abs(yCenter - yCenterTile) <= GameManager.centerTileError;
     }
     // TODO: Figure out tf is going on with player random blockings
     private void handleAssistedTurn(float delta){

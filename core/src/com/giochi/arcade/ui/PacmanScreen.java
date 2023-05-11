@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.giochi.arcade.ArcadeGame;
 import com.giochi.arcade.controller.PacmanController;
 import com.giochi.arcade.logic.pacman.GameManager;
+import com.giochi.arcade.logic.pacman.Pill;
 import com.giochi.arcade.logic.pacman.Player;
 
 public class PacmanScreen extends AbstractScreen{
@@ -48,6 +49,9 @@ public class PacmanScreen extends AbstractScreen{
         player.update(delta);
         batch.begin();
         player.draw(batch);
+        for(Pill pill: GameManager.instance.getPills()){
+            pill.draw(batch);
+        }
         batch.end();
         Rectangle rect = player.getRectangle();
         shape.begin(ShapeRenderer.ShapeType.Line);
