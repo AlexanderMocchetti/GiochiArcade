@@ -14,25 +14,26 @@ import com.giochi.arcade.controller.PacmanController;
 import com.giochi.arcade.logic.pacman.GameManager;
 import com.giochi.arcade.logic.pacman.Player;
 
-public class LoadingScreen extends AbstractScreen{
+public class PacmanScreen extends AbstractScreen{
     Sprite sprite;
     PacmanController pacmanController;
     Player player;
     TiledMap map;
     OrthographicCamera cameraControl;
     MapRenderer mapRenderer;
-    public static final float WORLD_WIDTH = 17;
-    public static final float WORLD_HEIGHT = 19;
-    public LoadingScreen(ArcadeGame parent) {
+    public static final float
+            WORLD_WIDTH = 17,
+            WORLD_HEIGHT = 19;
+    public PacmanScreen(ArcadeGame parent) {
         super(parent);
         map = GameManager.instance.getMap();
         camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         cameraControl = new OrthographicCamera();
-        player = new Player(1, 1, 2.5f);
+        player = new Player(1, 1, 0.93f, 0.93f, 4);
         pacmanController = new PacmanController(player);
-        mapRenderer = new OrthogonalTiledMapRenderer(map, 1/32f, batch);
+        mapRenderer = new OrthogonalTiledMapRenderer(map, GameManager.pixelToGrid, batch);
         mapRenderer.setView(camera);
     }
 
@@ -44,7 +45,6 @@ public class LoadingScreen extends AbstractScreen{
     @Override
     public void render(float delta) {
         mapRenderer.render();
-        batch.setProjectionMatrix(camera.combined);
         player.update(delta);
         batch.begin();
         player.draw(batch);

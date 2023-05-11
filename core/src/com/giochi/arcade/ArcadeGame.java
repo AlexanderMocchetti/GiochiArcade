@@ -4,14 +4,14 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.giochi.arcade.ui.LoadingScreen;
+import com.giochi.arcade.ui.PacmanScreen;
 import com.giochi.arcade.ui.MenuScreen;
 import com.giochi.arcade.ui.PongScreen;
 import com.giochi.arcade.ui.Screens;
 
 public class ArcadeGame extends Game{
     private Batch batch;
-    private LoadingScreen loadingScreen;
+    private PacmanScreen pacmanScreen;
     private MenuScreen menuScreen;
     private PongScreen pongScreen;
     private ShapeRenderer shape;
@@ -20,13 +20,13 @@ public class ArcadeGame extends Game{
         batch = new SpriteBatch();
         shape = new ShapeRenderer();
         pongScreen = new PongScreen(this);
-        loadingScreen = new LoadingScreen(this);
-        setScreen(loadingScreen);
+        pacmanScreen = new PacmanScreen(this);
+        setScreen(pacmanScreen);
     }
     public void changeScreens(Screens screen){
         switch(screen){
             case LOADING:
-                setScreen(loadingScreen);
+                setScreen(pacmanScreen);
                 break;
             case MENU:
                 if(menuScreen == null)
