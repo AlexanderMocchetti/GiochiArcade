@@ -3,6 +3,7 @@ package com.giochi.arcade.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -22,17 +23,19 @@ public class PacmanScreen extends AbstractScreen{
     TiledMap map;
     OrthographicCamera cameraControl;
     MapRenderer mapRenderer;
+    TextureAtlas atlas;
     public static final float
             WORLD_WIDTH = 17,
             WORLD_HEIGHT = 19;
     public PacmanScreen(ArcadeGame parent) {
         super(parent);
+        atlas = new TextureAtlas("actors.pack");
         map = GameManager.instance.getMap();
         camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         cameraControl = new OrthographicCamera();
-        player = new Player(1, 1, 0.93777777f, 0.9377777f, 4);
+        player = new Player(1, 1, 0.93777777f, 0.9377777f, 4, atlas);
         pacmanController = new PacmanController(player);
         mapRenderer = new OrthogonalTiledMapRenderer(map, GameManager.pixelToGrid, batch);
         mapRenderer.setView(camera);

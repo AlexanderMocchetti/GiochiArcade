@@ -3,6 +3,8 @@ package com.giochi.arcade.logic.pacman;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -13,14 +15,16 @@ public class Player {
     private Vector2 speedVector, targetSpeedVector;
     private final Sprite sprite;
     private final float width, height, speed;
-    public Player(float x, float y, float width, float height, float speed){
+    private final TextureAtlas atlas;
+    public Player(float x, float y, float width, float height, float speed, TextureAtlas atlas){
         positionVector = new Vector2(x, y);
         targetPositionVector = new Vector2(positionVector);
         targetSpeedVector = new Vector2(speed, 0);
+        this.atlas = atlas;
         this.width = width;
         this.height = height;
         this.speed = speed;
-        sprite = new Sprite(new Texture("pac_man_0.png"));
+        sprite = new Sprite(new TextureRegion(atlas.findRegion("Pacman")));
         sprite.setPosition(x, y);
         sprite.setSize(width, height);
     }
