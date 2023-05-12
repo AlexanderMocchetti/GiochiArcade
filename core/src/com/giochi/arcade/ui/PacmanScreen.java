@@ -32,7 +32,7 @@ public class PacmanScreen extends AbstractScreen{
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         cameraControl = new OrthographicCamera();
-        player = new Player(1, 1, 0.936f, 0.936f, 4);
+        player = new Player(1, 1, 0.93777777f, 0.9377777f, 4);
         pacmanController = new PacmanController(player);
         mapRenderer = new OrthogonalTiledMapRenderer(map, GameManager.pixelToGrid, batch);
         mapRenderer.setView(camera);
@@ -49,13 +49,16 @@ public class PacmanScreen extends AbstractScreen{
         player.update(delta);
         batch.begin();
         player.draw(batch);
-        for(Pill pill: GameManager.instance.getPills()){
-            pill.draw(batch);
-        }
         batch.end();
         Rectangle rect = player.getRectangle();
+        shape.setAutoShapeType(true);
         shape.begin(ShapeRenderer.ShapeType.Line);
         shape.rect(rect.x, rect.y, rect.width, rect.height);
+        shape.set(ShapeRenderer.ShapeType.Filled);
+        for(Pill pill: GameManager.instance.getPills()){
+            pill.update(player);
+            pill.draw(shape);
+        }
         shape.end();
     }
 

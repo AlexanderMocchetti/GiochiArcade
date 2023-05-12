@@ -1,28 +1,37 @@
 package com.giochi.arcade.logic.pacman;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Pill {
-    private boolean big = false;
+    private boolean big;
+    private boolean visibile = true;
     private Rectangle rect;
+    private float radius;
     private Vector2 position;
-    private Texture img;
-    public Pill(Rectangle rect, Texture img){
+    public Pill(Rectangle rect, boolean big){
         this.rect = rect;
+        this.big = big;
+        radius = rect.width * GameManager.scalePill;
         position = new Vector2();
         rect.getCenter(position);
-        this.img = img;
     }
-    public void draw(Batch batch){
-        batch.draw(img, rect.x, rect.y, rect.width, rect.height);
+    public Pill(Rectangle rect){
+        this(rect, false);
     }
-    public void draw(ShapeRenderer shape){
+    public void update(Player player){
+        if(checkPlayerCollision(player))
+            visibile = false;
+    }
+    private boolean checkPlayerCollision(Player player){
+       return player.getRectangle().contains(rect);
+    }
+    public void draw(ShapeRenderer shape) {
+        if(!visibile)
+            return;
         shape.setColor(Color.YELLOW);
-        shape.rect(rect.x, rect.y, rect.width, rect.height);
+        shape.circle(position.x, position.y, radius, 10);
     }
 }

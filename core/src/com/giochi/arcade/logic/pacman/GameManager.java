@@ -14,7 +14,9 @@ public class GameManager {
     public static final GameManager instance = new GameManager();
     public static final float
             pixelToGrid = 1/32f,
-            centerTileError = 0.05f;
+            centerTileError = 0.05f,
+            scalePill = 1/4f,
+            scalePillBig = 1/2f;
     private ArrayList<Rectangle> walls;
     private Array<Pill> pills;
     private final TiledMap map;
@@ -46,7 +48,7 @@ public class GameManager {
         for(MapObject obj: map.getLayers().get("DotLayer").getObjects()){
             rect = ((RectangleMapObject) obj).getRectangle();
             correctRectangle(rect);
-            pills.add(new Pill(rect, pill));
+            pills.add(new Pill(rect));
         }
     }
     public TiledMap getMap() {
