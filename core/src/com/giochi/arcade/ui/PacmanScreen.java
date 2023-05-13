@@ -1,6 +1,7 @@
 package com.giochi.arcade.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -35,7 +36,7 @@ public class PacmanScreen extends AbstractScreen{
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         cameraControl = new OrthographicCamera();
-        player = new Player(1, 1, 0.93777777f, 0.9377777f, 4, atlas);
+        player = new Player(1, 1, 0.93777777f, 0.9377777f, 4);
         pacmanController = new PacmanController(player);
         mapRenderer = new OrthogonalTiledMapRenderer(map, GameManager.pixelToGrid, batch);
         mapRenderer.setView(camera);
@@ -58,8 +59,9 @@ public class PacmanScreen extends AbstractScreen{
         shape.begin(ShapeRenderer.ShapeType.Line);
         shape.rect(rect.x, rect.y, rect.width, rect.height);
         shape.set(ShapeRenderer.ShapeType.Filled);
+        shape.setColor(Color.YELLOW);
         for(Pill pill: GameManager.instance.getPills()){
-            pill.update(player);
+            pill.update(delta, player);
             pill.draw(shape);
         }
         shape.end();

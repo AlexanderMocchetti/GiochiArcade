@@ -1,33 +1,36 @@
 package com.giochi.arcade.logic.pacman;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 
-import java.util.ArrayList;
-
-public class GameManager {
+public class GameManager implements Disposable {
     public static final GameManager instance = new GameManager();
     public static final float
             pixelToGrid = 1/32f,
             centerTileError = 0.05f,
             scalePill = 1/4f,
-            scalePillBig = 1/2f;
-    private ArrayList<Rectangle> walls;
+            scalePillBig = 0.8f,
+            pillIntermittentTime = 0.1f,
+            playerAnimationTimeFrame = 0.08f;
+    private Array<Rectangle> walls;
     private Array<Pill> pills;
     private final TiledMap map;
-    private final Texture pill = new Texture("spr_pill_0.png");
+    private final TextureAtlas atlas;
     private GameManager(){
+        atlas = new TextureAtlas("pacman.atlas");
         map = new TmxMapLoader().load("PacmanMap1.tmx");
-        walls = new ArrayList<>(35);
+        walls = new Array<>(false, 35);
         pills = new Array<>(false, 100);
         loadWalls();
         loadPills();
     }
+
 
     private void correctRectangle(Rectangle rectangle){
         rectangle.x *= pixelToGrid;
@@ -48,7 +51,7 @@ public class GameManager {
         for(MapObject obj: map.getLayers().get("DotLayer").getObjects()){
             rect = ((RectangleMapObject) obj).getRectangle();
             correctRectangle(rect);
-            pills.add(new Pill(rect));
+            pills.add(new Pill(rect, obj.getProperties().get("KillDot") != null));
         }
     }
     public TiledMap getMap() {
@@ -59,7 +62,15 @@ public class GameManager {
         return pills;
     }
 
-    public ArrayList<Rectangle> getWalls(){
+    public Array<Rectangle> getWalls(){
         return walls;
+    }
+    public TextureAtlas getAtlas() {
+        return atlas;
+    }
+    @Override
+    public void dispose() {
+        map.dispose();
+        atlas.dispose();
     }
 }

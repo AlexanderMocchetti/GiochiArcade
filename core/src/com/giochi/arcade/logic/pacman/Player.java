@@ -1,30 +1,35 @@
 package com.giochi.arcade.logic.pacman;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Player {
     private final Vector2 positionVector, targetPositionVector;
     private Vector2 speedVector, targetSpeedVector;
     private final Sprite sprite;
     private final float width, height, speed;
+    private final Animation<TextureRegion> animation;
     private final TextureAtlas atlas;
-    public Player(float x, float y, float width, float height, float speed, TextureAtlas atlas){
+    private TextureRegion currentKeyFrame;
+    private float animationStateTime = 0;
+    public Player(float x, float y, float width, float height, float speed){
         positionVector = new Vector2(x, y);
         targetPositionVector = new Vector2(positionVector);
         targetSpeedVector = new Vector2(speed, 0);
-        this.atlas = atlas;
         this.width = width;
         this.height = height;
         this.speed = speed;
-        sprite = new Sprite(new TextureRegion(atlas.findRegion("Pacman")));
+        atlas = GameManager.instance.getAtlas();
+        animation = new Animation<TextureRegion>(
+                GameManager.playerAnimationTimeFrame,
+                atlas.findRegions("pac_man"),
+                Animation.PlayMode.LOOP);
+        currentKeyFrame = atlas.findRegion("pac_man", 0);
+        sprite = new Sprite(currentKeyFrame);
         sprite.setPosition(x, y);
         sprite.setSize(width, height);
     }
@@ -35,7 +40,13 @@ public class Player {
         if(checkWallCollision(targetPositionVector.x, targetPositionVector.y, width, height))
             return;
         positionVector.set(targetPositionVector);
+        handleAnimation(delta);
+        sprite.setRegion(currentKeyFrame);
         sprite.setPosition(positionVector.x, positionVector.y);
+    }
+    private void handleAnimation(float delta) {
+        animationStateTime += delta;
+        currentKeyFrame = animation.getKeyFrame(animationStateTime);
     }
     public void draw(Batch batch){
         sprite.draw(batch);
@@ -44,7 +55,7 @@ public class Player {
         return checkWallCollision(new Rectangle(x, y, width, height));
     }
     private boolean checkWallCollision(Rectangle rectangle){
-        ArrayList<Rectangle> walls = GameManager.instance.getWalls();
+        Array<Rectangle> walls = GameManager.instance.getWalls();
         for(Rectangle wall: walls){
             if(rectangle.overlaps(wall))
                 return true;
