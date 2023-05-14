@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -78,16 +79,15 @@ public class SpaceInvadersScreenGame extends ScreenAdapter {
         camera.update();
         viewport = new FitViewport(WORLD_WIDTH , WORLD_HEIGHT , camera);
         stage = new Stage();
-        skin = new Skin(Gdx.files.internal("assets/skins/gdx-skins-master/gdx-skins-master/arcade/skin/arcade-ui.json"));
         ShapeRenderer renderer = new ShapeRenderer();
         offsetAliens = Vector2.Zero;
         batch = new SpriteBatch();
-        labelScore = new Label("Killed: " + score , skin);
+        labelScore = new Label("Killed: " + score, new Label.LabelStyle(new BitmapFont(), Color.RED));
         labelScore.setColor(Color.WHITE);
-        imgPlayer = new Texture("assets/images/space-invaders-ship.png");
-        bulletImage = new Texture("assets/images/missile-space-invaders.png");
-        imgAlien = new Texture("assets/images/enemy.png");
-        shoot = Gdx.audio.newSound(Gdx.files.internal("assets/sounds/shoot (1).ogg"));
+        imgPlayer = new Texture("images/space-invaders-ship.png");
+        bulletImage = new Texture("images/missile-space-invaders.png");
+        imgAlien = new Texture("images/enemy.png");
+        shoot = Gdx.audio.newSound(Gdx.files.internal("sounds/shoot (1).ogg"));
         player = new PlayerSpaceInvaders(imgPlayer , bulletImage ,  Color.GREEN , shoot);
         aliens = new AlienSpaceInvaders[numWidthAliens * numHeightAliens];
         Table table = new Table();
@@ -112,7 +112,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter {
     @Override
     public void render(float delta) {
         float deltaTime = Gdx.graphics.getDeltaTime();
-        ScreenUtils.clear(0, 0, 0, 1);
+        ScreenUtils.clear(Color.WHITE);
         camera.update();
         stage.act(Math.min(Gdx.graphics.getDeltaTime() , 1 / 30f));
         stage.draw();
