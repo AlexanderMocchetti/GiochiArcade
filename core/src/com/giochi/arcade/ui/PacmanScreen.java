@@ -3,7 +3,6 @@ package com.giochi.arcade.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapRenderer;
@@ -18,7 +17,6 @@ import com.giochi.arcade.logic.pacman.Pill;
 import com.giochi.arcade.logic.pacman.Player;
 
 public class PacmanScreen extends AbstractScreen{
-    Sprite sprite;
     PacmanController pacmanController;
     Player player;
     TiledMap map;
@@ -71,6 +69,5 @@ public class PacmanScreen extends AbstractScreen{
     public void dispose() {
         super.dispose();
         map.dispose();
-        sprite.getTexture().dispose();
     }
 }

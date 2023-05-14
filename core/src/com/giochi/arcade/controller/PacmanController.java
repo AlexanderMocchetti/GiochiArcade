@@ -2,6 +2,7 @@ package com.giochi.arcade.controller;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.Input;
 import com.giochi.arcade.logic.pacman.Player;
 
 public class PacmanController extends InputAdapter {
@@ -18,21 +19,25 @@ public class PacmanController extends InputAdapter {
     public boolean keyDown(int keycode) {
         Vector2 speed;
         switch(keycode){
-            case 19:
-            case 51:
+            case Input.Keys.UP:
+            case Input.Keys.W:
                 speed = UP;
+                player.setRotationDegrees(90);
                 break;
-            case 20:
-            case 47:
+            case Input.Keys.DOWN:
+            case Input.Keys.S:
                 speed = DOWN;
+                player.setRotationDegrees(270);
                 break;
-            case 21:
-            case 29:
+            case Input.Keys.LEFT:
+            case Input.Keys.A:
                 speed = LEFT;
+                player.setRotationDegrees(180);
                 break;
-            case 22:
-            case 32:
+            case Input.Keys.RIGHT:
+            case Input.Keys.D:
                 speed = RIGHT;
+                player.setRotationDegrees(0);
                 break;
             default:
                 return false;

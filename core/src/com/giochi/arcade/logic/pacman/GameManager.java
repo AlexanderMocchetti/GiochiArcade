@@ -18,8 +18,8 @@ public class GameManager implements Disposable {
             scalePillBig = 0.8f,
             pillIntermittentTime = 0.1f,
             playerAnimationTimeFrame = 0.08f;
-    private Array<Rectangle> walls;
-    private Array<Pill> pills;
+    private final Array<Rectangle> walls;
+    private final Array<Pill> pills;
     private final TiledMap map;
     private final TextureAtlas atlas;
     private GameManager(){

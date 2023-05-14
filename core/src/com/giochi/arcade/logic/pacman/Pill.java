@@ -5,7 +5,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Pill {
-    private boolean visibile = true, eaten = false, big;
+    private boolean visibile = true;
+    private boolean eaten = false;
+    private final boolean big;
     private final Rectangle rect;
     private float timeSinceLastBlip = 0;
     private float radius;
@@ -46,8 +48,7 @@ public class Pill {
        return player.getRectangle().contains(rect);
     }
     public void draw(ShapeRenderer shape) {
-        if(!visibile)
-            return;
-        shape.circle(position.x, position.y, radius, 10);
+       if(visibile)
+           shape.circle(position.x, position.y, radius, 10);
     }
 }
