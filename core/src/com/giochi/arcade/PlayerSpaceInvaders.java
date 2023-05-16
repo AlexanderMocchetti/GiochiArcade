@@ -36,7 +36,8 @@ public class PlayerSpaceInvaders
 
     public void update(float deltaTime)
     {
-        if (Gdx.input.isButtonJustPressed(0) && bulletPosition.y >= Gdx.graphics.getHeight()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && bulletPosition.y >= Gdx.graphics.getHeight()) {
+
             bulletPosition.x = positionPlayer.x;
             bulletPosition.y = 0;
             shoot.play();

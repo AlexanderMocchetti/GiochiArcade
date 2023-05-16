@@ -22,6 +22,7 @@ public class AlienSpaceInvaders
         this.positionAlien = positionAlien;
         initialPosition = positionAlien;
         spriteAlien = new Sprite(imgAlien);
+        spriteAlien.setSize(20 , 20);
         spriteAlien.setColor(color);
         spriteAlien.setScale(1);
     }
