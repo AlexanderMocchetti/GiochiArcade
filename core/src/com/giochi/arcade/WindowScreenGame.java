@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Layout;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -48,12 +49,14 @@ public class WindowScreenGame extends ScreenAdapter
         table = new Table();
 
         table.setFillParent(true);
+
+        stage.addActor(table);
     }
     @Override
     public void render(float delta)
     {
-
-        stage.act(delta);
+        ScreenUtils.clear(0.2f, 0.2f, 0.2f, 1);
+        stage.act(Math.min(delta, 1 / 30f));
         stage.draw();
     }
 
