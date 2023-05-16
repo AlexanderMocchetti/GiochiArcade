@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.Logger;
 
 public class Player{
     private final Vector2 positionVector, targetPositionVector;
@@ -15,6 +17,7 @@ public class Player{
     private float
             animationStateTime = 0,
             rotationDegrees = 0;
+    private final Logger logger = new Logger("PlayerLogger", Logger.DEBUG);
     public Player(float x, float y, float width, float height, float speed){
         positionVector = new Vector2(x, y);
         targetPositionVector = new Vector2(positionVector);
@@ -36,12 +39,6 @@ public class Player{
     public void update(float delta){
         handleAssistedTurn(delta);
         advance(delta);
-        System.out.println(
-                "X: " + positionVector.x +
-                "\tY: " + positionVector.y +
-                        "\tCentered: " + checkCenteredInTile() +
-                        "\tDelta: " + delta
-        );
         if(checkWallCollision(targetPositionVector.x, targetPositionVector.y, width, height))
             return;
         positionVector.set(targetPositionVector);
@@ -63,9 +60,12 @@ public class Player{
         Array<Rectangle> walls = GameManager.instance.getWalls();
         rectangle.x = PacmanUtils.roundFloatToNthDigit(rectangle.x, 3);
         rectangle.y = PacmanUtils.roundFloatToNthDigit(rectangle.y, 3);
+        if(rectangle.overlaps(GameManager.instance.getGate()))
+            return true;
         for(Rectangle wall: walls){
-            if(rectangle.overlaps(wall))
+            if(rectangle.overlaps(wall)) {
                 return true;
+            }
         }
         return false;
     }
@@ -78,7 +78,7 @@ public class Player{
         return Math.abs(xCenter - xCenterTile) < GameManager.centerTileError &&
                 Math.abs(yCenter - yCenterTile) < GameManager.centerTileError;
     }
-    // TODO: Figure out tf is going on with player random blockings
+    // TODO: Figure out tf is going on with player random blocking
     private void handleAssistedTurn(float delta){
         float x, y;
         x = positionVector.x + targetSpeedVector.x * delta;

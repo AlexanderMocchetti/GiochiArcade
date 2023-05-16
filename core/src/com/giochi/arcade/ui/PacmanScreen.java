@@ -15,6 +15,8 @@ import com.giochi.arcade.controller.PacmanController;
 import com.giochi.arcade.logic.pacman.GameManager;
 import com.giochi.arcade.logic.pacman.Pill;
 import com.giochi.arcade.logic.pacman.Player;
+import com.giochi.arcade.logic.pacman.ai.Graph;
+import com.giochi.arcade.logic.pacman.ai.GraphBuilder;
 
 public class PacmanScreen extends AbstractScreen{
     PacmanController pacmanController;
@@ -43,6 +45,9 @@ public class PacmanScreen extends AbstractScreen{
     @Override
     public void show() {
         Gdx.input.setInputProcessor(pacmanController);
+        GraphBuilder graphBuilder = new GraphBuilder(GameManager.instance.getWalls());
+        Graph graph = graphBuilder.getGraph();
+        System.out.println(graph);
     }
 
     @Override
