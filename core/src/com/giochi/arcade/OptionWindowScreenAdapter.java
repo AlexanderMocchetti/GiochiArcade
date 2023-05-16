@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.AddListenerAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -47,7 +48,13 @@ public class OptionWindowScreenAdapter extends ScreenAdapter
 
         group.setFillParent(true); // diventa il "genitore" dei componenti a lui collegati
 
-        buttonResume = new TextButton("Resume" , new Skin(Gdx.files.internal()));
+        buttonResume = new TextButton("Resume" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
+
+        //buttonResume.addAction();
+
+        buttonExit = new TextButton("Exit" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
+
+
     }
 
     @Override
