@@ -36,6 +36,12 @@ public class Player{
         sprite.setPosition(x, y);
         sprite.setSize(width, height);
     }
+    public Vector2 getGridLocation(){
+        int x, y;
+        x = (int) Math.floor(positionVector.x);
+        y = (int) Math.floor(positionVector.y);
+        return new Vector2(x, y);
+    }
     public void update(float delta){
         handleAssistedTurn(delta);
         advance(delta);

@@ -18,9 +18,10 @@ public class GraphBuilder {
                 if (unwalkableCellsMatrix[i][j])
                     continue;
                 node = new Node(j, i);
-                if (i - 1 > 0 && !unwalkableCellsMatrix[i - 1][j])
+                graph.addNode(node);
+                if (i - 1 >= 0 && !unwalkableCellsMatrix[i - 1][j])
                     node.addNeighbour(graph.getNode(j, i - 1));
-                if (j - 1 > 0 && !unwalkableCellsMatrix[i][j - 1])
+                if (j - 1 >= 0 && !unwalkableCellsMatrix[i][j - 1])
                     node.addNeighbour(graph.getNode(j - 1, i));
             }
         }

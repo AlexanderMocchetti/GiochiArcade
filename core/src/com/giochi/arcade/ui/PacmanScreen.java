@@ -47,7 +47,7 @@ public class PacmanScreen extends AbstractScreen{
         Gdx.input.setInputProcessor(pacmanController);
         GraphBuilder graphBuilder = new GraphBuilder(GameManager.instance.getWalls());
         Graph graph = graphBuilder.getGraph();
-        System.out.println(graph);
+        System.out.println(graph.getShortestPath("7 8", "13 4"));
     }
 
     @Override
