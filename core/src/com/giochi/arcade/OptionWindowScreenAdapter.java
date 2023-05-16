@@ -5,6 +5,8 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.AddListenerAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -54,6 +56,23 @@ public class OptionWindowScreenAdapter extends ScreenAdapter
 
         buttonExit = new TextButton("Exit" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
 
+        group.addActor(buttonResume);
+
+        //exitButton = new TextButton("Exit" , new Skin(Gdx.files.internal("assets/gdx-skins-master/glassy/skin/glassy-ui.json")));
+
+        buttonExit.addListener(new InputListener()
+        {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.exit();
+                return true;
+            }
+        });
+        group.pack();
+
+        group.addActor(buttonExit);
+
+        stage.addActor(group);
 
     }
 
