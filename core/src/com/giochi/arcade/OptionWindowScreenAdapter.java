@@ -47,7 +47,7 @@ public class OptionWindowScreenAdapter extends ScreenAdapter
 
         group.setFillParent(true); // diventa il "genitore" dei componenti a lui collegati
 
-        buttonResume = new TextButton("Resume" , new Skin());
+        buttonResume = new TextButton("Resume" , new Skin(Gdx.files.internal()));
     }
 
     @Override
