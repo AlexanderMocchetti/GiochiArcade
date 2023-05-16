@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -19,6 +22,8 @@ public class OptionWindowScreenAdapter extends ScreenAdapter
     private Camera camera;
 
     private VerticalGroup group;
+
+    private Button buttonResume , buttonExit;
 
     private static int WORLD_WIDTH = 640;
 
@@ -41,6 +46,8 @@ public class OptionWindowScreenAdapter extends ScreenAdapter
         group = new VerticalGroup();
 
         group.setFillParent(true); // diventa il "genitore" dei componenti a lui collegati
+
+        buttonResume = new TextButton("Resume" , new Skin());
     }
 
     @Override
