@@ -17,7 +17,6 @@ public class Player {
     }
     public void update(){
         if(p==1) {
-
             if (Gdx.input.isKeyPressed(Input.Keys.S)) {
                 y -= speed;
             }
