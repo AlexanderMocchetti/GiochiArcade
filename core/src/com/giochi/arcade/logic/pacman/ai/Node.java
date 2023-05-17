@@ -37,7 +37,6 @@ public class Node implements Comparable<Node> {
     public int getGCost() {
         return gCost;
     }
-
     public HashSet<Node> getNeighbours(){
         return neighbours;
     }
@@ -56,35 +55,38 @@ public class Node implements Comparable<Node> {
     public int getY() {
         return y;
     }
-    public void setPrevious(Node previous) {
-        this.previous = previous;
-    }
 
     @Override
     public String toString() {
-        return "Node [x: " + x + ", y: " + y + "]";
+        return "Node{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 
+    public void setPrevious(Node previous) {
+        this.previous = previous;
+    }
     /*
-        @Override
-        public String toString() {
-            StringBuilder stringBuilder = new StringBuilder(60);
-            stringBuilder.append("Node [x: ");
-            stringBuilder.append(x);
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder(60);
+        stringBuilder.append("Node [x: ");
+        stringBuilder.append(x);
+        stringBuilder.append(", y: ");
+        stringBuilder.append(y);
+        stringBuilder.append("] {\n");
+        for (Node neighbour : neighbours) {
+            stringBuilder.append("\t\tNode [x: ");
+            stringBuilder.append(neighbour.x);
             stringBuilder.append(", y: ");
-            stringBuilder.append(y);
-            stringBuilder.append("] {\n");
-            for (Node neighbour : neighbours){
-                stringBuilder.append("\t\tNode [x: ");
-                stringBuilder.append(neighbour.x);
-                stringBuilder.append(", y: ");
-                stringBuilder.append(neighbour.y);
-                stringBuilder.append("],\n");
-            }
-            stringBuilder.append("\t}");
-            return stringBuilder.toString();
+            stringBuilder.append(neighbour.y);
+            stringBuilder.append("],\n");
         }
-         */
+        stringBuilder.append("\t}");
+        return stringBuilder.toString();
+    }
+*/
     @Override
     public boolean equals(Object obj) {
         if (obj == this)

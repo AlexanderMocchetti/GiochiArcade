@@ -25,10 +25,9 @@ public class Graph {
     }
     private Deque<Node> reconstructPath(Node currentNode){
         LinkedList<Node> path = new LinkedList<>();
-        path.push(currentNode);
         while(currentNode != null){
-            currentNode = currentNode.getPrevious();
             path.push(currentNode);
+            currentNode = currentNode.getPrevious();
         }
         path.pop();
         return path;
