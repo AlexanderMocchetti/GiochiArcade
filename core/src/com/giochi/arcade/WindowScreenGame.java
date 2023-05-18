@@ -5,13 +5,15 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import jdk.javadoc.internal.doclets.toolkit.taglets.snippet.Action;
 
 import java.awt.*;
 import java.util.Vector;
@@ -24,6 +26,10 @@ public class WindowScreenGame extends ScreenAdapter
     private Camera camera;
 
     private Viewport viewport;
+
+    private Vector<Button> buttonsGames;
+
+    private Button buttonSpaceInvaders , buttonSnake , buttonPacman , buttonPong , buttonTron;
 
     private Table table;
 
@@ -44,11 +50,23 @@ public class WindowScreenGame extends ScreenAdapter
 
         viewport = new FitViewport(WORLD_WIDTH , WORLD_HEIGHT , camera);
 
+        buttonSpaceInvaders = new TextButton("Space invaders" , new Skin(Gdx.files.internal("assets/gdx-skins-master/commodore64/skin/uiskin.json")));
+
+        buttonSnake = new TextButton("Snake" , new Skin(Gdx.files.internal("assets/gdx-skins-master/commodore64/skin/uiskin.json")));
+
+        buttonsGames = new Vector<>(0 ,1);
+
         camera.update();
 
         table = new Table();
 
         table.setFillParent(true);
+
+        table.add(buttonSpaceInvaders);
+
+        table.row();
+
+        table.add(buttonSnake);
 
         stage.addActor(table);
     }
