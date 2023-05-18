@@ -4,19 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.AddListenerAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class OptionWindowScreenAdapter extends ScreenAdapter
+public class OptionWindowScreenAdapter extends ScreenAdapter /** Classe della finestra di pausa. */
 {
     private Stage stage;
 
@@ -52,20 +51,18 @@ public class OptionWindowScreenAdapter extends ScreenAdapter
 
         buttonResume = new TextButton("Resume" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
 
-        //buttonResume.addAction();
-
         buttonExit = new TextButton("Exit" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
 
         group.addActor(buttonResume);
 
-        //exitButton = new TextButton("Exit" , new Skin(Gdx.files.internal("assets/gdx-skins-master/glassy/skin/glassy-ui.json")));
-
         buttonExit.addListener(new InputListener()
         {
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+            {
                 Gdx.app.exit();
-                return true;
+
+                return true; // TMCH
             }
         });
         group.pack();
@@ -73,16 +70,23 @@ public class OptionWindowScreenAdapter extends ScreenAdapter
         group.addActor(buttonExit);
 
         stage.addActor(group);
-
     }
 
     @Override
-    public void render(float delta) {
-        super.render(delta);
+    public void render(float delta)
+    {
+
+        ScreenUtils.clear(0.2f, 0.2f, 0.2f, 1);
+
+        stage.act(Math.min(delta, 1 / 30f));
+
+        stage.draw();
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void resize(int width, int height)
+    {
+
         super.resize(width, height);
 
         viewport.update(width , height , true);
