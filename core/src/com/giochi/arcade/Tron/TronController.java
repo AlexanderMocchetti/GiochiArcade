@@ -40,19 +40,19 @@ public class TronController{
 
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
             player2.setDirection(0, 1);
-            player2.setRotation(90);
+            player2.setRotation(270);
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.S)){
             player2.setDirection(0, -1);
-            player2.setRotation(270);
+            player2.setRotation(90);
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.A)){
             player2.setDirection(-1, 0);
-            player2.setRotation(180);
+            player2.setRotation(0);
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.D)){
             player2.setDirection(1, 0);
-            player2.setRotation(0);
+            player2.setRotation(180);
         }
     }
 }

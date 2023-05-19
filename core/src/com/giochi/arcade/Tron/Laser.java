@@ -31,7 +31,6 @@ public class Laser{
     }
 
     public void update(float deltaTime){
-
     }
 
     public Texture getTexture() {
