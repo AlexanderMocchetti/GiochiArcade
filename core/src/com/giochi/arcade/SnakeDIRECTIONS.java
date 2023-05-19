@@ -1,6 +1,6 @@
 package com.giochi.arcade;
 
-public enum DIRECTIONS {
+public enum SnakeDIRECTIONS {
 
     RIGHT ,
     LEFT ,

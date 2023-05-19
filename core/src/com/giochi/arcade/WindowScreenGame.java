@@ -1,21 +1,19 @@
 package com.giochi.arcade;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.utils.Layout;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import jdk.javadoc.internal.doclets.toolkit.taglets.snippet.Action;
 
-import java.awt.*;
 import java.util.Vector;
 
 public class WindowScreenGame extends ScreenAdapter
@@ -52,7 +50,25 @@ public class WindowScreenGame extends ScreenAdapter
 
         buttonSpaceInvaders = new TextButton("Space invaders" , new Skin(Gdx.files.internal("assets/gdx-skins-master/commodore64/skin/uiskin.json")));
 
+        buttonSpaceInvaders.addListener(new ClickListener()
+        {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ((Game)Gdx.app.getApplicationListener()).setScreen(new SpaceInvadersScreenGame());
+            }
+
+        });
+
         buttonSnake = new TextButton("Snake" , new Skin(Gdx.files.internal("assets/gdx-skins-master/commodore64/skin/uiskin.json")));
+
+        buttonSnake.addListener(new ClickListener()
+        {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ((Game)Gdx.app.getApplicationListener()).setScreen(new SnakeScreenGame());
+            }
+
+        });
 
         buttonsGames = new Vector<>(0 ,1);
 

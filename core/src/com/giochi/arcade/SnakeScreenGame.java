@@ -10,15 +10,25 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
-public class GameScreenSnake extends ScreenAdapter { // Main class for snake game
+public class SnakeScreenGame extends ScreenAdapter { // Main class for snake game
 
+
+    private Stage stage;
     private GlyphLayout layout;
+
+    private HorizontalGroup layoutButtonOption;
 
     private BitmapFont bitmap; // font for score text
 
@@ -28,23 +38,23 @@ public class GameScreenSnake extends ScreenAdapter { // Main class for snake gam
 
     private Viewport viewport;
 
+    private Button buttonOption;
+
 
 
     private ShapeRenderer shapeRenderer;
 
     private Snake snake;
 
-    private Food food;
+    private SnakeFood snakeFood;
 
-    private Controller controller;
+    private SnakeController snakeController;
 
-    private STATE state = STATE.PLAYING;
+    private SnakeSTATE snakeState = SnakeSTATE.PLAYING;
 
     // costants
 
     private static final int SNAKE_SIZE = 2; // Size larger than 10 could generate crashes
-
-    private static final int SNAKE_STEP = SNAKE_SIZE;
 
     private static final int SNAKE_SPEED = 4;
 
@@ -59,6 +69,7 @@ public class GameScreenSnake extends ScreenAdapter { // Main class for snake gam
 
 
 
+
         camera = new OrthographicCamera(Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
 
         camera.position.set(WORLD_WIDTH / 2 , WORLD_HEIGHT / 2 , 0);
@@ -67,7 +78,29 @@ public class GameScreenSnake extends ScreenAdapter { // Main class for snake gam
 
         viewport = new FitViewport(WORLD_WIDTH , WORLD_HEIGHT , camera);
 
+        stage = new Stage(viewport);
+
         layout = new GlyphLayout();
+
+        layoutButtonOption = new HorizontalGroup();
+
+        buttonOption = new TextButton("Options" , new Skin(Gdx.files.internal("assets/gdx-skins-master/commodore64/skin/uiskin.json")));
+
+        buttonOption.setSize(10 ,10);
+
+        buttonOption.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event , float x , float y )
+            {
+                pause();
+            }
+        });
+
+        layoutButtonOption.setFillParent(true);
+
+        //layoutButtonOption.add(buttonOption);
+
+        layoutButtonOption.addActor(buttonOption);
 
         bitmap = new BitmapFont();
 
@@ -75,15 +108,19 @@ public class GameScreenSnake extends ScreenAdapter { // Main class for snake gam
 
         shapeRenderer = new ShapeRenderer();
 
-        controller = new Controller();
+        snakeController = new SnakeController();
 
         snake = new Snake(SNAKE_SIZE , SNAKE_SPEED);
 
         snake.setSnakeViewPort(viewport);
 
-        food = new Food(snake , controller);
+        snakeFood = new SnakeFood(snake , snakeController);
 
-        food.setFoodViewPort(viewport);
+        snakeFood.setFoodViewPort(viewport);
+
+        layoutButtonOption.pack();
+
+        stage.addActor(layoutButtonOption);
 
 
     }
@@ -99,23 +136,27 @@ public class GameScreenSnake extends ScreenAdapter { // Main class for snake gam
 
     @Override
     public void render(float delta)
+
     {
-        switch (state) {
+        ScreenUtils.clear(0.2f, 0.2f, 0.2f, 1);
+        stage.act(Math.min(delta, 1 / 30f));
+        stage.draw();
+        switch (snakeState) {
             case PLAYING: {
-                snake.updateDirection(controller.queryInput());
+                snake.updateDirection(snakeController.queryInput());
 
-                state = snake.Update(delta);
+                snakeState = snake.Update(delta);
 
-                food.updatePosition();
+                snakeFood.updatePosition();
 
-                food.checkFoodCollision();
+                snakeFood.checkFoodCollision();
 
 
             }
             break;
             case GAME_OVER: {
 
-                if (controller.checkForRestart())
+                if (snakeController.checkForRestart())
                 {
                     restart();
                 }
@@ -134,13 +175,13 @@ public class GameScreenSnake extends ScreenAdapter { // Main class for snake gam
 
     public void restart ()
     {
-        state = STATE.PLAYING;
+        snakeState = SnakeSTATE.PLAYING;
 
-        food.reset();
+        snakeFood.reset();
 
         snake.reset();
 
-        controller.resetScore();
+        snakeController.resetScore();
 
     }
     public void drawScreen ()
@@ -152,11 +193,11 @@ public class GameScreenSnake extends ScreenAdapter { // Main class for snake gam
 
         batch.begin(); // start drawing
 
-        snake.Draw(shapeRenderer);
+        snake.draw(shapeRenderer);
 
         snake.drawBodyParts(shapeRenderer);
 
-        food.Draw(shapeRenderer);
+        snakeFood.Draw(shapeRenderer);
 
         drawGrid(shapeRenderer);
 
@@ -164,7 +205,7 @@ public class GameScreenSnake extends ScreenAdapter { // Main class for snake gam
 
         batch.begin();
 
-        if (state == STATE.GAME_OVER)
+        if (snakeState == SnakeSTATE.GAME_OVER)
         {
             layout.setText(bitmap , GAME_OVER_TEXT);
 
@@ -202,9 +243,9 @@ public class GameScreenSnake extends ScreenAdapter { // Main class for snake gam
 
     public void drawScore ()
     {
-        if (state == STATE.PLAYING)
+        if (snakeState == SnakeSTATE.PLAYING)
         {
-            String scoreToString = Integer.toString(controller.getScore());
+            String scoreToString = Integer.toString(snakeController.getScore());
             layout.setText(bitmap , scoreToString);
             bitmap.draw(batch , "Score: " + scoreToString , layout.width,  viewport.getWorldHeight() - layout.height / 2);
         }

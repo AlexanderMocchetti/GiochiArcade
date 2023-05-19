@@ -1,5 +1,6 @@
 package com.giochi.arcade;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
@@ -8,13 +9,22 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
+
+/**
+ * Screen of the start window.
+ * @author Thomas Riotto.
+ *
+ */
+
+
 public class StartScreen extends ScreenAdapter
-{ // finestra iniziale (start window)
+{ /** finestra iniziale (start window) */
 
     private Stage stage;
 
@@ -28,9 +38,11 @@ public class StartScreen extends ScreenAdapter
 
     private TextButton exitButton;
 
-    private static int WORLD_WIDTH = 640; // coordinate principali
+    private static int WORLD_WIDTH = 640;
 
     private static int WORLD_HEIGHT = 480;
+
+
 
     @Override
     public void show() {
@@ -55,9 +67,13 @@ public class StartScreen extends ScreenAdapter
 
         startButton = new TextButton("Start" , new Skin(Gdx.files.internal("assets/gdx-skins-master/glassy/skin/glassy-ui.json")));
 
-        startButton.addListener(new InputListener()
+        startButton.addListener(new ClickListener()
         {
-            // TODO: collegare la finestra iniziale alla finestra dei giochi.
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ((Game)Gdx.app.getApplicationListener()).setScreen(new WindowScreenGame());
+            }
+
         });
 
         group.addActor(startButton);

@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class AlienSpaceInvaders
+public class SpaceInvadersAlien
 {
 
     private Vector2 positionAlien;
@@ -17,7 +17,7 @@ public class AlienSpaceInvaders
 
     private boolean alive = true;
 
-    public AlienSpaceInvaders(Vector2 positionAlien, Texture imgAlien, Color color)
+    public SpaceInvadersAlien(Vector2 positionAlien, Texture imgAlien, Color color)
     {
         this.positionAlien = positionAlien;
         initialPosition = positionAlien;

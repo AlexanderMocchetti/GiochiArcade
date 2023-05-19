@@ -37,8 +37,8 @@ public class SpaceInvadersScreenGame extends ScreenAdapter
     private int amountAliveAliens = 0;
     private Texture bulletImage;
     private Sound shoot;
-    private PlayerSpaceInvaders player;
-    private AlienSpaceInvaders[] aliens;
+    private SpaceInvadersPlayer player;
+    private SpaceInvadersAlien[] aliens;
     private int minXAliens;
     private int maxXAliens;
     private int minYAliens;
@@ -64,8 +64,8 @@ public class SpaceInvadersScreenGame extends ScreenAdapter
         bulletImage = new Texture("assets/images/missile-space-invaders.png");
         imgAlien = new Texture("assets/images/enemy.png");
         shoot = Gdx.audio.newSound(Gdx.files.internal("assets/sounds/shoot (1).ogg"));
-        player = new PlayerSpaceInvaders(imgPlayer, bulletImage, Color.GREEN, shoot);
-        aliens = new AlienSpaceInvaders[numWidthAliens * numHeightAliens];
+        player = new SpaceInvadersPlayer(imgPlayer, bulletImage, Color.GREEN, shoot);
+        aliens = new SpaceInvadersAlien[numWidthAliens * numHeightAliens];
         Table table = new Table();
         table.add(labelScore);
         table.setPosition(50, 40);
@@ -81,7 +81,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter
                 position.y += Gdx.graphics.getHeight();
                 position.x -= (numWidthAliens / 2) * spacingAliens;
                 position.y -= (numHeightAliens) * spacingAliens;
-                aliens[i] = new AlienSpaceInvaders(position, imgAlien, Color.GREEN);
+                aliens[i] = new SpaceInvadersAlien(position, imgAlien, Color.GREEN);
                 i++;
             }
         }
@@ -172,7 +172,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter
         }
 
 
-        for (AlienSpaceInvaders alien : aliens)
+        for (SpaceInvadersAlien alien : aliens)
         {
             Vector2 tmp = new Vector2(alien.getInitialPosition().x + offsetAliens.x, alien.getInitialPosition().y + offsetAliens.y);
             alien.setPositionAlien(tmp);

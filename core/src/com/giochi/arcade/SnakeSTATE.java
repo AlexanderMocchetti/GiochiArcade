@@ -1,6 +1,6 @@
 package com.giochi.arcade;
 
-public enum STATE {
+public enum SnakeSTATE {
     PLAYING ,
     GAME_OVER
 }

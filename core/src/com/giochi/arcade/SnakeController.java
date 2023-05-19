@@ -3,17 +3,12 @@ package com.giochi.arcade;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
-public class Controller
+public class SnakeController
 {
 
     private int score;
 
-    private STATE state;
-
-
-
-
-    public DIRECTIONS queryInput ()
+    public SnakeDIRECTIONS queryInput ()
     {
         boolean rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
 
@@ -24,14 +19,14 @@ public class Controller
         boolean downPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN);
 
         if (rightPressed)
-            return DIRECTIONS.RIGHT;
+            return SnakeDIRECTIONS.RIGHT;
         if (leftPressed)
-            return DIRECTIONS.LEFT;
+            return SnakeDIRECTIONS.LEFT;
         if (upPressed)
-            return DIRECTIONS.UP;
+            return SnakeDIRECTIONS.UP;
         if (downPressed)
-            return DIRECTIONS.DOWN;
-        return DIRECTIONS.NONE;
+            return SnakeDIRECTIONS.DOWN;
+        return SnakeDIRECTIONS.NONE;
 
     }
 

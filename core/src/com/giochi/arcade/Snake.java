@@ -1,6 +1,5 @@
 package com.giochi.arcade;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
@@ -19,25 +18,21 @@ public class Snake {
 
     private final int SIZE;
 
-    private final int bodySize = 0;
-
     private final int STEP;
 
-    private DIRECTIONS direction = DIRECTIONS.RIGHT;
+    private SnakeDIRECTIONS direction = SnakeDIRECTIONS.RIGHT;
 
     private final float MOVE_TIMER;
 
     private float timer;
 
-    private STATE state = STATE.PLAYING;
+    private SnakeSTATE snakeState = SnakeSTATE.PLAYING;
 
     //private boolean directionSet = false;
 
     private final Array<BodyPart> bodyParts;
 
     private Viewport snakeViewPort;
-
-    private Camera snakeCamera;
 
     public Snake(int size , int speed)
     {
@@ -53,7 +48,7 @@ public class Snake {
         bodyParts = new Array<>();
     }
 
-    private void move (DIRECTIONS direction)
+    private void move (SnakeDIRECTIONS direction)
     {
 
         xBeforeMove = x;
@@ -80,7 +75,7 @@ public class Snake {
 
     }
 
-    public STATE Update (float deltaTime)
+    public SnakeSTATE Update (float deltaTime)
     {
         timer -= deltaTime;
 
@@ -95,35 +90,32 @@ public class Snake {
             timer = MOVE_TIMER;
 
             checkBodyCollision();
-
-            //directionSet = false;
         }
-        return state;
+        return snakeState;
     }
 
 
 
-    public void updateDirection (DIRECTIONS newDirection)
+    public void updateDirection (SnakeDIRECTIONS newDirection)
     {
         if (direction != newDirection)
         {
-            //directionSet = true;
             switch (newDirection)
             {
                 case RIGHT: {
-                    updateIfNotOpposite(newDirection , DIRECTIONS.LEFT);
+                    updateIfNotOpposite(newDirection , SnakeDIRECTIONS.LEFT);
                 }
                 break;
                 case LEFT: {
-                    updateIfNotOpposite(newDirection , DIRECTIONS.RIGHT);
+                    updateIfNotOpposite(newDirection , SnakeDIRECTIONS.RIGHT);
                 }
                 break;
                 case UP:  {
-                    updateIfNotOpposite(newDirection , DIRECTIONS.DOWN);
+                    updateIfNotOpposite(newDirection , SnakeDIRECTIONS.DOWN);
                 }
                 break;
                 case DOWN: {
-                    updateIfNotOpposite(newDirection , DIRECTIONS.UP);
+                    updateIfNotOpposite(newDirection , SnakeDIRECTIONS.UP);
                 }
                 break;
 
@@ -147,9 +139,9 @@ public class Snake {
 
         timer = MOVE_TIMER;
 
-        direction = DIRECTIONS.RIGHT;
+        direction = SnakeDIRECTIONS.RIGHT;
 
-        state = STATE.PLAYING;
+        snakeState = SnakeSTATE.PLAYING;
 
 
     }
@@ -169,14 +161,14 @@ public class Snake {
             y = Math.round(snakeViewPort.getWorldHeight()) - STEP;
     }
 
-    private void updateIfNotOpposite (DIRECTIONS newDirection , DIRECTIONS oppositeDirection)
+    private void updateIfNotOpposite (SnakeDIRECTIONS newDirection , SnakeDIRECTIONS oppositeDirection)
     {
         if (direction != oppositeDirection || bodyParts.size == 0){
             direction = newDirection;
         }
     }
 
-    public void Draw (@NotNull ShapeRenderer snakeShapeRenderer)
+    public void draw(@NotNull ShapeRenderer snakeShapeRenderer)
     {
         drawHead(snakeShapeRenderer);
     }
@@ -188,14 +180,6 @@ public class Snake {
         snakeShapeRenderer.rect(x , y , SIZE , SIZE);// create a rectangle
         snakeShapeRenderer.end();
 
-    }
-
-    public DIRECTIONS getDirection() {
-        return direction;
-    }
-
-    public void setDirection(DIRECTIONS direction) {
-        this.direction = direction;
     }
 
     public int getSIZE() {
@@ -218,55 +202,43 @@ public class Snake {
         this.y = y;
     }
 
-    public Viewport getSnakeViewPort() {
-        return snakeViewPort;
-    }
-
     public void setSnakeViewPort(Viewport snakeViewPort) {
         this.snakeViewPort = snakeViewPort;
-    }
-
-    public Camera getSnakeCamera() {
-        return snakeCamera;
-    }
-
-    public void setSnakeCamera(Camera snakeCamera) {
-        this.snakeCamera = snakeCamera;
     }
 
     public void createBodyPart (int x , int y)
     {
 
        BodyPart newBodyPart = new BodyPart();
-       newBodyPart.UpdateBodyPart(x , y);
+       newBodyPart.updateBodyPart(x , y);
        bodyParts.insert(0 , newBodyPart);
     }
 
     public void drawBodyParts (ShapeRenderer bodyPartShapeRenderer)
     {
         for (BodyPart bodyPart : bodyParts){
-            bodyPart.Draw(bodyPartShapeRenderer);
+            bodyPart.draw(bodyPartShapeRenderer);
         }
     }
 
-    public STATE checkBodyCollision ()
+    public SnakeSTATE checkBodyCollision ()
     {
 
         for (BodyPart bodyPart : bodyParts)
         {
             if (bodyPart.x == x && bodyPart.y == y && bodyParts.size > 2) {
-                state = STATE.GAME_OVER;
+                snakeState = SnakeSTATE.GAME_OVER;
                 break;
             }
         }
-        return STATE.PLAYING;
+        return SnakeSTATE.PLAYING;
     }
 
     public void updateBodyParts () {
 
         if (bodyParts.size > 0) {
             BodyPart bodyPart = bodyParts.removeIndex(0);
-            bodyPart.UpdateBodyPart(xBeforeMove , yBeforeMove);
+            bodyPart.updateBodyPart(xBeforeMove , yBeforeMove);
             bodyParts.add(bodyPart);
         }
     }
@@ -279,17 +251,17 @@ public class Snake {
 
         private int y;
 
-        BodyPart ()
+        public BodyPart ()
         {
 
         }
 
-        public void UpdateBodyPart (int x , int y)
+        public void updateBodyPart(int x , int y)
         {
             this.x = x;
             this.y = y;
         }
-        public void Draw (ShapeRenderer bodyPartShapeRenderer)
+        public void draw(ShapeRenderer bodyPartShapeRenderer)
         {
             if (!(this.x == Snake.this.x && this.y == Snake.this.y))
             {

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class Food
+public class SnakeFood
 {
 
     private Viewport foodViewPort;
@@ -16,15 +16,15 @@ public class Food
 
     private final Snake snake;
 
-    private final Controller foodController;
+    private final SnakeController foodSnakeController;
 
     private boolean alive = false;
 
-    public Food (Snake snake , Controller foodController)
+    public SnakeFood(Snake snake , SnakeController foodSnakeController)
     {
         this.snake = snake;
 
-        this.foodController = foodController;
+        this.foodSnakeController = foodSnakeController;
     }
 
     public Viewport getFoodViewPort() {
@@ -64,7 +64,7 @@ public class Food
         if (alive && x == snake.getX() && y == snake.getY())
         {
             snake.createBodyPart(snake.getX(), snake.getY());
-            foodController.increasedScore();
+            foodSnakeController.increasedScore();
             alive = false;
         }
     }

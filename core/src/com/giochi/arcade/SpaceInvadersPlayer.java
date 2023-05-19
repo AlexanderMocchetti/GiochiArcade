@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 
-public class PlayerSpaceInvaders
+public class SpaceInvadersPlayer
 {
     private final float speedPlayer = 300;
     private final float bulletSpeed = 1000;
@@ -20,7 +20,7 @@ public class PlayerSpaceInvaders
     private Sprite spriteBullet;
     private Sound shoot;
 
-    public PlayerSpaceInvaders(Texture img, Texture imgBullet, Color color, Sound shoot)
+    public SpaceInvadersPlayer(Texture img, Texture imgBullet, Color color, Sound shoot)
     {
         spritePlayer = new Sprite(img);
         spriteBullet = new Sprite(imgBullet);
