@@ -28,7 +28,6 @@ public class GameManager implements Disposable {
     private final Rectangle gate;
     private final TiledMap map;
     private final TextureAtlas playerAtlas, ghostAtlas;
-    private Player player;
     private Graph graph;
     private int pillsEaten = 0;
     public GameManager(){
@@ -87,6 +86,9 @@ public class GameManager implements Disposable {
             pill.setPlayer(player);
         }
     }
+    public void setGhost(Ghost ghost){
+
+    }
     public Graph getGraph() {
         return graph;
     }
@@ -103,6 +105,9 @@ public class GameManager implements Disposable {
         }
     }
     public void update(boolean gameOver){
+        if (gameOver){
+            
+        }
         if (pillsEaten == pills.size){
 
         }

@@ -21,10 +21,7 @@ import com.giochi.arcade.logic.pacman.ai.GraphBuilder;
 
 public class PacmanScreen extends AbstractScreen{
     PacmanController pacmanController;
-    Player player;
-    Ghost ghost;
     GameManager gameManager;
-    TiledMap map;
     OrthographicCamera cameraControl;
     MapRenderer mapRenderer;
     public static final float
@@ -45,7 +42,7 @@ public class PacmanScreen extends AbstractScreen{
 
         gameManager.setPlayer(player);
 
-        ghost = new Ghost(7, 8, 0.93777777f, 0.93777777f, 3, player, gameManager);
+        ghost = new Ghost(7, 8, 0.93777777f, 0.93777777f, 4.2f, player, gameManager);
 
         mapRenderer = new OrthogonalTiledMapRenderer(map, GameManager.pixelToGrid, batch);
         mapRenderer.setView(camera);
@@ -58,6 +55,8 @@ public class PacmanScreen extends AbstractScreen{
 
     @Override
     public void render(float delta) {
+        gameManager.update(ghost.checkPlayerCollision());
+
         mapRenderer.render();
 
         player.update(delta);
@@ -68,6 +67,7 @@ public class PacmanScreen extends AbstractScreen{
         ghost.draw(batch);
         batch.end();
         gameManager.updatePills(delta);
+
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(Color.YELLOW);
         gameManager.drawPills(shape);

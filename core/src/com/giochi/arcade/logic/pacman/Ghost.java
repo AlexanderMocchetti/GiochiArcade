@@ -8,19 +8,20 @@ import com.giochi.arcade.logic.pacman.ai.Node;
 import java.util.Deque;
 
 public class Ghost {
-    private Sprite sprite;
-    private Vector2 speedVector, targetSpeedVector;
-    private Graph graph;
-    private Player pacman;
-    private GameManager gameManager;
+    private final Sprite sprite;
+    private final Vector2 speedVector, targetSpeedVector;
+    private final Graph graph;
+    private final Player pacman;
+    private final GameManager gameManager;
     private Deque<Node> pathToPacman;
     private Node currentNode, nextNode;
-    private Vector2 positionVector;
+    private final Vector2 positionVector;
     private final Animation<TextureRegion>
             rightAnimation,
             leftAnimation,
             downAnimation,
             upAnimation;
+    private Animation<TextureRegion> currentAnimation;
     private TextureRegion currentKeyFrame;
     private float animationStateTime = 0,
                   timeSinceLastFinding = 0;
@@ -59,10 +60,11 @@ public class Ghost {
         positionVector = new Vector2(x, y);
         currentNode = graph.getNode((int) x, (int) y);
         sprite.setBounds(x, y, width, height);
+        currentAnimation = rightAnimation;
     }
     public void update(float delta){
         animationStateTime += delta;
-        currentKeyFrame = leftAnimation.getKeyFrame(animationStateTime);
+        currentKeyFrame = currentAnimation.getKeyFrame(animationStateTime);
         sprite.setRegion(currentKeyFrame);
         checkActivation();
         if (disabled)
@@ -104,7 +106,15 @@ public class Ghost {
     private void findTargetSpeed(){
         float deltaX, deltaY;
         deltaX = nextNode.getX() - currentNode.getX();
+        if (deltaX == 1)
+            currentAnimation = rightAnimation;
+        if (deltaX == -1)
+            currentAnimation = leftAnimation;
         deltaY = nextNode.getY() - currentNode.getY();
+        if (deltaY == 1)
+            currentAnimation = upAnimation;
+        if (deltaY == -1)
+            currentAnimation = downAnimation;
         targetSpeedVector.set(deltaX * speed, deltaY * speed);
     }
     private boolean checkMovedByTile(){
@@ -125,6 +135,9 @@ public class Ghost {
             findNewPath();
         }
     }
+    public boolean checkPlayerCollision(){
+        return sprite.getBoundingRectangle().overlaps(pacman.getBounds());
+    }
     public Rectangle getBounds(){
         return sprite.getBoundingRectangle();
     }
@@ -132,4 +145,5 @@ public class Ghost {
     public void draw(Batch batch){
         sprite.draw(batch);
     }
+
 }
