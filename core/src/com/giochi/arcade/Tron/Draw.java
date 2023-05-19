@@ -20,22 +20,5 @@ public class Draw {
         this.player2 = player2;
     }
 
-    public void render(float delta){
-        // Disegna lo sfondo
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Disegna la scia delle moto
-        batch.begin();
-        for(Laser laser : lasers) {
-            laser.draw(batch);
-        }
-        batch.end();
-
-        // Disegna i giocatori
-        batch.begin();
-        batch.draw(player1.getTexture(), player1.getPosition().x, player1.getPosition().y);
-        batch.draw(player2.getTexture(), player2.getPosition().x, player2.getPosition().y);
-        batch.end();
-    }
 }

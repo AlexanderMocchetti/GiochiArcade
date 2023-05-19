@@ -1,6 +1,5 @@
 package com.giochi.arcade.Tron;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
@@ -9,17 +8,21 @@ public class Player {
     private Vector2 position;
     private Vector2 direction;
     private float speed;
+    private Laser laser;
 
-    public Player(Texture img, Vector2 position, Vector2 direction, float speed) {
+    public Player(Texture img, Vector2 position, Vector2 direction, float speed, Texture Laser) {
         this.img = img;
         this.position = position;
         this.direction = direction;
         this.speed = speed;
+        this.laser = laser;
     }
 
     public void move(){
         position.x += direction.x * speed;
         position.y += direction.y * speed;
+        position.add(direction);
+
     }
 
     public Texture getTexture() {
@@ -39,7 +42,7 @@ public class Player {
     }
 
     public void setDirection(float x, float y) {
-        this.direction = direction;
+        direction.set(1, 0);
     }
 
     public void setSpeed(float speed) {

@@ -13,9 +13,15 @@ public class TronController {
         this.player2 = player2;
     }
 
+    public void update(){
+        handleInput();
+        player1.move();
+        player2.move();
+    }
+
     public void handleInput(){
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            player1.setDirection(0,1);
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            player1.setDirection(0, 1);
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
             player1.setDirection(0, -1);
@@ -39,9 +45,5 @@ public class TronController {
         else if(Gdx.input.isKeyPressed(Input.Keys.D)){
             player2.setDirection(1, 0);
         }
-
     }
-
-
-
 }

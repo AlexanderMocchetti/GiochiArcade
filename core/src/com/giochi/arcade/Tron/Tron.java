@@ -1,70 +1,64 @@
 package com.giochi.arcade.Tron;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class Tron extends ScreenAdapter{
     private OrthographicCamera camera;
     private SpriteBatch batch;
-    private ArrayList<Laser> lasers;
-    Texture img1 = new Texture("blueBike.jpg");
-    Texture img2 = new Texture("redBike.jpg");
-    Vector2 position = new Vector2();
-    Vector2 direction = new Vector2();
-    Player player1 = new Player(img1,position.set(1000, 600), direction.add(0,1), 3);
-    Player player2 = new Player(img2, position.add(1000,500), direction.add(0,1), 3);
-  /*  @Override
-    public void create(){
-        Texture img1 = new Texture("blueBike.png");
-        Texture img2 = new Texture("redBike.png");
-        Vector2 position = new Vector2();
-        Vector2 direction = new Vector2();
-
-        float width = Gdx.graphics.getWidth();
-        float height = Gdx.graphics.getHeight();
-
-        lasers = new ArrayList<Laser>();
-        Player player1 = new Player(img1,position.set(23, 23), direction.add(0,1), 3);
-        Player player2 = new Player(img2, position.add(45,45), direction.add(0,1), 3);
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, width, height);
-
-        batch = new SpriteBatch();
-    }*/
+    private ArrayList<Laser> positions;
+    private Texture img1 = new Texture("blueBike.jpg");
+    private Texture img2 = new Texture("redBike.jpg");
+    private Texture blueLaser = new Texture("blueLaser.png");
+    private Texture redLaser = new Texture("redLaser.png");
+    //Sprite playerSpriteBlue = new Sprite(img1);
+    //Sprite playerSpriteRed = new Sprite(img2);
+    //Sprite laserSpriteBlue = new Sprite(blueLaser);
+    //Sprite laserSpriteRed = new Sprite(redLaser);
+    private Vector2 player1Position = new Vector2(100, 100), player2Position = new Vector2(500, 500);
+    private Vector2 player1Direction = new Vector2(0, 0), player2Direction = new Vector2(0, 0);
+    private Player player1 = new Player(img1,player1Position.set(100, 100), player1Direction.set(1,0), 1, blueLaser);
+    private Player player2 = new Player(img2, player2Position.set(700,200), player2Direction.set(-1,0), 1, redLaser);
+    private TronController input = new TronController(player1, player2);
 
     @Override
     public void render(float delta){
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        delta = Gdx.graphics.getDeltaTime();
-        //Player player1 = new Player(img1,position.set(23, 23), direction.add(0,1), 3);
-        //Player player2 = new Player(img2, position.add(45,45), direction.add(0,1), 3);
+
+        input.update();
+
+        batch.begin();
+
+
         player1.move();
         player2.move();
-        Texture blueLaser = new Texture("blueLaser.png");
-        Texture redLaser = new Texture("redLaser.png");
 
-        lasers.add(new Laser(blueLaser));
-        lasers.add(new Laser(redLaser));
+        //player1.draw(batch);
+
+        positions.add(new Laser(blueLaser, player1));
+        positions.add(new Laser(redLaser, player2));
 
         camera.update();
 
         batch.setProjectionMatrix(camera.combined);
-        batch.begin();
+        batch.draw(player1.getTexture(), player1.getPosition().x, player1.getPosition().y);
+        batch.draw(player2.getTexture(), player2.getPosition().x, player2.getPosition().y);
+
+
+
         batch.end();
     }
+
+
 
     @Override
     public void resize(int width, int height){
@@ -78,17 +72,12 @@ public class Tron extends ScreenAdapter{
 
     @Override
     public void show() {
-        Texture img1 = new Texture("blueBike.jpg");
-        Texture img2 = new Texture("redBike.jpg");
-        Vector2 position = new Vector2();
-        Vector2 direction = new Vector2();
-
         float width = Gdx.graphics.getWidth();
         float height = Gdx.graphics.getHeight();
 
-        lasers = new ArrayList<Laser>();
-        //Player player1 = new Player(img1,position.set(23, 23), direction.add(0,1), 3);
-        //Player player2 = new Player(img2, position.add(45,45), direction.add(0,1), 3);
+        positions = new ArrayList<Laser>();
+
+        TronController input = new TronController(player1, player2);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, width, height);
