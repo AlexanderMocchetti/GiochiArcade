@@ -38,11 +38,8 @@ public class Tron extends ScreenAdapter{
 
         batch.begin();
 
-
         player1.move();
         player2.move();
-
-        //player1.draw(batch);
 
         positions.add(new Laser(blueLaser, player1));
         positions.add(new Laser(redLaser, player2));
@@ -50,10 +47,8 @@ public class Tron extends ScreenAdapter{
         camera.update();
 
         batch.setProjectionMatrix(camera.combined);
-        batch.draw(player1.getTexture(), player1.getPosition().x, player1.getPosition().y);
-        batch.draw(player2.getTexture(), player2.getPosition().x, player2.getPosition().y);
-
-
+        player1.draw(batch);
+        player2.draw(batch);
 
         batch.end();
     }
