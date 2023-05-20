@@ -14,43 +14,37 @@ public class TronController{
         this.player2 = player2;
     }
 
-    public void update(){
-        handleInput();
-        player1.move();
-        player2.move();
-    }
-
     public void handleInput(){
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.W)) {
             player1.setDirection(0, 1);
             player1.setRotation(90);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+        else if(Gdx.input.isKeyPressed(Input.Keys.S)){
             player1.setDirection(0, -1);
             player1.setRotation(270);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+        else if(Gdx.input.isKeyPressed(Input.Keys.A)){
             player1.setDirection(-1, 0);
             player1.setRotation(180);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+        else if(Gdx.input.isKeyPressed(Input.Keys.D)){
             player1.setDirection(1,0);
             player1.setRotation(0);
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.W)){
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
             player2.setDirection(0, 1);
             player2.setRotation(270);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.S)){
+        else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
             player2.setDirection(0, -1);
             player2.setRotation(90);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.A)){
+        else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             player2.setDirection(-1, 0);
             player2.setRotation(0);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.D)){
+        else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             player2.setDirection(1, 0);
             player2.setRotation(180);
         }
