@@ -12,7 +12,7 @@ public class Ghost {
     private final Vector2 speedVector, targetSpeedVector;
     private final Graph graph;
     private final Player pacman;
-    private final GameManager gameManager;
+    private final Map map;
     private Deque<Node> pathToPacman;
     private Node currentNode, nextNode;
     private final Vector2 positionVector;
@@ -27,12 +27,12 @@ public class Ghost {
                   timeSinceLastFinding = 0;
     private final float speed;
     private boolean disabled = true;
-    public Ghost(float x, float y, float width, float height, float speed, Player pacman, GameManager gameManager){
+    public Ghost(float x, float y, float width, float height, float speed, Player pacman, Map map){
         this.speed = speed;
         this.pacman = pacman;
-        this.gameManager = gameManager;
-        graph = gameManager.getGraph();
-        TextureAtlas atlas = gameManager.getGhostAtlas();
+        this.map = map;
+        graph = map.getGraph();
+        TextureAtlas atlas = map.getGhostAtlas();
         rightAnimation = new Animation<TextureRegion>(
                 GameManager.ghostAnimationTimeFrame,
                 atlas.findRegions("rightGhost"),
@@ -84,7 +84,7 @@ public class Ghost {
         sprite.setPosition(positionVector.x, positionVector.y);
     }
     private void checkActivation(){
-        if(gameManager.getPillsEaten() >= GameManager.redGhostActivation && disabled){
+        if(map.getPills().getPillsEaten() >= GameManager.redGhostActivation && disabled){
             disabled = false;
             findNewPath();
         }
@@ -94,7 +94,7 @@ public class Ghost {
         x = sprite.getX() + targetSpeedVector.x * delta;
         y = sprite.getY() + targetSpeedVector.y * delta;
         Rectangle rectangle = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
-        if (!PacmanUtils.checkMultipleCollision(rectangle, gameManager.getWallBounds())
+        if (!PacmanUtils.checkMultipleCollision(rectangle, map.getWallBounds())
                 && PacmanUtils.checkCenteredInTile(sprite.getBoundingRectangle())
         ) {
             speedVector.set(targetSpeedVector);

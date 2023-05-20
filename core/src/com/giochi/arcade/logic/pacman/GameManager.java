@@ -29,14 +29,12 @@ public class GameManager implements Disposable {
     private final TiledMap map;
     private final TextureAtlas playerAtlas, ghostAtlas;
     private Graph graph;
-    private int pillsEaten = 0;
     public GameManager(){
         playerAtlas = new TextureAtlas("pacman.atlas");
         ghostAtlas = new TextureAtlas("ghost.atlas");
         map = new TmxMapLoader().load("PacmanMap1.tmx");
         wallBounds = new Array<>(false, 37);
         pills = new Array<>(false, 130);
-        gate = ((RectangleMapObject) map.getLayers().get("GateLayer").getObjects().get("Gate")).getRectangle();
         correctRectangle(gate);
         loadWalls();
         loadPills();
@@ -44,28 +42,8 @@ public class GameManager implements Disposable {
         graph = graphBuilder.getGraph();
         System.out.println(graph.getShortestPath("1 1", "7 8"));
     }
-    private void correctRectangle(Rectangle rectangle){
-        rectangle.x *= pixelToGrid;
-        rectangle.y *= pixelToGrid;
-        rectangle.width *= pixelToGrid;
-        rectangle.height *= pixelToGrid;
-    }
-    private void loadWalls(){
-        Rectangle rect;
-        for(MapObject object : map.getLayers().get("CollisionLayer").getObjects()) {
-            rect = ((RectangleMapObject) object).getRectangle();
-            correctRectangle(rect);
-            wallBounds.add(rect);
-        }
-    }
-    private void loadPills(){
-        Rectangle rect;
-        for(MapObject obj: map.getLayers().get("DotLayer").getObjects()){
-            rect = ((RectangleMapObject) obj).getRectangle();
-            correctRectangle(rect);
-            pills.add(new Pill(rect, obj.getProperties().get("KillDot") != null));
-        }
-    }
+
+
     public TiledMap getMap() {
         return map;
     }

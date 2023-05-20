@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.giochi.arcade.logic.pacman.ai.Node;
 
 public class Player{
-    private final GameManager gameManager;
+    private final Map map;
     private final Vector2 positionVector, targetPositionVector;
     private Vector2 speedVector, targetSpeedVector;
     private final Sprite sprite;
@@ -16,15 +16,16 @@ public class Player{
     private float
             animationStateTime = 0,
             rotationDegrees = 0;
-    public Player(float x, float y, float width, float height, float speed, GameManager gameManager){
+    private boolean invincible = false;
+    public Player(float x, float y, float width, float height, float speed, Map map){
         positionVector = new Vector2(x, y);
         targetPositionVector = new Vector2(positionVector);
         targetSpeedVector = new Vector2(speed, 0);
-        this.gameManager = gameManager;
+        this.map = map;
         this.width = width;
         this.height = height;
         this.speed = speed;
-        TextureAtlas atlas = gameManager.getPlayerAtlas();
+        TextureAtlas atlas = map.getPlayerAtlas();
         animation = new Animation<TextureRegion>(
                 GameManager.playerAnimationTimeFrame,
                 atlas.findRegions("pac_man"),
@@ -36,15 +37,15 @@ public class Player{
         sprite.setSize(width, height);
     }
     public Node getGridLocation(){
-        return PacmanUtils.getGridLocation(sprite.getBoundingRectangle(), gameManager.getGraph());
+        return PacmanUtils.getGridLocation(sprite.getBoundingRectangle(), map.getGraph());
     }
     public void update(float delta){
         handleAssistedTurn(delta);
         advance(delta);
         Rectangle rectangle = new Rectangle(targetPositionVector.x, targetPositionVector.y, width, height);
         if(
-                PacmanUtils.checkSingleCollision(rectangle, gameManager.getGate()) ||
-                PacmanUtils.checkMultipleCollision(rectangle, gameManager.getWallBounds()))
+                PacmanUtils.checkSingleCollision(rectangle, map.getGate()) ||
+                PacmanUtils.checkMultipleCollision(rectangle, map.getWallBounds()))
             return;
         positionVector.set(targetPositionVector);
         handleAnimation(delta);
@@ -67,9 +68,9 @@ public class Player{
         y = positionVector.y + targetSpeedVector.y * delta;
         Rectangle rectangle = new Rectangle(x, y, width, height);
         if(
-                !PacmanUtils.checkMultipleCollision(rectangle, gameManager.getWallBounds())
+                !PacmanUtils.checkMultipleCollision(rectangle, map.getWallBounds())
                 && checkCenteredInTile()
-                && !PacmanUtils.checkSingleCollision(rectangle, gameManager.getGate())
+                && !PacmanUtils.checkSingleCollision(rectangle, map.getGate())
                 ) {
             speedVector = targetSpeedVector;
             sprite.setRotation(rotationDegrees);
@@ -87,6 +88,12 @@ public class Player{
     }
     public void setRotationDegrees(float rotationDegrees){
         this.rotationDegrees = rotationDegrees;
+    }
+    public boolean isInvincible() {
+        return invincible;
+    }
+    public void setInvincible(boolean invincible) {
+        this.invincible = invincible;
     }
     public Rectangle getBounds(){
         return sprite.getBoundingRectangle();
