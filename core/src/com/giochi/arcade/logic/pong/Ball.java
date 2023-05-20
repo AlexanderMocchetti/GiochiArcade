@@ -23,11 +23,11 @@ public class Ball {
     public void update(float delta){
         if(y + radius > PongScreen.WORLD_HEIGHT || y - radius < 0)
             ySpeed *= -1;
-        if((x + radius == p1.getX() && y+radius== p1.getY()) || (x + radius ==p2.getX() && y + radius== p2.getY()))
+        if((x + radius == p1.getX() && y + radius== p1.getY()) || (x + radius ==p2.getX() && y + radius== p2.getY()))
             xSpeed *= -1;
         x += xSpeed;
         y += ySpeed;
-        if(x<(p1.getX()-radius*2)|| x>p2.getX()-radius*2) {
+        if(x<(p1.getX()-radius*2)|| x>p2.getX()+radius*2) {
             x=xBase;
             y=yBase;
 
