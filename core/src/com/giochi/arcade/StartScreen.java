@@ -65,7 +65,7 @@ public class StartScreen extends ScreenAdapter
 
 
 
-        startButton = new TextButton("Start" , new Skin(Gdx.files.internal("assets/gdx-skins-master/glassy/skin/glassy-ui.json")));
+        startButton = new TextButton("Start" , new Skin(Gdx.files.internal("gdx-skins-master/glassy/skin/glassy-ui.json")));
 
         startButton.addListener(new ClickListener()
         {
@@ -78,7 +78,7 @@ public class StartScreen extends ScreenAdapter
 
         group.addActor(startButton);
 
-        exitButton = new TextButton("Exit" , new Skin(Gdx.files.internal("assets/gdx-skins-master/glassy/skin/glassy-ui.json")));
+        exitButton = new TextButton("Exit" , new Skin(Gdx.files.internal("gdx-skins-master/glassy/skin/glassy-ui.json")));
 
         exitButton.addListener(new InputListener()
         {

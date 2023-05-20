@@ -1,4 +1,4 @@
-package com.giochi.arcade;
+package com.giochi.arcade.SpaceInvaders;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

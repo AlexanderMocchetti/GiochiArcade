@@ -1,4 +1,4 @@
-package com.giochi.arcade;
+package com.giochi.arcade.Snake;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -84,7 +84,7 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
 
         layoutButtonOption = new HorizontalGroup();
 
-        buttonOption = new TextButton("Options" , new Skin(Gdx.files.internal("assets/gdx-skins-master/commodore64/skin/uiskin.json")));
+        buttonOption = new TextButton("Options" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
 
         buttonOption.setSize(10 ,10);
 

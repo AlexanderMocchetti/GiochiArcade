@@ -1,4 +1,4 @@
-package com.giochi.arcade;
+package com.giochi.arcade.Snake;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;

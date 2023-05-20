@@ -1,4 +1,4 @@
-package com.giochi.arcade;
+package com.giochi.arcade.SpaceInvaders;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -58,12 +58,12 @@ public class SpaceInvadersScreenGame extends ScreenAdapter
         //skin = new Skin(Gdx.files.internal("assets/skins/gdx-skins-master/gdx-skins-master/default/skin/uiskin.json"));
         offsetAliens = Vector2.Zero;
         batch = new SpriteBatch();
-        labelScore = new Label("Killed: " + score, new Skin(Gdx.files.internal("assets/gdx-skins-master/commodore64/skin/uiskin.json")));
+        labelScore = new Label("Killed: " + score, new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
         labelScore.setColor(Color.WHITE);
-        imgPlayer = new Texture("assets/images/space-invaders-ship.png");
-        bulletImage = new Texture("assets/images/missile-space-invaders.png");
-        imgAlien = new Texture("assets/images/enemy.png");
-        shoot = Gdx.audio.newSound(Gdx.files.internal("assets/sounds/shoot (1).ogg"));
+        imgPlayer = new Texture("images/space-invaders-ship.png");
+        bulletImage = new Texture("images/missile-space-invaders.png");
+        imgAlien = new Texture("images/enemy.png");
+        shoot = Gdx.audio.newSound(Gdx.files.internal("sounds/shoot (1).ogg"));
         player = new SpaceInvadersPlayer(imgPlayer, bulletImage, Color.GREEN, shoot);
         aliens = new SpaceInvadersAlien[numWidthAliens * numHeightAliens];
         Table table = new Table();

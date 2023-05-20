@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.giochi.arcade.Snake.SnakeScreenGame;
+import com.giochi.arcade.SpaceInvaders.SpaceInvadersScreenGame;
 
 import java.util.Vector;
 
@@ -48,7 +50,7 @@ public class WindowScreenGame extends ScreenAdapter
 
         viewport = new FitViewport(WORLD_WIDTH , WORLD_HEIGHT , camera);
 
-        buttonSpaceInvaders = new TextButton("Space invaders" , new Skin(Gdx.files.internal("assets/gdx-skins-master/commodore64/skin/uiskin.json")));
+        buttonSpaceInvaders = new TextButton("Space invaders" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
 
         buttonSpaceInvaders.addListener(new ClickListener()
         {
@@ -59,7 +61,7 @@ public class WindowScreenGame extends ScreenAdapter
 
         });
 
-        buttonSnake = new TextButton("Snake" , new Skin(Gdx.files.internal("assets/gdx-skins-master/commodore64/skin/uiskin.json")));
+        buttonSnake = new TextButton("Snake" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
 
         buttonSnake.addListener(new ClickListener()
         {
