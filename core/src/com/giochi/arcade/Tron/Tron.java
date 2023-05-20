@@ -10,47 +10,39 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.ArrayList;
 
 public class Tron extends ScreenAdapter{
     private OrthographicCamera camera;
     private SpriteBatch batch;
-    private ArrayList<Laser> positions;
-    private Texture blueBike = new Texture("blueBike.jpg");
-    private Texture redBike = new Texture("redBike.jpg");
-    private Texture blueLaser = new Texture("blueLaser.png");
-    private Texture redLaser = new Texture("redLaser.png");
-    //Sprite playerSpriteBlue = new Sprite(img1);
-    //Sprite playerSpriteRed = new Sprite(img2);
-    //Sprite laserSpriteBlue = new Sprite(blueLaser);
-    //Sprite laserSpriteRed = new Sprite(redLaser);
-    private Vector2 player1Position = new Vector2(100, 100), player2Position = new Vector2(500, 500);
-    private Vector2 player1Direction = new Vector2(0, 0), player2Direction = new Vector2(0, 0);
-    private Player player1 = new Player(blueBike,player1Position.set(100, 100), player1Direction.set(1,0), 1);
-    private Player player2 = new Player(redBike, player2Position.set(700,200), player2Direction.set(-1,0), 1);
+    //private ArrayList<Laser> positions;
+    private Texture blueBike = new Texture("blueBike.png");
+    private Texture redBike = new Texture("redBike.png");
+    private Vector2 player1Position = new Vector2(), player2Position = new Vector2();
+    private Vector2 player1Direction = new Vector2(), player2Direction = new Vector2();
+    private Player player1 = new Player(blueBike, player1Position.set(10, 50), player1Direction.set(1, 0), 25);
+    private Player player2 = new Player(redBike, player2Position.set(90, 50), player2Direction.set(-1, 0), 25);
     private TronController input = new TronController(player1, player2);
     private ShapeRenderer shape = new ShapeRenderer();
+    public static final float worldWidth = 100, worldHeight = 100;
+    private FitViewport viewport;
 
     @Override
     public void render(float delta){
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        input.update();
+        input.handleInput();
 
         batch.begin();
 
-        player1.move();
-        player2.move();
-
-
-        positions.add(new Laser(blueLaser, player1));
-        positions.add(new Laser(redLaser, player2));
+        player1.move(delta);
+        player2.move(delta);
 
         camera.update();
 
-        batch.setProjectionMatrix(camera.combined);
         player1.draw(batch);
         player2.draw(batch);
 
@@ -65,7 +57,9 @@ public class Tron extends ScreenAdapter{
 
     @Override
     public void resize(int width, int height){
-        camera.setToOrtho(false, width, height);
+        viewport.update(width,height);
+        batch.setProjectionMatrix(camera.combined);
+        shape.setProjectionMatrix(camera.combined);
     }
 
     @Override
@@ -75,15 +69,11 @@ public class Tron extends ScreenAdapter{
 
     @Override
     public void show() {
-        float width = Gdx.graphics.getWidth();
-        float height = Gdx.graphics.getHeight();
 
-        positions = new ArrayList<Laser>();
-
-        TronController input = new TronController(player1, player2);
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, width, height);
+        camera = new OrthographicCamera(worldWidth, worldHeight);
+        camera.setToOrtho(false, worldWidth, worldHeight);
+        viewport = new FitViewport(worldWidth, worldHeight, camera);
+        viewport.apply(true);
 
         batch = new SpriteBatch();
     }
