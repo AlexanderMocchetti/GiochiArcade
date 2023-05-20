@@ -23,7 +23,24 @@ public class Player {
         this.y = y;
     }
 
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
     private float width;
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
     private float height;
     private float speed;
     private final int p;

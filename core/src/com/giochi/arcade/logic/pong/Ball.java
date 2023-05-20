@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.giochi.arcade.ui.PongScreen;
 
 public class Ball {
-    private float x, y, xSpeed, ySpeed,xBase,yBase;
+    private float x, y, xSpeed, ySpeed,xBase,yBase,xSpeedBase,ySeedBase;
     private final float radius;
     private Player p1,p2;
 
@@ -16,20 +16,25 @@ public class Ball {
         this.radius = radius;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
+        ySeedBase=ySpeed;
+        xSpeedBase=xSpeed;
         this.p1=p1;
         this.p2=p2;
 
     }
-    public void update(float delta){
-        if(y + radius > PongScreen.WORLD_HEIGHT || y - radius < 0)
+    public void update(){
+        if(y + radius >= PongScreen.WORLD_HEIGHT || y - radius <= 0)
             ySpeed *= -1;
-        if((x + radius == p1.getX() && y + radius== p1.getY()) || (x + radius ==p2.getX() && y + radius== p2.getY()))
+        if((x + radius <= p1.getX()+p1.getWidth()&& (y + radius <= p1.getY() + p1.getHeight()&& y - radius >= p1.getY()- p1.getHeight())) || (x + radius >=p2.getX() +p2.getWidth()&& (y + radius <= p2.getY()+ p2.getHeight()&& y - radius >= p2.getY()- p2.getHeight())))
             xSpeed *= -1;
         x += xSpeed;
         y += ySpeed;
-        if(x<(p1.getX()-radius*2)|| x>p2.getX()+radius*2) {
+        if(x<(p1.getX()-radius)|| x>p2.getX()+radius*2) {
             x=xBase;
             y=yBase;
+            ySpeed=ySeedBase;
+            xSpeed=xSpeedBase;
+
 
         }
 

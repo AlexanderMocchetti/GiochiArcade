@@ -24,16 +24,16 @@ public class PongScreen extends AbstractScreen{
         super(parent);
         camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-        p1 = new Player(20,WORLD_HEIGHT/2,5,50,1,1);
-        p2 = new Player(WORLD_WIDTH-20,WORLD_HEIGHT/2,5,50,1,2);
-        ball = new Ball(67, WORLD_WIDTH / 2, 5, 2, 1,p1,p2);
+        p1 = new Player(20,WORLD_HEIGHT/2,5,30,1,1);
+        p2 = new Player(WORLD_WIDTH-20,WORLD_HEIGHT/2,5,30,1,2);
+        ball = new Ball(WORLD_HEIGHT/2, WORLD_WIDTH / 2, 5, 1, 0,p1,p2);
 
     }
     @Override
     public void render(float delta) {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
         shape.begin(ShapeRenderer.ShapeType.Filled);
-        ball.update(delta);
+        ball.update();
         ball.draw(shape);
         p1.update();
         p2.update();
