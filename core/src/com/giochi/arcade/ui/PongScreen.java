@@ -15,9 +15,6 @@ import java.awt.*;
 
 public class PongScreen extends AbstractScreen{
 
-    private GlyphLayout layout;
-
-    private BitmapFont bitmap;
     public static final float
         WORLD_WIDTH = 200,
         WORLD_HEIGHT = 200;
@@ -25,13 +22,12 @@ public class PongScreen extends AbstractScreen{
     private final Player p1,p2;
     public PongScreen(ArcadeGame parent) {
         super(parent);
-        ball = new Ball(67, WORLD_WIDTH / 2, 5, 2, 0);
         camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         p1 = new Player(20,WORLD_HEIGHT/2,5,50,1,1);
         p2 = new Player(WORLD_WIDTH-20,WORLD_HEIGHT/2,5,50,1,2);
-        layout=new GlyphLayout();
-        bitmap=new BitmapFont();
+        ball = new Ball(67, WORLD_WIDTH / 2, 5, 2, 0,p1,p2);
+
     }
     @Override
     public void render(float delta) {

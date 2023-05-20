@@ -4,7 +4,28 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.giochi.arcade.ui.PongScreen;
 public class Player {
-    private float x, y, width, height, speed;
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    private float x;
+    private float y;
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    private float width;
+    private float height;
+    private float speed;
     private final int p;
     public Player(float x, float y, float width, float height, float speed,int p) {
         this.x = x;
