@@ -3,15 +3,13 @@ package com.giochi.arcade.Tron;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.IndexArray;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 
-public class Player{
+public class TronPlayer {
     private Sprite sprite;
     private Vector2 position;
     private Vector2 direction;
@@ -20,7 +18,7 @@ public class Player{
     private ArrayList<Vector2> laserPositions = new ArrayList<>(200);
     public static final float bikeWidth = 53/5f, bikeHeight = 26/5f;
 
-    public Player(Texture img, Vector2 position, Vector2 direction, float speed){
+    public TronPlayer(Texture img, Vector2 position, Vector2 direction, float speed){
         sprite = new Sprite(img);
         this.position = position;
         this.direction = direction;
@@ -58,40 +56,16 @@ public class Player{
         }
     }
 
-    public void setSpeed(float speed){
-        this.speed = speed;
-    }
-
     public ArrayList<Vector2> getLaserPositions(){
         return laserPositions;
-    }
-
-    public void setLaserPositions(ArrayList<Vector2> laserPositions){
-        this.laserPositions = laserPositions;
     }
 
     public void draw(SpriteBatch batch){
         sprite.draw(batch);
     }
 
-    public Texture getTexture(){
-        return sprite.getTexture();
-    }
-
-    public Vector2 getPosition(){
-        return position;
-    }
-
-    public void setImg(Texture img){
-        sprite.setTexture(img);
-    }
-
-    public void setPosition(Vector2 position){
-        this.position = position;
-    }
-
-    public boolean checkCollisionWithEnemyLaser(Player enemyPlayer){
-        ArrayList<Vector2> enemyLaserPositions = enemyPlayer.laserPositions;        //posizioni laser nemico
+    public boolean checkCollisionWithEnemyLaser(TronPlayer enemyTronPlayer){
+        ArrayList<Vector2> enemyLaserPositions = enemyTronPlayer.laserPositions;        //posizioni laser nemico
         for(Vector2 enemyLaserPosition : enemyLaserPositions){
             Rectangle laser = new Rectangle(enemyLaserPosition.x, enemyLaserPosition.y, 1, 1 );
             if(sprite.getBoundingRectangle().overlaps(laser)) {

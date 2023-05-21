@@ -195,7 +195,6 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
     {
         viewport.update(width, height, true);
         batch.setProjectionMatrix(camera.combined);
-        //shapeRenderer.setProjectionMatrix(camera.combined);
 
     }
 

@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.giochi.arcade.Snake.SnakeScreenGame;
 import com.giochi.arcade.SpaceInvaders.SpaceInvadersScreenGame;
+import com.giochi.arcade.Tron.TronScreen;
 
 import java.util.Vector;
 
@@ -74,10 +75,19 @@ public class WindowScreenGame extends ScreenAdapter
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
                 ((Game)Gdx.app.getApplicationListener()).setScreen(new SnakeScreenGame());
-
-
             }
 
+        });
+
+        buttonTron = new TextButton("Tron" ,  new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
+
+        buttonTron.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                dispose();
+                ((Game)Gdx.app.getApplicationListener()).setScreen(new TronScreen());
+
+            }
         });
 
         buttonBack = new TextButton("Back" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
@@ -104,6 +114,10 @@ public class WindowScreenGame extends ScreenAdapter
         table.row();
 
         table.add(buttonSnake);
+
+        table.row();
+
+        table.add(buttonTron);
 
         table.row();
 

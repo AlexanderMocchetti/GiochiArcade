@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.giochi.arcade.Tron.Tron;
+import com.giochi.arcade.Tron.TronScreen;
 import com.giochi.arcade.ui.LoadingScreen;
 import com.giochi.arcade.ui.MenuScreen;
 import com.giochi.arcade.ui.PongScreen;
@@ -15,13 +15,13 @@ public class ArcadeGame extends Game{
     private LoadingScreen loadingScreen;
     private MenuScreen menuScreen;
     private PongScreen pongScreen;
-    private Tron tron;
+    private TronScreen tronScreen;
     private ShapeRenderer shape;
     @Override
     public void create() {
         batch = new SpriteBatch();
         shape = new ShapeRenderer();
-        tron = new Tron();
+        tronScreen = new TronScreen();
         pongScreen = new PongScreen(this);
         loadingScreen = new LoadingScreen(this);
         setScreen(pongScreen);

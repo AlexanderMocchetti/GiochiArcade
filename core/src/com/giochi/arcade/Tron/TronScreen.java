@@ -1,22 +1,27 @@
 package com.giochi.arcade.Tron;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.giochi.arcade.OptionWindowScreenAdapter;
 
-public class Tron extends ScreenAdapter{
+public class TronScreen extends ScreenAdapter{
 
     private Stage stage;
 
@@ -29,20 +34,22 @@ public class Tron extends ScreenAdapter{
     private Texture redBike = new Texture("redBike.png");
     private Vector2 player1Position = new Vector2(), player2Position = new Vector2();
     private Vector2 player1Direction = new Vector2(), player2Direction = new Vector2();
-    private Player player1 = new Player(blueBike, player1Position.set(0, 75), player1Direction.set(1, 0), 25);
-    private Player player2 = new Player(redBike, player2Position.set(140, 75), player2Direction.set(-1, 0), 25);
-    private TronController input = new TronController(player1, player2);
+    private TronPlayer tronPlayer1 = new TronPlayer(blueBike, player1Position.set(0, 75), player1Direction.set(1, 0), 25);
+    private TronPlayer tronPlayer2 = new TronPlayer(redBike, player2Position.set(140, 75), player2Direction.set(-1, 0), 25);
+    private TronController input = new TronController(tronPlayer1, tronPlayer2);
     private ShapeRenderer shape = new ShapeRenderer();
-    public static final float worldWidth = 150, worldHeight = 150;
+    public static final float worldWidth = 640, worldHeight = 480;
     private FitViewport viewport;
-    private boolean gameStarted, gameOver;
+    private boolean gameStarted;
     private BitmapFont font;
 
     @Override
     public void render(float delta){
 
-        if(!gameStarted){
+        /*if(!gameStarted){
             batch.begin();
+            stage.act(Math.min(delta, 1 / 30f));
+            stage.draw();
             font.draw(batch, "Premere SPAZIO per avviare il gioco", worldWidth / 5, worldHeight / 5);
             batch.end();
             if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
@@ -52,27 +59,33 @@ public class Tron extends ScreenAdapter{
             }
         }
 
+         */
+
         batch.begin();
 
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //Gdx.gl.glClearColor(0,0,0,1);
+        ScreenUtils.clear(0, 0, 0, 1);
+        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        stage.act(Math.min(delta, 1 / 30f));
+        stage.draw();
 
         input.handleInput();
 
-        player1.move(delta);
-        player2.move(delta);
+        tronPlayer1.move(delta);
+        tronPlayer2.move(delta);
 
         camera.update();
 
-        player1.draw(batch);
-        player2.draw(batch);
+        tronPlayer1.draw(batch);
+        tronPlayer2.draw(batch);
 
 
-        if(player1.checkCollisionWithEnemyLaser(player2)){
+        if(tronPlayer1.checkCollisionWithEnemyLaser(tronPlayer2)){
             font.draw(batch, "il rosso ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
             gamePaused();
 
-        } else if(player2.checkCollisionWithEnemyLaser(player1)){
+        } else if(tronPlayer2.checkCollisionWithEnemyLaser(tronPlayer1)){
             font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
             gamePaused();
         }
@@ -88,9 +101,9 @@ public class Tron extends ScreenAdapter{
         batch.end();
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(Color.BLUE);
-        player1.drawLaser(shape);
+        tronPlayer1.drawLaser(shape);
         shape.setColor(Color.RED);
-        player2.drawLaser(shape);
+        tronPlayer2.drawLaser(shape);
         shape.end();
     }
 
@@ -103,6 +116,7 @@ public class Tron extends ScreenAdapter{
 
     @Override
     public void dispose(){
+        stage.dispose();
         batch.dispose();
         font.dispose();
     }
@@ -113,15 +127,47 @@ public class Tron extends ScreenAdapter{
 
 
 
-        camera = new OrthographicCamera(worldWidth, worldHeight);
-        camera.setToOrtho(false, worldWidth, worldHeight);
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.position.set((float) worldWidth / 2 , (float) worldHeight / 2 , 0);
+        camera.update();
         viewport = new FitViewport(worldWidth, worldHeight, camera);
         viewport.apply(true);
         stage = new Stage(viewport);
 
+        Gdx.input.setInputProcessor(stage);
+
+
+
         table = new Table();
 
+        buttonPause = new TextButton("Pause" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
+
+
+        buttonPause.setSize(20 ,20);
+
+        buttonPause.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+            {
+                pause();
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new OptionWindowScreenAdapter(getInstance()));
+                return true;
+            }
+        });
+
+        table.setSize(20 ,20);
+
+        table.setFillParent(true);
+
+        table.add(buttonPause);
+
+        table.setPosition(260 ,-220);
+
+        table.pack();
+
         batch = new SpriteBatch();
+
+        stage.addActor(table);
 
         font = new BitmapFont();
         font.setColor(Color.WHITE);
@@ -137,8 +183,13 @@ public class Tron extends ScreenAdapter{
     }
 
     public void gamePaused(){
-        player1.setDirection(0, 0);
-        player2.setDirection(0, 0);
+        tronPlayer1.setDirection(0, 0);
+        tronPlayer2.setDirection(0, 0);
+    }
+
+    public TronScreen getInstance()
+    {
+        return this;
     }
 
 }

@@ -1,10 +1,7 @@
 package com.giochi.arcade;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.giochi.arcade.Tron.GameTron;
-import com.giochi.arcade.Tron.Tron;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
 public class DesktopLauncher
@@ -22,6 +19,6 @@ public class DesktopLauncher
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60); /** set the fps  */
 		config.setTitle("GiochiArcade");
-		new Lwjgl3Application(new GameTron(), config); /** create a new Application  */
+		new Lwjgl3Application(new StartGame(), config); /** create a new Application  */
 	}
 }
