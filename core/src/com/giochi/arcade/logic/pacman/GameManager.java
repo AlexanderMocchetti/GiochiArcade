@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.giochi.arcade.logic.pacman.ai.Graph;
 import com.giochi.arcade.logic.pacman.ai.GraphBuilder;
 
-public class GameManager implements Disposable {
+public class GameManager {
     public static final float
             pixelToGrid = 1/32f,
             centerTileError = 0.05f,
@@ -23,80 +23,11 @@ public class GameManager implements Disposable {
             ghostAnimationTimeFrame = 0.12f,
             ghostIntermittentPathfindingTime = 0.5f,
             redGhostActivation = 20;
-    private final Array<Rectangle> wallBounds;
-    private final Array<Pill> pills;
-    private final Rectangle gate;
-    private final TiledMap map;
-    private final TextureAtlas playerAtlas, ghostAtlas;
-    private Graph graph;
+
+    private int pacmanLives = 3;
+    private int totalPillsEaten = 0;
+
     public GameManager(){
-        playerAtlas = new TextureAtlas("pacman.atlas");
-        ghostAtlas = new TextureAtlas("ghost.atlas");
-        map = new TmxMapLoader().load("PacmanMap1.tmx");
-        wallBounds = new Array<>(false, 37);
-        pills = new Array<>(false, 130);
-        correctRectangle(gate);
-        loadWalls();
-        loadPills();
-        GraphBuilder graphBuilder = new GraphBuilder(wallBounds);
-        graph = graphBuilder.getGraph();
-        System.out.println(graph.getShortestPath("1 1", "7 8"));
-    }
 
-
-    public TiledMap getMap() {
-        return map;
-    }
-    public Array<Rectangle> getWallBounds(){
-        return wallBounds;
-    }
-    public Rectangle getGate() {
-        return gate;
-    }
-    public TextureAtlas getPlayerAtlas() {
-        return playerAtlas;
-    }
-    public TextureAtlas getGhostAtlas() {
-        return ghostAtlas;
-    }
-    public void setPlayer(Player player){
-        for (Pill pill : pills) {
-            pill.setPlayer(player);
-        }
-    }
-    public void setGhost(Ghost ghost){
-
-    }
-    public Graph getGraph() {
-        return graph;
-    }
-    public void updatePills(float delta){
-        for (Pill pill : pills) {
-            pill.update(delta);
-            if (pill.isEaten())
-                pillsEaten++;
-        }
-    }
-    public void drawPills(ShapeRenderer shape){
-        for (Pill pill : pills) {
-            pill.draw(shape);
-        }
-    }
-    public void update(boolean gameOver){
-        if (gameOver){
-            
-        }
-        if (pillsEaten == pills.size){
-
-        }
-    }
-    public int getPillsEaten() {
-        return pillsEaten;
-    }
-    @Override
-    public void dispose() {
-        map.dispose();
-        playerAtlas.dispose();
-        ghostAtlas.dispose();
     }
 }

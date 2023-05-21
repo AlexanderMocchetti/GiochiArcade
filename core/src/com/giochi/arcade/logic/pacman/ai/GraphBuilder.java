@@ -9,6 +9,7 @@ public class GraphBuilder {
     private final Graph graph = new Graph();
     public GraphBuilder(Array<Rectangle> walls){
         this.walls = walls;
+        generateNodes();
     }
     private void generateNodes(){
         Node node;
@@ -41,7 +42,6 @@ public class GraphBuilder {
         return unwalkableCells;
     }
     public Graph getGraph(){
-        generateNodes();
         return graph;
     }
 }

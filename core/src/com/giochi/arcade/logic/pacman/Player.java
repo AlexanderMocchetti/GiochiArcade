@@ -43,6 +43,7 @@ public class Player{
         handleAssistedTurn(delta);
         advance(delta);
         Rectangle rectangle = new Rectangle(targetPositionVector.x, targetPositionVector.y, width, height);
+        System.out.println(positionVector);
         if(
                 PacmanUtils.checkSingleCollision(rectangle, map.getGate()) ||
                 PacmanUtils.checkMultipleCollision(rectangle, map.getWallBounds()))

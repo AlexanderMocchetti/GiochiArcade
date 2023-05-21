@@ -1,37 +1,53 @@
 package com.giochi.arcade.logic.pacman;
 
-import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.giochi.arcade.logic.pacman.ai.Graph;
 import com.giochi.arcade.logic.pacman.ai.GraphBuilder;
 
-public class Map {
+public class Map implements Disposable {
     public static final int WALL_NUMBER = 37;
-    private final Pills pills = new Pills(this);
+    public static final float SPRITE_LENGTH = 0.94f;
+    private final Pills pills;
     private final Array<Rectangle> wallBounds = new Array<>(false, WALL_NUMBER);
     private final Rectangle gate;
     private final Ghost ghost;
     private final Player player;
     private final TiledMap map;
-    private final AssetManager manager;
+    private final Assets manager;
     private final Graph graph;
-    public Map(AssetManager manager){
+    public Map(Assets manager){
         this.manager = manager;
-        map = manager.get("PacmanMap1.tmx");
-        buildMap();
-        gate = ((RectangleMapObject) map.getLayers().get("GateLayer").getObjects().get("Gate")).getRectangle();
+        map = manager.getMap();
+
+        Rectangle ghostSpawn, playerSpawn;
+
+        ghostSpawn = ((RectangleMapObject) map.getLayers().get("GhostSpawnLayer").getObjects().get(0)).getRectangle();
+        playerSpawn = ((RectangleMapObject) map.getLayers().get("PlayerSpawnLayer").getObjects().get(0)).getRectangle();
+
+        correctRectangle(ghostSpawn);
+        correctRectangle(playerSpawn);
+
+        loadWalls();
+
         GraphBuilder graphBuilder = new GraphBuilder(wallBounds);
         graph = graphBuilder.getGraph();
-        ghost = new Ghost();
-        player = new Player();
-    }
-    private void buildMap(){
-        loadWalls();
+
+        player = new Player(playerSpawn.x, playerSpawn.y, SPRITE_LENGTH, SPRITE_LENGTH, 2.8f, this);
+        ghost = new Ghost(ghostSpawn.x, ghostSpawn.y, SPRITE_LENGTH, SPRITE_LENGTH, 3f, this);
+        pills = new Pills(this);
+
+        gate = ((RectangleMapObject) map.getLayers().get("GateLayer").getObjects().get("Gate")).getRectangle();
+        correctRectangle(gate);
+
         loadPills();
     }
     private void loadWalls(){
@@ -57,6 +73,25 @@ public class Map {
         rectangle.height *= GameManager.pixelToGrid;
     }
 
+    public void update(float delta){
+        player.update(delta);
+        pills.update(delta);
+        ghost.update(delta);
+    }
+    public void drawShapes(ShapeRenderer shape) {
+        shape.begin(ShapeRenderer.ShapeType.Filled);
+        shape.setColor(Color.YELLOW);
+        pills.draw(shape);
+        shape.end();
+    }
+
+    public void drawSprites(Batch batch) {
+        batch.begin();
+        player.draw(batch);
+        ghost.draw(batch);
+        batch.end();
+    }
+
     public Ghost getGhost() {
         return ghost;
     }
@@ -69,10 +104,10 @@ public class Map {
         return player;
     }
     public TextureAtlas getPlayerAtlas(){
-        return manager.get("pacman.atlas");
+        return manager.getPlayerAtlas();
     }
     public TextureAtlas getGhostAtlas(){
-        return manager.get("ghost.atlas");
+        return manager.getGhostAtlas();
     }
 
     public Graph getGraph() {
@@ -85,5 +120,10 @@ public class Map {
 
     public Rectangle getGate() {
         return gate;
+    }
+
+    @Override
+    public void dispose() {
+        manager.dispose();
     }
 }

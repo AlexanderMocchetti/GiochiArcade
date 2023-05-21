@@ -27,11 +27,11 @@ public class Ghost {
                   timeSinceLastFinding = 0;
     private final float speed;
     private boolean disabled = true;
-    public Ghost(float x, float y, float width, float height, float speed, Player pacman, Map map){
+    public Ghost(float x, float y, float width, float height, float speed, Map map){
         this.speed = speed;
-        this.pacman = pacman;
         this.map = map;
         graph = map.getGraph();
+        pacman = map.getPlayer();
         TextureAtlas atlas = map.getGhostAtlas();
         rightAnimation = new Animation<TextureRegion>(
                 GameManager.ghostAnimationTimeFrame,

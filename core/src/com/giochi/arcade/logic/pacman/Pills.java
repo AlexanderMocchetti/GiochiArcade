@@ -86,7 +86,7 @@ public class Pills {
                 shape.circle(position.x, position.y, radius, 10);
         }
         public boolean isEaten() {
-            if (!alreadyChecked)
+            if (!alreadyChecked && eaten)
                 alreadyChecked = true;
             return eaten;
         }
