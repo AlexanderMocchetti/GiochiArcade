@@ -36,8 +36,8 @@ public class SpaceInvadersPlayer
         spriteBullet.setScale(1);
         spritePlayer.setColor(color);
         spriteBullet.setColor(color);
-        positionPlayer = new Vector2((float) Gdx.graphics.getWidth() / 2, spritePlayer.getScaleY() * spritePlayer.getHeight() / 2);
-        //positionPlayer = new Vector2(spaceInvadersPlayerViewPort.getWorldWidth() / 2 , spritePlayer.getScaleY() * spritePlayer.getHeight() / 2);
+        //positionPlayer = new Vector2((float) Gdx.graphics.getWidth() / 2, spritePlayer.getScaleY() * spritePlayer.getHeight() / 2);
+        positionPlayer = new Vector2(spaceInvadersPlayerViewPort.getWorldWidth() / 2 , spritePlayer.getScaleY() * spritePlayer.getHeight() / 2);
         bulletPosition = new Vector2(0, 10000);
     }
 
@@ -65,8 +65,8 @@ public class SpaceInvadersPlayer
             positionPlayer.x = (spritePlayer.getWidth() * spritePlayer.getScaleX() / 2);
 
         if (positionPlayer.x + (spritePlayer.getWidth() * spritePlayer.getScaleX() / 2) >= Gdx.graphics.getWidth())
-            positionPlayer.x = Gdx.graphics.getWidth() - (spritePlayer.getWidth() * spritePlayer.getScaleX() / 2);
-
+            //positionPlayer.x = Gdx.graphics.getWidth() - (spritePlayer.getWidth() * spritePlayer.getScaleX() / 2);
+            positionPlayer.x = spaceInvadersPlayerViewPort.getWorldWidth() - (spritePlayer.getWidth() * spritePlayer.getScaleX() / 2);
 
         bulletPosition.y += deltaTime * bulletSpeed;
 

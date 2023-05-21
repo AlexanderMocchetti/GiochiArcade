@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -20,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.giochi.arcade.Files.SaveScore;
 import com.giochi.arcade.OptionWindowScreenAdapter;
 import com.giochi.arcade.controller.SnakeController;
 import org.jetbrains.annotations.NotNull;
@@ -105,8 +103,8 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
         buttonOption.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.graphics.setContinuousRendering(false);
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new OptionWindowScreenAdapter(getIstance()));
+                pause();
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new OptionWindowScreenAdapter(getInstance()));
                 return true;
             }
         });
@@ -185,7 +183,6 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
 
     @Override
     public void resize(int width, int height) {
-        super.resize(width, height);
         viewport.update(width , height);
     }
 
@@ -275,7 +272,7 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
 
 
 
-    public SnakeScreenGame getIstance()
+    public SnakeScreenGame getInstance()
     {
         return this;
     }

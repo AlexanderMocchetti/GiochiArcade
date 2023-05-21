@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.AddListenerAction;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -69,7 +68,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
     public void show()
     {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set(WORLD_WIDTH / 2 , WORLD_HEIGHT / 2 , 0);
+        camera.position.set((float) WORLD_WIDTH / 2 , (float) WORLD_HEIGHT / 2 , 0);
         camera.update();
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         stage = new Stage(viewport);
@@ -93,8 +92,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 pause();
                 saveScore();
-                Gdx.graphics.setContinuousRendering(false);
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new OptionWindowScreenAdapter(getIstance()));
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new OptionWindowScreenAdapter(getInstance()));
                 return true;
             }
         });
@@ -308,7 +306,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
         }
     }
 
-    public SpaceInvadersScreenGame getIstance ()
+    public SpaceInvadersScreenGame getInstance()
     {
         return this;
     }

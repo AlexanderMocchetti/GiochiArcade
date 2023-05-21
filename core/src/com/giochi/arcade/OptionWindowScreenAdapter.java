@@ -64,9 +64,9 @@ public class OptionWindowScreenAdapter extends ScreenAdapter /** Classe della fi
         buttonResume.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Actor b = event.getListenerActor();
-
-                Gdx.graphics.setContinuousRendering(true);
+                //oldScreen.resize(Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
+                oldScreen.resize(viewport.getScreenWidth() , viewport.getScreenHeight());
+                camera.update();
                 oldScreen.resume();
                 ((Game) Gdx.app.getApplicationListener()).setScreen(oldScreen);
                 return true;
