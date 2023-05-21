@@ -11,9 +11,18 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class Tron extends ScreenAdapter{
+
+    private Stage stage;
+
+    private Table table;
+
+    private Button buttonPause;
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private Texture blueBike = new Texture("blueBike.png");
@@ -99,12 +108,18 @@ public class Tron extends ScreenAdapter{
     }
 
     @Override
-    public void show() {
+    public void show()
+    {
+
+
 
         camera = new OrthographicCamera(worldWidth, worldHeight);
         camera.setToOrtho(false, worldWidth, worldHeight);
         viewport = new FitViewport(worldWidth, worldHeight, camera);
         viewport.apply(true);
+        stage = new Stage(viewport);
+
+        table = new Table();
 
         batch = new SpriteBatch();
 
