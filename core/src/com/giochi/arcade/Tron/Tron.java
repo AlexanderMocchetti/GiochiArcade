@@ -1,14 +1,19 @@
 package com.giochi.arcade.Tron;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -17,7 +22,6 @@ import java.util.ArrayList;
 public class Tron extends ScreenAdapter{
     private OrthographicCamera camera;
     private SpriteBatch batch;
-    //private ArrayList<Laser> positions;
     private Texture blueBike = new Texture("blueBike.png");
     private Texture redBike = new Texture("redBike.png");
     private Vector2 player1Position = new Vector2(), player2Position = new Vector2();
@@ -26,17 +30,31 @@ public class Tron extends ScreenAdapter{
     private Player player2 = new Player(redBike, player2Position.set(90, 50), player2Direction.set(-1, 0), 25);
     private TronController input = new TronController(player1, player2);
     private ShapeRenderer shape = new ShapeRenderer();
-    public static final float worldWidth = 100, worldHeight = 100;
+    public static final float worldWidth = 150, worldHeight = 150;
     private FitViewport viewport;
+    private boolean gameStarted, gameOver;
+    private BitmapFont font;
 
     @Override
     public void render(float delta){
+
+        if(!gameStarted){
+            batch.begin();
+            font.draw(batch, "Premere SPAZIO per avviare il gioco", worldWidth / 5, worldHeight / 5);
+            batch.end();
+            if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+                gameStarted = true;
+            }else{
+                return;
+            }
+        }
+
+        batch.begin();
+
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         input.handleInput();
-
-        batch.begin();
 
         player1.move(delta);
         player2.move(delta);
@@ -45,6 +63,28 @@ public class Tron extends ScreenAdapter{
 
         player1.draw(batch);
         player2.draw(batch);
+
+
+        if(player1.checkCollisionWithEnemyLaser(player2)){
+            font.draw(batch, "il rosso ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
+            gamePaused();
+
+        } else if(player2.checkCollisionWithEnemyLaser(player1)){
+            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
+            gamePaused();
+        }
+
+        /*if(){
+            batch.begin();
+            font.draw(batch, "Premere R per riavviare il gioco \noppure qualsiasi altro tasto per chiudere la finestra", worldWidth / 5, worldHeight / 5);
+            batch.end();
+
+            if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
+                gameStarted = true;
+            }else if(Gdx.input.isKeyJustPressed(Input.Keys.R) != Gdx.input.isKeyJustPressed(Input.Keys.R)){
+                gameOver = true;
+            }
+        }*/
 
         batch.end();
         shape.begin(ShapeRenderer.ShapeType.Filled);
@@ -65,6 +105,7 @@ public class Tron extends ScreenAdapter{
     @Override
     public void dispose(){
         batch.dispose();
+        font.dispose();
     }
 
     @Override
@@ -76,6 +117,10 @@ public class Tron extends ScreenAdapter{
         viewport.apply(true);
 
         batch = new SpriteBatch();
+
+        font = new BitmapFont();
+        font.setColor(Color.WHITE);
+        font.getData().setScale(0.5f);
     }
 
     @Override
@@ -85,4 +130,10 @@ public class Tron extends ScreenAdapter{
     @Override
     public void pause(){
     }
+
+    public void gamePaused(){
+        player1.setDirection(0, 0);
+        player2.setDirection(0, 0);
+    }
+
 }
