@@ -183,7 +183,9 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width , height);
+        viewport.update(width, height, true);
+        batch.setProjectionMatrix(camera.combined);
+        shapeRenderer.setProjectionMatrix(camera.combined);
     }
 
     public void restart ()

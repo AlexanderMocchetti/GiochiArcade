@@ -33,7 +33,9 @@ public class SpaceInvadersPlayer
         this.shoot = shoot;
         this.spaceInvadersPlayerViewPort = spaceInvadersPlayerViewPort;
         spritePlayer.setScale(1);
+        spritePlayer.setSize(25 , 25);
         spriteBullet.setScale(1);
+        spriteBullet.setSize(20 , 20);
         spritePlayer.setColor(color);
         spriteBullet.setColor(color);
         //positionPlayer = new Vector2((float) Gdx.graphics.getWidth() / 2, spritePlayer.getScaleY() * spritePlayer.getHeight() / 2);
