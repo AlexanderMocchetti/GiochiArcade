@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -30,7 +31,7 @@ public class OptionWindowScreenAdapter extends ScreenAdapter /** Classe della fi
 
     private VerticalGroup group;
 
-    private Button buttonResume , buttonExit;
+    private Button buttonResume , buttomBackToGames ,  buttonExit;
 
     private static int WORLD_WIDTH = 640;
 
@@ -63,15 +64,31 @@ public class OptionWindowScreenAdapter extends ScreenAdapter /** Classe della fi
         buttonResume.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Actor b = event.getListenerActor();
+
                 Gdx.graphics.setContinuousRendering(true);
                 oldScreen.resume();
                 ((Game) Gdx.app.getApplicationListener()).setScreen(oldScreen);
                 return true;
             }
         });
-        buttonExit = new TextButton("Exit" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
 
         group.addActor(buttonResume);
+
+        buttomBackToGames = new TextButton("Back to games window" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
+
+        buttomBackToGames.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                dispose();
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new WindowScreenGame());
+                return true; // TMCH
+            }
+        });
+
+        group.addActor(buttomBackToGames);
+
+        buttonExit = new TextButton("Exit" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
 
         buttonExit.addListener(new InputListener()
         {
@@ -82,9 +99,10 @@ public class OptionWindowScreenAdapter extends ScreenAdapter /** Classe della fi
                 return true; // TMCH
             }
         });
-        group.pack();
 
         group.addActor(buttonExit);
+
+        group.pack();
 
         stage.addActor(group);
     }

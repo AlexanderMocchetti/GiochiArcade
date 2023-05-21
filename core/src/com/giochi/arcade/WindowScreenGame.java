@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -32,6 +33,8 @@ public class WindowScreenGame extends ScreenAdapter
     private Vector<Button> buttonsGames;
 
     private Button buttonSpaceInvaders , buttonSnake , buttonPacman , buttonPong , buttonTron;
+
+    private Button buttonBack;
 
     private Table table;
 
@@ -77,6 +80,17 @@ public class WindowScreenGame extends ScreenAdapter
 
         });
 
+        buttonBack = new TextButton("Back" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
+
+        buttonBack.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                dispose();
+                ((Game)Gdx.app.getApplicationListener()).setScreen(new StartScreen());
+                return true;
+            }
+        });
+
         buttonsGames = new Vector<>(0 ,1);
 
         camera.update();
@@ -90,6 +104,10 @@ public class WindowScreenGame extends ScreenAdapter
         table.row();
 
         table.add(buttonSnake);
+
+        table.row();
+
+        table.add(buttonBack);
 
         stage.addActor(table);
     }

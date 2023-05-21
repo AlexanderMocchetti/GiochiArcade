@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.AddListenerAction;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -86,10 +87,12 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
         labelScore = new Label("Killed: " + player.getController().getScore(), new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
         labelScore.setColor(Color.WHITE);
         buttonPause = new TextButton("Pause" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
+
         buttonPause.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 pause();
+                saveScore();
                 Gdx.graphics.setContinuousRendering(false);
                 ((Game) Gdx.app.getApplicationListener()).setScreen(new OptionWindowScreenAdapter(getIstance()));
                 return true;
@@ -316,11 +319,11 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
     }
 
     @Override
-    public void saveScore(int score) {
+    public void saveScore() {
 
         try (FileWriter fileWriter = new FileWriter("SpaceInvadersScore.txt" , false)) {
 
-            fileWriter.write(score);
+            fileWriter.write(player.getController().getScore());
         }
         catch (IOException e)
         {
@@ -343,7 +346,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
 
             //player.getController().setScore(Integer.parseInt(reader.readLine()));
 
-            labelScore.setText("Killed: " + String.valueOf(player.getController().setScore(Integer.parseInt(reader.readLine()))) );
+            labelScore.setText("Killed: " + player.getController().setScore(Integer.parseInt(reader.readLine())));
 
             System.out.println(player.getController().getScore());
 
