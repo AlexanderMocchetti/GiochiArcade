@@ -24,9 +24,9 @@ public class PongScreen extends AbstractScreen{
         super(parent);
         camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-        p1 = new Player(20,WORLD_HEIGHT/2,5,30,1,1);
-        p2 = new Player(WORLD_WIDTH-20,WORLD_HEIGHT/2,5,30,1,2);
-        ball = new Ball(WORLD_HEIGHT/2, WORLD_WIDTH / 2, 5, 1, 0,p1,p2);
+        p1 = new Player(20,WORLD_HEIGHT/2,5,30,2,1);
+        p2 = new Player(WORLD_WIDTH-20,WORLD_HEIGHT/2,5,30,2,2);
+        ball = new Ball(WORLD_HEIGHT/2, WORLD_WIDTH / 2, 5, 2, 1,p1,p2);
 
     }
     @Override
