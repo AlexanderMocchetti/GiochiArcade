@@ -25,7 +25,7 @@ public class Ball {
     public void update(){
         if(y + radius >= PongScreen.WORLD_HEIGHT || y - radius <= 0)
             ySpeed *= -1;
-        if((x + radius <= p1.getX()+p1.getWidth()&&
+        if((x - radius <= p1.getX()+p1.getWidth()&&
                 ((y <= p1.getY() + p1.getHeight() )&&
                         (y >= p1.getY()- p1.getHeight()))) ||
                 (x + radius >=p2.getX() +p2.getWidth()&&
