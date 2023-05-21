@@ -1,14 +1,11 @@
-package com.giochi.arcade;
+package com.giochi.arcade.Ui;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.giochi.arcade.Tron.TronScreen;
-import com.giochi.arcade.ui.LoadingScreen;
-import com.giochi.arcade.ui.MenuScreen;
-import com.giochi.arcade.Pong.pong.PongScreen;
-import com.giochi.arcade.ui.Screens;
+import com.giochi.arcade.Pong.PongScreen;
 
 public class ArcadeGame extends Game{
     private Batch batch;

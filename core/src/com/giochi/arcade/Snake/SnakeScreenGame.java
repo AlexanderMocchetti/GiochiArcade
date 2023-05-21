@@ -19,8 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.giochi.arcade.OptionWindowScreenAdapter;
-import com.giochi.arcade.controller.SnakeController;
+import com.giochi.arcade.Ui.OptionWindowScreenAdapter;
+import com.giochi.arcade.Controller.SnakeController;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;

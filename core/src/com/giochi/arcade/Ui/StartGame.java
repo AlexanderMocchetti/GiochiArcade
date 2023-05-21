@@ -1,4 +1,4 @@
-package com.giochi.arcade;
+package com.giochi.arcade.Ui;
 
 import com.badlogic.gdx.Game;
 

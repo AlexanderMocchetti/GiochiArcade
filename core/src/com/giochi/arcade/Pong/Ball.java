@@ -1,4 +1,4 @@
-package com.giochi.arcade.Pong.pong;
+package com.giochi.arcade.Pong;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 

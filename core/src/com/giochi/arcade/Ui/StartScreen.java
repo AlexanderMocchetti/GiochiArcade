@@ -1,4 +1,4 @@
-package com.giochi.arcade;
+package com.giochi.arcade.Ui;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
 
 
 /**

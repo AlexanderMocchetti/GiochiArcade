@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.giochi.arcade.Files.SaveScore;
-import com.giochi.arcade.OptionWindowScreenAdapter;
+import com.giochi.arcade.Ui.OptionWindowScreenAdapter;
 
 import java.io.*;
 

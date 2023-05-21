@@ -1,4 +1,4 @@
-package com.giochi.arcade.controller;
+package com.giochi.arcade.Controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

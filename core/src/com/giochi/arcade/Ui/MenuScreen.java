@@ -1,6 +1,4 @@
-package com.giochi.arcade.ui;
-
-import com.giochi.arcade.ArcadeGame;
+package com.giochi.arcade.Ui;
 
 public class MenuScreen extends AbstractScreen {
     public MenuScreen(ArcadeGame parent) {

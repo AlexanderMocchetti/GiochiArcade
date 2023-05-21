@@ -1,8 +1,8 @@
-package com.giochi.arcade.controller;
+package com.giochi.arcade.Controller;
 
 import com.badlogic.gdx.InputAdapter;
-import com.giochi.arcade.logic.pacman.Direction;
-import com.giochi.arcade.logic.pacman.Player;
+import com.giochi.arcade.Pacman.Direction;
+import com.giochi.arcade.Pacman.Player;
 
 public class PacmanController extends InputAdapter {
     private final Player player;

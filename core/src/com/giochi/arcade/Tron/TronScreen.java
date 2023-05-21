@@ -2,7 +2,6 @@ package com.giochi.arcade.Tron;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -20,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.giochi.arcade.OptionWindowScreenAdapter;
+import com.giochi.arcade.Ui.OptionWindowScreenAdapter;
 
 public class TronScreen extends ScreenAdapter{
 

@@ -1,4 +1,4 @@
-package com.giochi.arcade;
+package com.giochi.arcade.Ui;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -19,9 +19,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.giochi.arcade.Snake.SnakeScreenGame;
 import com.giochi.arcade.SpaceInvaders.SpaceInvadersScreenGame;
 import com.giochi.arcade.Tron.TronScreen;
-import com.giochi.arcade.Pong.pong.PongScreen;
-
-import java.util.Vector;
+import com.giochi.arcade.Pong.PongScreen;
 
 public class WindowScreenGame extends ScreenAdapter
 {
@@ -31,8 +29,6 @@ public class WindowScreenGame extends ScreenAdapter
     private Camera camera;
 
     private Viewport viewport;
-
-    private Vector<Button> buttonsGames;
 
 
     private Button buttonSpaceInvaders , buttonSnake , buttonPacman , buttonPong , buttonTron;
@@ -113,8 +109,6 @@ public class WindowScreenGame extends ScreenAdapter
                 return true;
             }
         });
-
-        buttonsGames = new Vector<>(0 ,1);
 
         camera.update();
 

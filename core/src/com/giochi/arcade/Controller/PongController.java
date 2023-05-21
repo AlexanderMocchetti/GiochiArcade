@@ -1,7 +1,7 @@
-package com.giochi.arcade.controller;
+package com.giochi.arcade.Controller;
 
 import com.badlogic.gdx.InputAdapter;
-import com.giochi.arcade.Pong.pong.Player;
+import com.giochi.arcade.Pong.Player;
 
 public class PongController extends InputAdapter {
     private final Player player;

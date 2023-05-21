@@ -1,4 +1,4 @@
-package com.giochi.arcade.logic.pacman;
+package com.giochi.arcade.Pacman;
 
 public class Map {
     public static final int WIDTH = 17;

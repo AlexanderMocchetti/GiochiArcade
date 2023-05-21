@@ -1,4 +1,4 @@
-package com.giochi.arcade.ui;
+package com.giochi.arcade.Ui;
 
 public enum Screens {
     LOADING,

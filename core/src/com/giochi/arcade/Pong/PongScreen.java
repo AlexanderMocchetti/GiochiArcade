@@ -1,4 +1,4 @@
-package com.giochi.arcade.Pong.pong;
+package com.giochi.arcade.Pong;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -20,7 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.giochi.arcade.OptionWindowScreenAdapter;
+import com.giochi.arcade.Ui.OptionWindowScreenAdapter;
 
 public class PongScreen extends ScreenAdapter {
 

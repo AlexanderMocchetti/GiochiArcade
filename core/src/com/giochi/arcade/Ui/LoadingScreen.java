@@ -1,4 +1,4 @@
-package com.giochi.arcade.ui;
+package com.giochi.arcade.Ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -8,9 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.giochi.arcade.ArcadeGame;
-import com.giochi.arcade.controller.PacmanController;
-import com.giochi.arcade.logic.pacman.Player;
+import com.giochi.arcade.Controller.PacmanController;
+import com.giochi.arcade.Pacman.Player;
 
 public class LoadingScreen extends AbstractScreen{
     Sprite sprite;

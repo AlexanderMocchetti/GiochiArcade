@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.giochi.arcade.controller.SnakeController;
+import com.giochi.arcade.Controller.SnakeController;
 
 public class SnakeFood
 {
