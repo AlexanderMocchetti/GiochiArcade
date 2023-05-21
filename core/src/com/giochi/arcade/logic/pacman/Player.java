@@ -7,6 +7,7 @@ import com.giochi.arcade.logic.pacman.ai.Node;
 
 public class Player{
     private final Map map;
+    private final Vector2 spawnPositionVector;
     private final Vector2 positionVector, targetPositionVector;
     private Vector2 speedVector, targetSpeedVector;
     private final Sprite sprite;
@@ -16,11 +17,12 @@ public class Player{
     private float
             animationStateTime = 0,
             rotationDegrees = 0;
-    private boolean invincible = false;
     public Player(float x, float y, float width, float height, float speed, Map map){
         positionVector = new Vector2(x, y);
+        spawnPositionVector = new Vector2(x, y);
         targetPositionVector = new Vector2(positionVector);
         targetSpeedVector = new Vector2(speed, 0);
+        speedVector = targetSpeedVector;
         this.map = map;
         this.width = width;
         this.height = height;
@@ -33,8 +35,7 @@ public class Player{
         currentKeyFrame = atlas.findRegion("pac_man", 0);
         sprite = new Sprite(currentKeyFrame);
         sprite.setOrigin(width / 2, height / 2);
-        sprite.setPosition(x, y);
-        sprite.setSize(width, height);
+        sprite.setBounds(x, y, width, height);
     }
     public Node getGridLocation(){
         return PacmanUtils.getGridLocation(sprite.getBoundingRectangle(), map.getGraph());
@@ -43,7 +44,7 @@ public class Player{
         handleAssistedTurn(delta);
         advance(delta);
         Rectangle rectangle = new Rectangle(targetPositionVector.x, targetPositionVector.y, width, height);
-        System.out.println(positionVector);
+        System.out.println("Bounds: " + sprite.getBoundingRectangle() + "Target speed: " + targetSpeedVector + "\tSpeed: " + speedVector);
         if(
                 PacmanUtils.checkSingleCollision(rectangle, map.getGate()) ||
                 PacmanUtils.checkMultipleCollision(rectangle, map.getWallBounds()))
@@ -81,6 +82,15 @@ public class Player{
         targetPositionVector.set(positionVector);
         targetPositionVector.add(speedVector.x * delta, speedVector.y * delta);
     }
+    public void reset(){
+        positionVector.set(spawnPositionVector);
+        targetPositionVector.set(positionVector);
+        targetSpeedVector = new Vector2(speed, 0);
+        speedVector = targetSpeedVector;
+        sprite.setPosition(positionVector.x, positionVector.y);
+        animationStateTime = 0;
+        rotationDegrees = 0;
+    }
     public float getSpeed() {
         return speed;
     }
@@ -89,12 +99,6 @@ public class Player{
     }
     public void setRotationDegrees(float rotationDegrees){
         this.rotationDegrees = rotationDegrees;
-    }
-    public boolean isInvincible() {
-        return invincible;
-    }
-    public void setInvincible(boolean invincible) {
-        this.invincible = invincible;
     }
     public Rectangle getBounds(){
         return sprite.getBoundingRectangle();

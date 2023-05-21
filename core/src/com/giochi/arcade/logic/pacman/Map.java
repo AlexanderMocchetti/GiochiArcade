@@ -15,7 +15,7 @@ import com.giochi.arcade.logic.pacman.ai.GraphBuilder;
 
 public class Map implements Disposable {
     public static final int WALL_NUMBER = 37;
-    public static final float SPRITE_LENGTH = 0.94f;
+    public static final float SPRITE_LENGTH = 0.95777777f;
     private final Pills pills;
     private final Array<Rectangle> wallBounds = new Array<>(false, WALL_NUMBER);
     private final Rectangle gate;
@@ -24,6 +24,7 @@ public class Map implements Disposable {
     private final TiledMap map;
     private final Assets manager;
     private final Graph graph;
+    private final GameManager gameManager;
     public Map(Assets manager){
         this.manager = manager;
         map = manager.getMap();
@@ -49,6 +50,7 @@ public class Map implements Disposable {
         correctRectangle(gate);
 
         loadPills();
+        gameManager = new GameManager(this);
     }
     private void loadWalls(){
         Rectangle rect;
@@ -73,10 +75,17 @@ public class Map implements Disposable {
         rectangle.height *= GameManager.pixelToGrid;
     }
 
+    public void reset(){
+        player.reset();
+        ghost.reset();
+        pills.reset();
+    }
+
     public void update(float delta){
         player.update(delta);
         pills.update(delta);
         ghost.update(delta);
+        gameManager.update(delta);
     }
     public void drawShapes(ShapeRenderer shape) {
         shape.begin(ShapeRenderer.ShapeType.Filled);
@@ -91,15 +100,12 @@ public class Map implements Disposable {
         ghost.draw(batch);
         batch.end();
     }
-
     public Ghost getGhost() {
         return ghost;
     }
-
     public Pills getPills() {
         return pills;
     }
-
     public Player getPlayer() {
         return player;
     }
@@ -109,17 +115,18 @@ public class Map implements Disposable {
     public TextureAtlas getGhostAtlas(){
         return manager.getGhostAtlas();
     }
-
     public Graph getGraph() {
         return graph;
     }
-
     public Array<Rectangle> getWallBounds() {
         return wallBounds;
     }
-
     public Rectangle getGate() {
         return gate;
+    }
+
+    public GameManager getGameManager() {
+        return gameManager;
     }
 
     @Override

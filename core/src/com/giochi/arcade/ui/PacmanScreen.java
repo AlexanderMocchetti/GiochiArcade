@@ -13,7 +13,6 @@ import com.giochi.arcade.logic.pacman.GameManager;
 import com.giochi.arcade.logic.pacman.Map;
 public class PacmanScreen extends AbstractScreen{
     PacmanController pacmanController;
-    GameManager gameManager;
     Assets manager;
     Map map;
     OrthographicCamera cameraControl;
@@ -52,8 +51,6 @@ public class PacmanScreen extends AbstractScreen{
 
         map.drawSprites(batch);
         map.drawShapes(shape);
-
-        // TODO: add gameManager here
     }
 
     @Override

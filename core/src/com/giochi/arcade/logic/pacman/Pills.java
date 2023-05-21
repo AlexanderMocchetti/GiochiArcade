@@ -23,7 +23,7 @@ public class Pills {
             pill.update(delta);
             if (!pill.isAlreadyChecked() && pill.isEaten()){
                 if (pill.isBig())
-                    parent.getPlayer().setInvincible(true);
+                    parent.getGameManager().setPacmanInvincible(true);
                 pillsEaten++;
             }
         }
@@ -33,6 +33,14 @@ public class Pills {
             pill.draw(shape);
         }
     }
+
+    public void reset(){
+        pillsEaten = 0;
+        for (Pill pill : pillArray){
+            pill.reset();
+        }
+    }
+
     public int getPillsEaten() {
         return pillsEaten;
     }
@@ -89,6 +97,11 @@ public class Pills {
             if (!alreadyChecked && eaten)
                 alreadyChecked = true;
             return eaten;
+        }
+        public void reset(){
+            visibile = true;
+            eaten = false;
+            alreadyChecked = false;
         }
 
         public boolean isBig() {

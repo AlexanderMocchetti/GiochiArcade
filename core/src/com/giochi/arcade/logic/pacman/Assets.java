@@ -25,7 +25,7 @@ public class Assets implements Disposable {
     public Assets() {
         ghostAtlas = new TextureAtlas("ghost.atlas");
         playerAtlas = new TextureAtlas("pacman.atlas");
-        map = new TmxMapLoader().load("PacmanMap1.tmx");
+        map = new TmxMapLoader().load("PacmanMap.tmx");
     }
 
     @Override

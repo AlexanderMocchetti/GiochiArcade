@@ -1,5 +1,6 @@
 package com.giochi.arcade;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -8,7 +9,7 @@ import com.giochi.arcade.ui.MenuScreen;
 import com.giochi.arcade.ui.PongScreen;
 import com.giochi.arcade.ui.Screens;
 
-public class ArcadeGame extends Game{
+public class ArcadeGame extends Game {
     private Batch batch;
     private PacmanScreen pacmanScreen;
     private MenuScreen menuScreen;

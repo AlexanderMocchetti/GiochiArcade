@@ -13,7 +13,7 @@ downGhost
   index: 0
 downGhost
   rotate: false
-  xy: 128, 2
+  xy: 146, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -27,25 +27,32 @@ leftGhost
   index: 1
 leftGhost
   rotate: false
-  xy: 74, 2
+  xy: 92, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 rightGhost
   rotate: false
-  xy: 56, 2
+  xy: 74, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 rightGhost
   rotate: false
-  xy: 92, 2
+  xy: 110, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
+scaredGhost
+  rotate: false
+  xy: 56, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 upGhost
   rotate: false
   xy: 20, 2
@@ -55,7 +62,7 @@ upGhost
   index: 0
 upGhost
   rotate: false
-  xy: 110, 2
+  xy: 128, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

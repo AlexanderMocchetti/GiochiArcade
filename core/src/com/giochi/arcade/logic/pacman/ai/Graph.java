@@ -32,7 +32,6 @@ public class Graph {
         path.pop();
         return path;
     }
-    // TODO: see if pacman effect causes heuristic function to fuck up, in which case change algorithm
     public Deque<Node> getShortestPath(Node sourceNode, Node destinationNode){
         PriorityQueue<Node> openSet = new PriorityQueue<>(35);
         HashSet<Node> closeSet = new HashSet<>(35);
