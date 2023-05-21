@@ -26,8 +26,8 @@ public class Tron extends ScreenAdapter{
     private Texture redBike = new Texture("redBike.png");
     private Vector2 player1Position = new Vector2(), player2Position = new Vector2();
     private Vector2 player1Direction = new Vector2(), player2Direction = new Vector2();
-    private Player player1 = new Player(blueBike, player1Position.set(10, 50), player1Direction.set(1, 0), 25);
-    private Player player2 = new Player(redBike, player2Position.set(90, 50), player2Direction.set(-1, 0), 25);
+    private Player player1 = new Player(blueBike, player1Position.set(0, 75), player1Direction.set(1, 0), 25);
+    private Player player2 = new Player(redBike, player2Position.set(140, 75), player2Direction.set(-1, 0), 25);
     private TronController input = new TronController(player1, player2);
     private ShapeRenderer shape = new ShapeRenderer();
     public static final float worldWidth = 150, worldHeight = 150;
