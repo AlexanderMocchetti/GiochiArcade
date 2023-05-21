@@ -8,13 +8,13 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.giochi.arcade.ArcadeGame;
 
 abstract class AbstractScreen implements Screen {
-    Camera camera;
-    Viewport viewport;
     final Batch batch;
     final ShapeRenderer shape;
     final ArcadeGame parent;
+    Camera camera;
+    Viewport viewport;
 
-    public AbstractScreen(ArcadeGame parent){
+    public AbstractScreen(ArcadeGame parent) {
         this.parent = parent;
         batch = parent.getBatch();
         shape = parent.getShape();
@@ -36,10 +36,12 @@ abstract class AbstractScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
         shape.setProjectionMatrix(camera.combined);
     }
+
     @Override
     public void pause() {
 
     }
+
     @Override
     public void resume() {
 
@@ -51,7 +53,7 @@ abstract class AbstractScreen implements Screen {
     }
 
     @Override
-    public void dispose(){
+    public void dispose() {
 
     }
 }

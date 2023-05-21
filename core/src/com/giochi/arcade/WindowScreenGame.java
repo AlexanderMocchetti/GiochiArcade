@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.giochi.arcade.Snake.SnakeScreenGame;
 import com.giochi.arcade.SpaceInvaders.SpaceInvadersScreenGame;
 import com.giochi.arcade.Tron.TronScreen;
+import com.giochi.arcade.Pong.pong.PongScreen;
 
 import java.util.Vector;
 
@@ -32,6 +33,7 @@ public class WindowScreenGame extends ScreenAdapter
     private Viewport viewport;
 
     private Vector<Button> buttonsGames;
+
 
     private Button buttonSpaceInvaders , buttonSnake , buttonPacman , buttonPong , buttonTron;
 
@@ -90,6 +92,17 @@ public class WindowScreenGame extends ScreenAdapter
             }
         });
 
+        buttonPong = new TextButton("Pong" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
+
+        buttonPong.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                dispose();
+                ((Game)Gdx.app.getApplicationListener()).setScreen(new PongScreen());
+
+            }
+        });
+
         buttonBack = new TextButton("Back" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
 
         buttonBack.addListener(new InputListener(){
@@ -118,6 +131,10 @@ public class WindowScreenGame extends ScreenAdapter
         table.row();
 
         table.add(buttonTron);
+
+        table.row();
+
+        table.add(buttonPong);
 
         table.row();
 

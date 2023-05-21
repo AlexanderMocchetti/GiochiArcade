@@ -1,8 +1,8 @@
-package com.giochi.arcade.logic.pong;
+package com.giochi.arcade.Pong.pong;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.giochi.arcade.ui.PongScreen;
+
 public class Player {
     public float getX() {
         return x;

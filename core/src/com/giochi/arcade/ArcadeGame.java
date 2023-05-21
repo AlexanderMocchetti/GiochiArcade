@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.giochi.arcade.Tron.TronScreen;
 import com.giochi.arcade.ui.LoadingScreen;
 import com.giochi.arcade.ui.MenuScreen;
-import com.giochi.arcade.ui.PongScreen;
+import com.giochi.arcade.Pong.pong.PongScreen;
 import com.giochi.arcade.ui.Screens;
 
 public class ArcadeGame extends Game{
@@ -22,7 +22,7 @@ public class ArcadeGame extends Game{
         batch = new SpriteBatch();
         shape = new ShapeRenderer();
         tronScreen = new TronScreen();
-        pongScreen = new PongScreen(this);
+        pongScreen = new PongScreen();
         loadingScreen = new LoadingScreen(this);
         setScreen(pongScreen);
     }
