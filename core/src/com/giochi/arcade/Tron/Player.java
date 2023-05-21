@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 
@@ -27,25 +29,16 @@ public class Player{
     }
 
     public void move(float delta){
-        createLaser();
+        laserPositions.add(new Vector2(position.x + 5, position.y -0.01f));
         position.x += direction.x * speed * delta;
         position.y += direction.y * speed * delta;
         sprite.setPosition(position.x, position.y);
         sprite.setRotation(rotation);
     }
 
-    private void createLaser(){
-        if(rotation == 90 || rotation == 270){
-            laserPositions.add(new Vector2(position.x + bikeHeight/2, position.y + 0));
-        }
-        else if(rotation == 180 || rotation == 0){
-            laserPositions.add(new Vector2(position.x + 0, position.y + bikeHeight/2));
-        }
-    }
-
-    public void drawLaser(ShapeRenderer shape){
+    public void drawLaser(ShapeRenderer shape) {
         for(Vector2 laserPosition : laserPositions){
-            shape.rect(laserPosition.x, laserPosition.y, 1, 1);
+          shape.rect(laserPosition.x, laserPosition.y, 1, 1);
         }
 
 
@@ -94,5 +87,16 @@ public class Player{
 
     public void setPosition(Vector2 position){
         this.position = position;
+    }
+
+    public boolean checkCollisionWithEnemyLaser(Player enemyPlayer){
+        ArrayList<Vector2> enemyLaserPositions = enemyPlayer.laserPositions;        //posizioni laser nemico
+        for(Vector2 enemyLaserPosition : enemyLaserPositions){
+            Rectangle laser = new Rectangle(enemyLaserPosition.x, enemyLaserPosition.y, 1, 1 );
+            if(sprite.getBoundingRectangle().overlaps(laser)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
