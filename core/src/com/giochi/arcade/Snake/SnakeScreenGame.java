@@ -1,5 +1,6 @@
 package com.giochi.arcade.Snake;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
@@ -14,10 +15,14 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.giochi.arcade.Files.SaveScore;
+import com.giochi.arcade.OptionWindowScreenAdapter;
+import com.giochi.arcade.controller.SnakeController;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -26,9 +31,13 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
 
 
     private Stage stage;
-    private GlyphLayout layout;
 
-    private HorizontalGroup layoutButtonOption;
+    private Stack stack;
+    private GlyphLayout scoreLayout;
+
+    private GlyphLayout buttonOptionLayout;
+
+    private Table layoutButtonOption;
 
     private BitmapFont bitmap; // font for score text
 
@@ -67,9 +76,6 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
     @Override
     public void show() {
 
-
-
-
         camera = new OrthographicCamera(Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
 
         camera.position.set(WORLD_WIDTH / 2 , WORLD_HEIGHT / 2 , 0);
@@ -80,25 +86,32 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
 
         stage = new Stage(viewport);
 
-        layout = new GlyphLayout();
+        Gdx.input.setInputProcessor(stage);
 
-        layoutButtonOption = new HorizontalGroup();
+        stack = new Stack();
+
+        scoreLayout = new GlyphLayout();
+
+        buttonOptionLayout = new GlyphLayout();
+
+        layoutButtonOption = new Table();
 
         buttonOption = new TextButton("Options" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
+
+       //buttonOption.setColor(new com.badlogic.gdx.graphics.Color(255 , 0 , 0 , 0));
 
         buttonOption.setSize(10 ,10);
 
         buttonOption.addListener(new ClickListener(){
             @Override
-            public void clicked(InputEvent event , float x , float y )
-            {
-                pause();
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.graphics.setContinuousRendering(false);
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new OptionWindowScreenAdapter(getIstance()));
+                return true;
             }
         });
 
         layoutButtonOption.setFillParent(true);
-
-        //layoutButtonOption.add(buttonOption);
 
         layoutButtonOption.addActor(buttonOption);
 
@@ -118,11 +131,12 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
 
         snakeFood.setFoodViewPort(viewport);
 
-        layoutButtonOption.pack();
-
-        stage.addActor(layoutButtonOption);
-
-
+        Container <Button> container = new Container<>(buttonOption);
+        container.setColor(com.badlogic.gdx.graphics.Color.BLUE);
+        container.setDebug(true);
+        container.setPosition(camera.viewportWidth / 2, camera.viewportHeight / 2);
+        container.pack();
+        stage.addActor(container);
     }
 
 
@@ -131,21 +145,22 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
     {
         Gdx.gl.glClearColor(Color.BLACK.getRed() , Color.BLACK.getGreen() , Color.BLACK.getBlue() , Color.BLACK.getAlpha());
 
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     @Override
     public void render(float delta)
-
     {
         ScreenUtils.clear(0.2f, 0.2f, 0.2f, 1);
         stage.act(Math.min(delta, 1 / 30f));
         stage.draw();
+        stack.act(delta);
         switch (snakeState) {
-            case PLAYING: {
-                snake.updateDirection(snakeController.queryInput());
+            case PLAYING:
+            {
+                snake.updateDirection(snakeController.queryDirectionInput());
 
-                snakeState = snake.Update(delta);
+                snakeState = snake.update(delta);
 
                 snakeFood.updatePosition();
 
@@ -154,7 +169,8 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
 
             }
             break;
-            case GAME_OVER: {
+            case GAME_OVER:
+            {
 
                 if (snakeController.checkForRestart())
                 {
@@ -197,9 +213,9 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
 
         snake.drawBodyParts(shapeRenderer);
 
-        snakeFood.Draw(shapeRenderer);
+        snakeFood.draw(shapeRenderer);
 
-        drawGrid(shapeRenderer);
+        //drawGrid(shapeRenderer);
 
         batch.end();
 
@@ -207,9 +223,9 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
 
         if (snakeState == SnakeSTATE.GAME_OVER)
         {
-            layout.setText(bitmap , GAME_OVER_TEXT);
+            scoreLayout.setText(bitmap , GAME_OVER_TEXT);
 
-            bitmap.draw(batch , GAME_OVER_TEXT ,  viewport.getWorldWidth() / 2 - layout.width / 2 , viewport.getWorldHeight() / 2 - layout.height / 2);
+            bitmap.draw(batch , GAME_OVER_TEXT ,  viewport.getWorldWidth() / 2 - scoreLayout.width / 2 , viewport.getWorldHeight() / 2 - scoreLayout.height / 2);
 
 
         }
@@ -246,8 +262,21 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
         if (snakeState == SnakeSTATE.PLAYING)
         {
             String scoreToString = Integer.toString(snakeController.getScore());
-            layout.setText(bitmap , scoreToString);
-            bitmap.draw(batch , "Score: " + scoreToString , layout.width,  viewport.getWorldHeight() - layout.height / 2);
+            scoreLayout.setText(bitmap , scoreToString);
+            bitmap.draw(batch , "Score: " + scoreToString , scoreLayout.width,  viewport.getWorldHeight() - scoreLayout.height / 2);
+
         }
+    }
+
+    @Override
+    public void pause() {
+        super.pause();
+    }
+
+
+
+    public SnakeScreenGame getIstance()
+    {
+        return this;
     }
 }

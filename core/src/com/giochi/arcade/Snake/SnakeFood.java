@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.giochi.arcade.controller.SnakeController;
 
 public class SnakeFood
 {
@@ -25,10 +26,6 @@ public class SnakeFood
         this.snake = snake;
 
         this.foodSnakeController = foodSnakeController;
-    }
-
-    public Viewport getFoodViewPort() {
-        return foodViewPort;
     }
 
     public void setFoodViewPort(Viewport foodViewPort) {
@@ -68,7 +65,11 @@ public class SnakeFood
             alive = false;
         }
     }
-    public void Draw (ShapeRenderer foodShapeRenderer)
+
+    /**
+     * @param foodShapeRenderer
+     */
+    public void draw(ShapeRenderer foodShapeRenderer)
     {
         foodShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         foodShapeRenderer.setColor(Color.RED);

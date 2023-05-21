@@ -1,14 +1,15 @@
-package com.giochi.arcade.Snake;
+package com.giochi.arcade.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.giochi.arcade.Snake.SnakeDIRECTIONS;
 
 public class SnakeController
 {
 
     private int score;
 
-    public SnakeDIRECTIONS queryInput ()
+    public SnakeDIRECTIONS queryDirectionInput()
     {
         boolean rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
 
@@ -50,7 +51,4 @@ public class SnakeController
     public void increasedScore () {
         score++;
     }
-
-
-
 }

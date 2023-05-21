@@ -5,10 +5,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -52,22 +54,25 @@ public class WindowScreenGame extends ScreenAdapter
 
         buttonSpaceInvaders = new TextButton("Space invaders" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
 
-        buttonSpaceInvaders.addListener(new ClickListener()
-        {
+        buttonSpaceInvaders.addListener(new ChangeListener(){
+
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void changed(ChangeEvent event, Actor actor) {
+                dispose();
                 ((Game)Gdx.app.getApplicationListener()).setScreen(new SpaceInvadersScreenGame());
+
             }
-
         });
-
         buttonSnake = new TextButton("Snake" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
 
         buttonSnake.addListener(new ClickListener()
         {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                dispose();
                 ((Game)Gdx.app.getApplicationListener()).setScreen(new SnakeScreenGame());
+
+
             }
 
         });
@@ -100,5 +105,10 @@ public class WindowScreenGame extends ScreenAdapter
     public void resize(int width, int height)
     {
        viewport.update(width , height , true);
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
     }
 }

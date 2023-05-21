@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class SpaceInvadersAlien
 {
@@ -15,11 +16,14 @@ public class SpaceInvadersAlien
 
     private Sprite spriteAlien;
 
+    private Viewport spaceInvadersAlienViewport;
+
     private boolean alive = true;
 
-    public SpaceInvadersAlien(Vector2 positionAlien, Texture imgAlien, Color color)
+    public SpaceInvadersAlien(Vector2 positionAlien, Texture imgAlien, Color color , Viewport spaceInvadersAlienViewport)
     {
         this.positionAlien = positionAlien;
+        this.spaceInvadersAlienViewport = spaceInvadersAlienViewport;
         initialPosition = positionAlien;
         spriteAlien = new Sprite(imgAlien);
         spriteAlien.setSize(20 , 20);
@@ -57,5 +61,10 @@ public class SpaceInvadersAlien
 
     public void setPositionAlien(Vector2 positionAlien) {
         this.positionAlien = positionAlien;
+    }
+
+    public void resetAlien ()
+    {
+        alive = false;
     }
 }

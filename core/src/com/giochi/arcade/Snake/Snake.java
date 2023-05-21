@@ -28,8 +28,6 @@ public class Snake {
 
     private SnakeSTATE snakeState = SnakeSTATE.PLAYING;
 
-    //private boolean directionSet = false;
-
     private final Array<BodyPart> bodyParts;
 
     private Viewport snakeViewPort;
@@ -75,7 +73,7 @@ public class Snake {
 
     }
 
-    public SnakeSTATE Update (float deltaTime)
+    public SnakeSTATE update(float deltaTime)
     {
         timer -= deltaTime;
 

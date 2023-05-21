@@ -36,6 +36,9 @@ public class Player {
         for(Vector2 laserPosition : laserPositions){
             shape.rect(laserPosition.x, laserPosition.y, 1, 1);
         }
+
+
+        //shape.rect(laserPositions.get(laserPositions.size() - 1).x , laserPositions.get(laserPositions.size() - 1).y , 1 , 1 );
     }
 
     public void draw(SpriteBatch batch){
