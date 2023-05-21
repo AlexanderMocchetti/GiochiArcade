@@ -2,6 +2,7 @@ package com.giochi.arcade.Tron;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -40,8 +41,62 @@ public class TronScreen extends ScreenAdapter{
     private ShapeRenderer shape = new ShapeRenderer();
     public static final float worldWidth = 640, worldHeight = 480;
     private FitViewport viewport;
-    private boolean gameStarted;
     private BitmapFont font;
+
+
+
+    @Override
+    public void show()
+    {
+
+
+
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.position.set(worldWidth / 2 , worldHeight / 2 , 0);
+        camera.update();
+        viewport = new FitViewport(worldWidth, worldHeight, camera);
+        viewport.apply(true);
+        stage = new Stage(viewport);
+
+        Gdx.input.setInputProcessor(stage);
+
+
+
+        table = new Table();
+
+        buttonPause = new TextButton("Pause" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
+
+
+        buttonPause.setSize(20 ,20);
+
+        buttonPause.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+            {
+                pause();
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new OptionWindowScreenAdapter(getInstance()));
+                return true;
+            }
+        });
+
+        table.setSize(20 ,20);
+
+        table.setFillParent(true);
+
+        table.add(buttonPause);
+
+        table.setPosition(260 ,-220);
+
+        table.pack();
+
+        batch = new SpriteBatch();
+
+        stage.addActor(table);
+
+        font = new BitmapFont();
+        font.setColor(Color.WHITE);
+        font.getData().setScale(0.5f);
+    }
 
     @Override
     public void render(float delta){
@@ -60,6 +115,8 @@ public class TronScreen extends ScreenAdapter{
         }
 
          */
+
+
 
         batch.begin();
 
@@ -121,58 +178,8 @@ public class TronScreen extends ScreenAdapter{
         font.dispose();
     }
 
-    @Override
-    public void show()
-    {
 
 
-
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set((float) worldWidth / 2 , (float) worldHeight / 2 , 0);
-        camera.update();
-        viewport = new FitViewport(worldWidth, worldHeight, camera);
-        viewport.apply(true);
-        stage = new Stage(viewport);
-
-        Gdx.input.setInputProcessor(stage);
-
-
-
-        table = new Table();
-
-        buttonPause = new TextButton("Pause" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
-
-
-        buttonPause.setSize(20 ,20);
-
-        buttonPause.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-            {
-                pause();
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new OptionWindowScreenAdapter(getInstance()));
-                return true;
-            }
-        });
-
-        table.setSize(20 ,20);
-
-        table.setFillParent(true);
-
-        table.add(buttonPause);
-
-        table.setPosition(260 ,-220);
-
-        table.pack();
-
-        batch = new SpriteBatch();
-
-        stage.addActor(table);
-
-        font = new BitmapFont();
-        font.setColor(Color.WHITE);
-        font.getData().setScale(0.5f);
-    }
 
     @Override
     public void hide(){
