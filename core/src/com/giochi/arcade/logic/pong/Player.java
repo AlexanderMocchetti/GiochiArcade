@@ -54,6 +54,10 @@ public class Player {
 
     }
     public void update(){
+        if(y + height/2 >= PongScreen.WORLD_HEIGHT )
+            y=0+height;
+        if( y - height/2 <= 0)
+            y=PongScreen.WORLD_HEIGHT-height;
         if(p==1) {
             if (Gdx.input.isKeyPressed(Input.Keys.S)) {
                 y -= speed;
