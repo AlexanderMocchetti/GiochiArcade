@@ -1,6 +1,8 @@
 package com.giochi.arcade.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,34 +17,54 @@ import java.awt.*;
 
 public class PongScreen extends AbstractScreen{
 
-    private GlyphLayout layout;
-
-    private BitmapFont bitmap;
     public static final float
-        WORLD_WIDTH = 200,
-        WORLD_HEIGHT = 200;
+        WORLD_WIDTH = 300,
+        WORLD_HEIGHT = 300;
     private final Ball ball;
     private final Player p1,p2;
+    private boolean start;
+    private BitmapFont font;
     public PongScreen(ArcadeGame parent) {
         super(parent);
-        ball = new Ball(67, WORLD_WIDTH / 2, 5, 2, 0);
         camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-        p1 = new Player(20,WORLD_HEIGHT/2,5,50,1,1);
-        p2 = new Player(WORLD_WIDTH-20,WORLD_HEIGHT/2,5,50,1,2);
-        layout=new GlyphLayout();
-        bitmap=new BitmapFont();
+        p1 = new Player(20,WORLD_HEIGHT/2,5,30,3,1);
+        p2 = new Player(WORLD_WIDTH-20,WORLD_HEIGHT/2,5,30,3,2);
+        ball = new Ball(WORLD_HEIGHT/2, WORLD_WIDTH / 2, 5F, 3, 1.5f,p1,p2);
+        start=false;
+
     }
+
+    @Override
+    public void show() {
+        font=new BitmapFont();
+        font.setColor(Color.WHITE);
+        font.getData().setScale(0.5f);
+
+    }
+
     @Override
     public void render(float delta) {
-        Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        ball.update(delta);
-        ball.draw(shape);
-        p1.update();
-        p2.update();
-        p1.draw(shape);
-        p2.draw(shape);
-        shape.end();
+        if(!start){
+            batch.begin();
+            font.draw(batch, "Premere spazio per avviare il gioco", WORLD_WIDTH / 5, WORLD_HEIGHT / 5);
+            batch.end();
+            if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+                start = true;
+            }else{
+                return;
+            }
+        }
+        if(start){
+            Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            shape.begin(ShapeRenderer.ShapeType.Filled);
+            ball.update();
+            ball.draw(shape);
+            p1.update();
+            p2.update();
+            p1.draw(shape);
+            p2.draw(shape);
+            shape.end();
+        }
     }
 }
