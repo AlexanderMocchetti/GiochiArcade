@@ -1,67 +1,89 @@
 package com.giochi.arcade.Tron;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.viewport.Viewport;
-
-import javax.swing.text.View;
-import java.util.ArrayList;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class Tron extends ScreenAdapter{
-    private OrthographicCamera camera;
 
-    private Viewport tronViewPort;
+    private Stage stage;
+
+    private Table table;
+
+    private Button buttonPause;
+    private OrthographicCamera camera;
     private SpriteBatch batch;
-    private ArrayList<Laser> positions;
-    private Texture blueBike;
-    private Texture redBike;
-    private Texture blueLaser;
-    private Texture redLaser;
-    //Sprite playerSpriteBlue = new Sprite(img1);
-    //Sprite playerSpriteRed = new Sprite(img2);
-    //Sprite laserSpriteBlue = new Sprite(blueLaser);
-    //Sprite laserSpriteRed = new Sprite(redLaser);
-    private Vector2 player1Position;
-    private Vector2 player2Position;
-    private Vector2 player1Direction;
-    private Vector2 player2Direction;
-    private Player player1 = new Player(blueBike,player1Position.set(100, 100), player1Direction.set(1,0), 1);
-    private Player player2 = new Player(redBike, player2Position.set(700,200), player2Direction.set(-1,0), 1);
+    private Texture blueBike = new Texture("blueBike.png");
+    private Texture redBike = new Texture("redBike.png");
+    private Vector2 player1Position = new Vector2(), player2Position = new Vector2();
+    private Vector2 player1Direction = new Vector2(), player2Direction = new Vector2();
+    private Player player1 = new Player(blueBike, player1Position.set(0, 75), player1Direction.set(1, 0), 25);
+    private Player player2 = new Player(redBike, player2Position.set(140, 75), player2Direction.set(-1, 0), 25);
     private TronController input = new TronController(player1, player2);
     private ShapeRenderer shape = new ShapeRenderer();
-
-
-
+    public static final float worldWidth = 150, worldHeight = 150;
+    private FitViewport viewport;
+    private boolean gameStarted, gameOver;
+    private BitmapFont font;
 
     @Override
     public void render(float delta){
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        input.update();
+        if(!gameStarted){
+            batch.begin();
+            font.draw(batch, "Premere SPAZIO per avviare il gioco", worldWidth / 5, worldHeight / 5);
+            batch.end();
+            if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+                gameStarted = true;
+            }else{
+                return;
+            }
+        }
 
         batch.begin();
 
-        player1.move();
-        player2.move();
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        input.handleInput();
 
-        positions.add(new Laser(blueLaser, player1));
-        positions.add(new Laser(redLaser, player2));
+        player1.move(delta);
+        player2.move(delta);
 
         camera.update();
 
-        batch.setProjectionMatrix(camera.combined);
         player1.draw(batch);
         player2.draw(batch);
+
+
+        if(player1.checkCollisionWithEnemyLaser(player2)){
+            font.draw(batch, "il rosso ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
+            gamePaused();
+
+        } else if(player2.checkCollisionWithEnemyLaser(player1)){
+            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
+            gamePaused();
+        }
+        /*else if(player2.checkCollisionWithEnemyLaser(player2)){
+            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
+            gamePaused();
+        } else if(player1.checkCollisionWithEnemyLaser(player1)){
+            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
+            gamePaused();
+        }*/
+
 
         batch.end();
         shape.begin(ShapeRenderer.ShapeType.Filled);
@@ -73,50 +95,38 @@ public class Tron extends ScreenAdapter{
     }
 
     @Override
-    public void show() {
-
-
-        blueBike = new Texture("blueBike.jpg");
-
-        redBike = new Texture("redBike.jpg");
-
-        blueLaser = new Texture("blueLaser.png");
-
-        redLaser = new Texture("redLaser.png");
-
-        player1Position = new Vector2(100, 100);
-
-        player2Position = new Vector2(500, 500);
-
-        player1Direction = new Vector2(0 , 0);
-
-        player2Direction = new Vector2(0 ,0);
-
-        float width = Gdx.graphics.getWidth();
-
-        float height = Gdx.graphics.getHeight();
-
-        positions = new ArrayList<Laser>();
-
-        TronController input = new TronController(player1, player2);
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, width, height);
-
-        batch = new SpriteBatch();
-    }
-
-    @Override
     public void resize(int width, int height){
-        camera.setToOrtho(false, width, height);
+        viewport.update(width,height);
+        batch.setProjectionMatrix(camera.combined);
+        shape.setProjectionMatrix(camera.combined);
     }
 
     @Override
     public void dispose(){
         batch.dispose();
+        font.dispose();
     }
 
+    @Override
+    public void show()
+    {
 
+
+
+        camera = new OrthographicCamera(worldWidth, worldHeight);
+        camera.setToOrtho(false, worldWidth, worldHeight);
+        viewport = new FitViewport(worldWidth, worldHeight, camera);
+        viewport.apply(true);
+        stage = new Stage(viewport);
+
+        table = new Table();
+
+        batch = new SpriteBatch();
+
+        font = new BitmapFont();
+        font.setColor(Color.WHITE);
+        font.getData().setScale(0.5f);
+    }
 
     @Override
     public void hide(){
@@ -125,4 +135,10 @@ public class Tron extends ScreenAdapter{
     @Override
     public void pause(){
     }
+
+    public void gamePaused(){
+        player1.setDirection(0, 0);
+        player2.setDirection(0, 0);
+    }
+
 }

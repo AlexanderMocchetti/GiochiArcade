@@ -22,6 +22,6 @@ public class DesktopLauncher
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60); /** set the fps  */
 		config.setTitle("GiochiArcade");
-		new Lwjgl3Application(new StartGame(), config); /** create a new Application  */
+		new Lwjgl3Application(new GameTron(), config); /** create a new Application  */
 	}
 }

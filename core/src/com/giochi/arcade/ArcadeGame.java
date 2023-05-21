@@ -24,7 +24,7 @@ public class ArcadeGame extends Game{
         tron = new Tron();
         pongScreen = new PongScreen(this);
         loadingScreen = new LoadingScreen(this);
-        setScreen(tron);
+        setScreen(pongScreen);
     }
     public void changeScreens(Screens screen){
         switch(screen){
