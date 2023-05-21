@@ -56,10 +56,6 @@ public class TronPlayer {
         }
     }
 
-    public ArrayList<Vector2> getLaserPositions(){
-        return laserPositions;
-    }
-
     public void draw(SpriteBatch batch){
         sprite.draw(batch);
     }
