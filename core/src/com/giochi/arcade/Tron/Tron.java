@@ -2,22 +2,16 @@ package com.giochi.arcade.Tron;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-
-import java.util.ArrayList;
 
 public class Tron extends ScreenAdapter{
     private OrthographicCamera camera;
@@ -73,18 +67,14 @@ public class Tron extends ScreenAdapter{
             font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
             gamePaused();
         }
-
-        /*if(){
-            batch.begin();
-            font.draw(batch, "Premere R per riavviare il gioco \noppure qualsiasi altro tasto per chiudere la finestra", worldWidth / 5, worldHeight / 5);
-            batch.end();
-
-            if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
-                gameStarted = true;
-            }else if(Gdx.input.isKeyJustPressed(Input.Keys.R) != Gdx.input.isKeyJustPressed(Input.Keys.R)){
-                gameOver = true;
-            }
+        /*else if(player2.checkCollisionWithEnemyLaser(player2)){
+            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
+            gamePaused();
+        } else if(player1.checkCollisionWithEnemyLaser(player1)){
+            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
+            gamePaused();
         }*/
+
 
         batch.end();
         shape.begin(ShapeRenderer.ShapeType.Filled);
