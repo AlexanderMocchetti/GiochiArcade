@@ -1,38 +1,48 @@
-package com.giochi.arcade.Controller;
+package com.giochi.arcade.controller;
 
 import com.badlogic.gdx.InputAdapter;
-import com.giochi.arcade.Pacman.Direction;
-import com.giochi.arcade.Pacman.Player;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.Input;
+import com.giochi.arcade.logic.pacman.Player;
 
 public class PacmanController extends InputAdapter {
     private final Player player;
+    private final Vector2 UP, DOWN, LEFT, RIGHT;
     public PacmanController(Player player) {
         this.player = player;
+        UP = new Vector2(0, player.getSpeed());
+        DOWN = new Vector2(0, -player.getSpeed());
+        LEFT = new Vector2(-player.getSpeed(), 0);
+        RIGHT = new Vector2(player.getSpeed(), 0);
     }
     @Override
     public boolean keyDown(int keycode) {
-        Direction direction;
+        Vector2 speed;
         switch(keycode){
-            case 19:
-            case 51:
-                direction = Direction.UP;
+            case Input.Keys.UP:
+            case Input.Keys.W:
+                speed = UP;
+                player.setRotationDegrees(90);
                 break;
-            case 20:
-            case 47:
-                direction = Direction.DOWN;
+            case Input.Keys.DOWN:
+            case Input.Keys.S:
+                speed = DOWN;
+                player.setRotationDegrees(270);
                 break;
-            case 21:
-            case 29:
-                direction = Direction.LEFT;
+            case Input.Keys.LEFT:
+            case Input.Keys.A:
+                speed = LEFT;
+                player.setRotationDegrees(180);
                 break;
-            case 22:
-            case 32:
-                direction = Direction.RIGHT;
+            case Input.Keys.RIGHT:
+            case Input.Keys.D:
+                speed = RIGHT;
+                player.setRotationDegrees(0);
                 break;
             default:
                 return false;
         }
-        player.setDirection(direction);
+        player.setTargetSpeedVector(speed);
         return true;
     }
 }
