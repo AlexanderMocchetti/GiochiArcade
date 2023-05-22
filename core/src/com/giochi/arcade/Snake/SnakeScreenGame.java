@@ -113,6 +113,8 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
 
         layoutButtonOption.addActor(buttonOption);
 
+        layoutButtonOption.setPosition(40 ,40);
+
         bitmap = new BitmapFont();
 
         batch = new SpriteBatch();
@@ -132,7 +134,7 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
         Container <Button> container = new Container<>(buttonOption);
         container.setColor(com.badlogic.gdx.graphics.Color.BLUE);
         container.setDebug(true);
-        container.setPosition(camera.viewportWidth / 2, camera.viewportHeight / 2);
+        container.setPosition(40, 40);
         container.pack();
         stage.addActor(container);
     }
