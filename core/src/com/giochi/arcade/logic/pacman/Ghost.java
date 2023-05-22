@@ -143,19 +143,18 @@ public class Ghost {
                 deltaX = 1;
             else
                 deltaY = 1;
-        }
-        else {
+        } else {
             deltaX = nextNode.getX() - currentNode.getX();
-            if (deltaX == 1)
-                currentAnimation = rightAnimation;
-            if (deltaX == -1)
-                currentAnimation = leftAnimation;
             deltaY = nextNode.getY() - currentNode.getY();
-            if (deltaY == 1)
-                currentAnimation = upAnimation;
-            if (deltaY == -1)
-                currentAnimation = downAnimation;
         }
+        if (deltaX == 1)
+            currentAnimation = rightAnimation;
+        if (deltaX == -1)
+            currentAnimation = leftAnimation;
+        if (deltaY == 1)
+            currentAnimation = upAnimation;
+        if (deltaY == -1)
+            currentAnimation = downAnimation;
         targetSpeedVector.set(deltaX * speed, deltaY * speed);
     }
     private boolean checkMovedByTile(){
