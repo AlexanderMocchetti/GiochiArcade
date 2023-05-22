@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.giochi.arcade.Tron.TronScreen;
 import com.giochi.arcade.Pong.PongScreen;
 
-public class ArcadeGame extends Game{
+public class ArcadeGame extends Game {
     private Batch batch;
     private LoadingScreen loadingScreen;
     private MenuScreen menuScreen;

@@ -3,11 +3,11 @@ package com.giochi.arcade.Pacman;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntArray;
-import com.badlogic.gdx.utils.Logger;
+import com.giochi.arcade.logic.pacman.ai.Node;
 
 public class Player{
+    private final Map map;
+    private final Vector2 spawnPositionVector;
     private final Vector2 positionVector, targetPositionVector;
     private Vector2 speedVector, targetSpeedVector;
     private final Sprite sprite;
@@ -17,15 +17,17 @@ public class Player{
     private float
             animationStateTime = 0,
             rotationDegrees = 0;
-    private final Logger logger = new Logger("PlayerLogger", Logger.DEBUG);
-    public Player(float x, float y, float width, float height, float speed){
+    public Player(float x, float y, float width, float height, float speed, Map map){
         positionVector = new Vector2(x, y);
+        spawnPositionVector = new Vector2(x, y);
         targetPositionVector = new Vector2(positionVector);
         targetSpeedVector = new Vector2(speed, 0);
+        speedVector = targetSpeedVector;
+        this.map = map;
         this.width = width;
         this.height = height;
         this.speed = speed;
-        TextureAtlas atlas = GameManager.instance.getAtlas();
+        TextureAtlas atlas = map.getPlayerAtlas();
         animation = new Animation<TextureRegion>(
                 GameManager.playerAnimationTimeFrame,
                 atlas.findRegions("pac_man"),
@@ -33,13 +35,19 @@ public class Player{
         currentKeyFrame = atlas.findRegion("pac_man", 0);
         sprite = new Sprite(currentKeyFrame);
         sprite.setOrigin(width / 2, height / 2);
-        sprite.setPosition(x, y);
-        sprite.setSize(width, height);
+        sprite.setBounds(x, y, width, height);
+    }
+    public Node getGridLocation(){
+        return PacmanUtils.getGridLocation(sprite.getBoundingRectangle(), map.getGraph());
     }
     public void update(float delta){
         handleAssistedTurn(delta);
         advance(delta);
-        if(checkWallCollision(targetPositionVector.x, targetPositionVector.y, width, height))
+        Rectangle rectangle = new Rectangle(targetPositionVector.x, targetPositionVector.y, width, height);
+        System.out.println("Bounds: " + sprite.getBoundingRectangle() + "Target speed: " + targetSpeedVector + "\tSpeed: " + speedVector);
+        if(
+                PacmanUtils.checkSingleCollision(rectangle, map.getGate()) ||
+                PacmanUtils.checkMultipleCollision(rectangle, map.getWallBounds()))
             return;
         positionVector.set(targetPositionVector);
         handleAnimation(delta);
@@ -53,37 +61,19 @@ public class Player{
     public void draw(Batch batch){
         sprite.draw(batch);
     }
-    private boolean checkWallCollision(float x, float y, float width, float height){
-        return checkWallCollision(new Rectangle(x, y, width, height));
-    }
-    private boolean checkWallCollision(Rectangle rectangle){
-        Array<Rectangle> walls = GameManager.instance.getWalls();
-        rectangle.x = PacmanUtils.roundFloatToNthDigit(rectangle.x, 3);
-        rectangle.y = PacmanUtils.roundFloatToNthDigit(rectangle.y, 3);
-        if(rectangle.overlaps(GameManager.instance.getGate()))
-            return true;
-        for(Rectangle wall: walls){
-            if(rectangle.overlaps(wall)) {
-                return true;
-            }
-        }
-        return false;
-    }
     private boolean checkCenteredInTile(){
-        float xCenter, yCenter, xCenterTile, yCenterTile;
-        xCenter = positionVector.x + width/2;
-        yCenter = positionVector.y + height/2;
-        xCenterTile = (float) Math.floor(xCenter) + 0.5f;
-        yCenterTile = (float) Math.floor(yCenter) + 0.5f;
-        return Math.abs(xCenter - xCenterTile) < GameManager.centerTileError &&
-                Math.abs(yCenter - yCenterTile) < GameManager.centerTileError;
+        return PacmanUtils.checkCenteredInTile(sprite.getBoundingRectangle());
     }
-    // TODO: Figure out tf is going on with player random blocking
     private void handleAssistedTurn(float delta){
         float x, y;
         x = positionVector.x + targetSpeedVector.x * delta;
         y = positionVector.y + targetSpeedVector.y * delta;
-        if(!checkWallCollision(x, y, width, height) && checkCenteredInTile()) {
+        Rectangle rectangle = new Rectangle(x, y, width, height);
+        if(
+                !PacmanUtils.checkMultipleCollision(rectangle, map.getWallBounds())
+                && checkCenteredInTile()
+                && !PacmanUtils.checkSingleCollision(rectangle, map.getGate())
+                ) {
             speedVector = targetSpeedVector;
             sprite.setRotation(rotationDegrees);
         }
@@ -92,16 +82,25 @@ public class Player{
         targetPositionVector.set(positionVector);
         targetPositionVector.add(speedVector.x * delta, speedVector.y * delta);
     }
+    public void reset(){
+        positionVector.set(spawnPositionVector);
+        targetPositionVector.set(positionVector);
+        targetSpeedVector = new Vector2(speed, 0);
+        speedVector = targetSpeedVector;
+        sprite.setPosition(positionVector.x, positionVector.y);
+        animationStateTime = 0;
+        rotationDegrees = 0;
+    }
     public float getSpeed() {
         return speed;
     }
     public void setTargetSpeedVector(Vector2 targetSpeedVector) {
         this.targetSpeedVector = targetSpeedVector;
     }
-    public Rectangle getRectangle(){
-        return sprite.getBoundingRectangle();
-    }
     public void setRotationDegrees(float rotationDegrees){
         this.rotationDegrees = rotationDegrees;
+    }
+    public Rectangle getBounds(){
+        return sprite.getBoundingRectangle();
     }
 }
