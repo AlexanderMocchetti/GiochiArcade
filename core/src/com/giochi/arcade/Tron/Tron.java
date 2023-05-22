@@ -20,19 +20,19 @@ public class Tron extends ScreenAdapter{
     private Texture redBike = new Texture("redBike.png");
     private Vector2 player1Position = new Vector2(), player2Position = new Vector2();
     private Vector2 player1Direction = new Vector2(), player2Direction = new Vector2();
-    private Player player1 = new Player(blueBike, player1Position.set(0, 75), player1Direction.set(1, 0), 25);
-    private Player player2 = new Player(redBike, player2Position.set(140, 75), player2Direction.set(-1, 0), 25);
+    private TronPlayer player1 = new TronPlayer(blueBike, player1Position.set(0, 75), player1Direction.set(1, 0), 25);
+    private TronPlayer player2 = new TronPlayer(redBike, player2Position.set(140, 75), player2Direction.set(-1, 0), 25);
     private TronController input = new TronController(player1, player2);
     private ShapeRenderer shape = new ShapeRenderer();
     public static final float worldWidth = 150, worldHeight = 150;
     private FitViewport viewport;
-    private boolean gameStarted, gameOver;
+    private boolean gameStarted, gameOver = false;
     private BitmapFont font;
 
     @Override
     public void render(float delta){
 
-        if(!gameStarted){
+        /*if(!gameStarted){
             batch.begin();
             font.draw(batch, "Premere SPAZIO per avviare il gioco", worldWidth / 5, worldHeight / 5);
             batch.end();
@@ -41,14 +41,14 @@ public class Tron extends ScreenAdapter{
             }else{
                 return;
             }
-        }
+        }*/
 
         batch.begin();
 
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        input.handleInput();
+        input.handleInput(gameOver);
 
         player1.move(delta);
         player2.move(delta);
@@ -60,20 +60,49 @@ public class Tron extends ScreenAdapter{
 
 
         if(player1.checkCollisionWithEnemyLaser(player2)){
-            font.draw(batch, "il rosso ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
+            gameOver = true;
+            font.draw(batch, "il rosso ha vinto!  complimenti!", worldWidth/5, 120);
             gamePaused();
+            font.draw(batch, "premere R per riavviare il gioco", 30, worldHeight/5);
+            if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
+                player1.reset();
+                player2.reset();
+                player1Position.set(0, 75);
+                player2Position.set(140, 75);
+                player1.setDirection(1, 0);
+                player2.setDirection(-1, 0);
+                player1.setRotation(0);
+                player2.setRotation(0);
+                gameOver = false;
+            }
+            font.draw(batch, "premere E per chiudere il gioco", 10, 50);
+            if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
+                Gdx.app.exit();
+            }
+
 
         } else if(player2.checkCollisionWithEnemyLaser(player1)){
-            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
+            gameOver = true;
+            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, 120);
             gamePaused();
+            font.draw(batch, "premere R per riavviare il gioco", 30, worldHeight/5);
+            if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
+                player1.reset();
+                player2.reset();
+                player1Position.set(0, 75);
+                player2Position.set(140, 75);
+                player1.setDirection(1, 0);
+                player2.setDirection(-1, 0);
+                player1.setRotation(0);
+                player2.setRotation(0);
+                gameOver = false;
+            }
+            font.draw(batch, "premere E per chiudere il gioco", 10, 50);
+            if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
+                Gdx.app.exit();
+            }
+
         }
-        /*else if(player2.checkCollisionWithEnemyLaser(player2)){
-            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
-            gamePaused();
-        } else if(player1.checkCollisionWithEnemyLaser(player1)){
-            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
-            gamePaused();
-        }*/
 
 
         batch.end();

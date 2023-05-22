@@ -2,6 +2,7 @@ package com.giochi.arcade.Tron;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -41,6 +42,7 @@ public class TronScreen extends ScreenAdapter{
     public static final float worldWidth = 640, worldHeight = 480;
     private FitViewport viewport;
     private BitmapFont font;
+    private boolean gameStarted, gameOver = false;
 
 
 
@@ -126,7 +128,7 @@ public class TronScreen extends ScreenAdapter{
         stage.act(Math.min(delta, 1 / 30f));
         stage.draw();
 
-        input.handleInput();
+        input.handleInput(gameOver);
 
         tronPlayer1.move(delta);
         tronPlayer2.move(delta);
@@ -138,20 +140,49 @@ public class TronScreen extends ScreenAdapter{
 
 
         if(tronPlayer1.checkCollisionWithEnemyLaser(tronPlayer2)){
-            font.draw(batch, "il rosso ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
+            gameOver = true;
+            font.draw(batch, "il rosso ha vinto!  complimenti!", worldWidth/5, 120);
             gamePaused();
+            font.draw(batch, "premere R per riavviare il gioco", 30, worldHeight/5);
+            if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
+                tronPlayer1.reset();
+                tronPlayer2.reset();
+                player1Position.set(0, 75);
+                player2Position.set(140, 75);
+                tronPlayer1.setDirection(1, 0);
+                tronPlayer2.setDirection(-1, 0);
+                tronPlayer1.setRotation(0);
+                tronPlayer2.setRotation(0);
+                gameOver = false;
+            }
+            font.draw(batch, "premere E per chiudere il gioco", 10, 50);
+            if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
+                Gdx.app.exit();
+            }
+
 
         } else if(tronPlayer2.checkCollisionWithEnemyLaser(tronPlayer1)){
-            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
+            gameOver = true;
+            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, 120);
             gamePaused();
+            font.draw(batch, "premere R per riavviare il gioco", 30, worldHeight/5);
+            if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
+                tronPlayer1.reset();
+                tronPlayer2.reset();
+                player1Position.set(0, 75);
+                player2Position.set(140, 75);
+                tronPlayer1.setDirection(1, 0);
+                tronPlayer2.setDirection(-1, 0);
+                tronPlayer1.setRotation(0);
+                tronPlayer2.setRotation(0);
+                gameOver = false;
+            }
+            font.draw(batch, "premere E per chiudere il gioco", 10, 50);
+            if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
+                Gdx.app.exit();
+            }
+
         }
-        /*else if(player2.checkCollisionWithEnemyLaser(player2)){
-            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
-            gamePaused();
-        } else if(player1.checkCollisionWithEnemyLaser(player1)){
-            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
-            gamePaused();
-        }*/
 
 
         batch.end();

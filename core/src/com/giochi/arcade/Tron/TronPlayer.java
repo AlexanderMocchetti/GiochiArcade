@@ -23,6 +23,7 @@ public class TronPlayer {
         this.position = position;
         this.direction = direction;
         this.speed = speed;
+        sprite.setSize(40 , 40);
         sprite.setBounds(position.x, position.y, bikeWidth, bikeHeight);
         sprite.setOrigin(bikeWidth/2, bikeHeight/2);
     }
@@ -35,12 +36,13 @@ public class TronPlayer {
         sprite.setRotation(rotation);
     }
 
+    public void reset(){
+        laserPositions.clear();
+    }
     public void drawLaser(ShapeRenderer shape) {
         for(Vector2 laserPosition : laserPositions){
           shape.rect(laserPosition.x, laserPosition.y, 1, 1);
         }
-
-
         //shape.rect(laserPositions.get(laserPositions.size() - 1).x , laserPositions.get(laserPositions.size() - 1).y , 1 , 1 );
     }
 
