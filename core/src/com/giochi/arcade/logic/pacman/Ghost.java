@@ -39,6 +39,8 @@ public class Ghost {
         fullSpeed = speed;
         this.speed = speed;
         this.parent = parent;
+        width -= 0.05f;
+        height -= 0.05f;
         graph = parent.getGraph();
         pacman = parent.getPlayer();
         TextureAtlas atlas = parent.getGhostAtlas();
@@ -104,7 +106,7 @@ public class Ghost {
         }
         findTargetSpeed();
         handleAutomatedTurn(delta);
-        positionVector.add(speedVector.x * delta, speedVector.y * delta);
+        advance(delta);
         sprite.setPosition(positionVector.x, positionVector.y);
     }
     private void checkActivation(){
@@ -136,26 +138,14 @@ public class Ghost {
     }
     private void findTargetSpeed(){
         float deltaX, deltaY;
-        deltaX = 0;
-        deltaY = 0;
         if (scared || currentNode == null || nextNode == null){
-            if (randomGenerator.nextBoolean())
-                deltaX = 1;
-            else
-                deltaY = 1;
+            findRandomTargetSpeed();
         } else {
             deltaX = nextNode.getX() - currentNode.getX();
             deltaY = nextNode.getY() - currentNode.getY();
+            getCorrectAnimation(deltaX, deltaY);
+            targetSpeedVector.set(deltaX * speed, deltaY * speed);
         }
-        if (deltaX == 1)
-            currentAnimation = rightAnimation;
-        if (deltaX == -1)
-            currentAnimation = leftAnimation;
-        if (deltaY == 1)
-            currentAnimation = upAnimation;
-        if (deltaY == -1)
-            currentAnimation = downAnimation;
-        targetSpeedVector.set(deltaX * speed, deltaY * speed);
     }
     private boolean checkMovedByTile(){
         int currentTileX, currentTileY;
@@ -181,6 +171,28 @@ public class Ghost {
     public void reset(){
         disabled = true;
         softReset();
+    }
+    public void findRandomTargetSpeed(){
+        int[] optionDirections = {-1, 1};
+        float xDirection, yDirection;
+        xDirection = 0;
+        yDirection = 0;
+        if (randomGenerator.nextBoolean())
+            xDirection = optionDirections[randomGenerator.nextInt(2)];
+        else
+            yDirection = optionDirections[randomGenerator.nextInt(2)];
+        getCorrectAnimation(xDirection, yDirection);
+        targetSpeedVector.set(xDirection * speed, yDirection * speed);
+    }
+    private void getCorrectAnimation(float directionX, float directionY){
+        if (directionX == 1)
+            currentAnimation = rightAnimation;
+        if (directionX == -1)
+            currentAnimation = leftAnimation;
+        if (directionY == 1)
+            currentAnimation = upAnimation;
+        if (directionY == -1)
+            currentAnimation = downAnimation;
     }
     private void softReset() {
         animationStateTime = 0;
