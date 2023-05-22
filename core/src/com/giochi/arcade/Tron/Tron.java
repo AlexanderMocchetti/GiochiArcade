@@ -67,14 +67,33 @@ public class Tron extends ScreenAdapter{
             font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
             gamePaused();
         }
-        /*else if(player2.checkCollisionWithEnemyLaser(player2)){
-            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
-            gamePaused();
-        } else if(player1.checkCollisionWithEnemyLaser(player1)){
-            font.draw(batch, "il blu ha vinto!  complimenti!", worldWidth/5, worldHeight/5);
-            gamePaused();
-        }*/
 
+
+        /*if(player1Position.x == 150){
+            player1Position.x = 0;
+        }
+        if(player2Position.x == 150){
+            player2Position.x = 0;
+        }
+        if(player1Position.y == 150){
+            player1Position.y = 0;
+        }
+        if(player2Position.y == 150){
+            player2Position.y = 0;
+        }
+        if(player1Position.x == 0){
+            player1Position.x = 150;
+        }
+        if(player2Position.x == 0){
+            player2Position.x = 150;
+        }
+        if(player1Position.y == 0){
+            player1Position.y = 150;
+        }
+        if(player2Position.y == 0){
+            player2Position.y = 150;
+        }
+        */
 
         batch.end();
         shape.begin(ShapeRenderer.ShapeType.Filled);
