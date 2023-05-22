@@ -58,7 +58,9 @@ public class Player{
     public void setSpeed(float speed){
         this.speed = speed;
     }
-
+    public void reset(){
+        laserPositions.clear();
+    }
     public ArrayList<Vector2> getLaserPositions(){
         return laserPositions;
     }

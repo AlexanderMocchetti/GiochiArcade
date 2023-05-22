@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
 public class TronController{
-
     private Player player1;
     private Player player2;
 
@@ -14,7 +13,9 @@ public class TronController{
         this.player2 = player2;
     }
 
-    public void handleInput(){
+    public void handleInput(boolean gameOver){
+        if (gameOver)
+            return;
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
             player1.setDirection(0, 1);
             player1.setRotation(90);
