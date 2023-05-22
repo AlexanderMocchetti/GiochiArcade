@@ -1,0 +1,11 @@
+com.giochi.arcade
+com.giochi.arcade.Controller
+com.giochi.arcade.Files
+com.giochi.arcade.logic.pong
+com.giochi.arcade.Pacman
+com.giochi.arcade.Pacman.ai
+com.giochi.arcade.Pong
+com.giochi.arcade.Snake
+com.giochi.arcade.SpaceInvaders
+com.giochi.arcade.Tron
+com.giochi.arcade.Ui
