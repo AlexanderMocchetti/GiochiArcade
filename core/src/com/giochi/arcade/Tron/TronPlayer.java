@@ -54,7 +54,7 @@ public class TronPlayer {
 
     public void setRotation(float rotation){
         if(Math.abs(this.rotation - rotation)!= 180){           //Math.abs valore assoluto != 180 (direziona opposta) set nuova rotazione
-            this.rotation = rotation;
+            this.rotation = rotation;//
         }
     }
 
