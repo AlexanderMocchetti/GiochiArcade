@@ -3,8 +3,7 @@ package com.giochi.arcade.Pacman;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.giochi.arcade.logic.pacman.ai.Node;
-
+import com.giochi.arcade.Pacman.ai.Node;
 public class Player{
     private final Map map;
     private final Vector2 spawnPositionVector;

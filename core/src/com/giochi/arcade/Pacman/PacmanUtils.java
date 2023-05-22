@@ -1,9 +1,8 @@
-package com.giochi.arcade.logic.pacman;
+package com.giochi.arcade.Pacman;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
-import com.giochi.arcade.logic.pacman.ai.Graph;
-import com.giochi.arcade.logic.pacman.ai.Node;
+import com.giochi.arcade.Pacman.ai.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

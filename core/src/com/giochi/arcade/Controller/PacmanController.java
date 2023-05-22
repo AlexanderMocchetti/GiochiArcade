@@ -1,10 +1,9 @@
-package com.giochi.arcade.controller;
+package com.giochi.arcade.Controller;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.Input;
-import com.giochi.arcade.logic.pacman.Player;
-
+import com.giochi.arcade.Pacman.Player;
 public class PacmanController extends InputAdapter {
     private final Player player;
     private final Vector2 UP, DOWN, LEFT, RIGHT;

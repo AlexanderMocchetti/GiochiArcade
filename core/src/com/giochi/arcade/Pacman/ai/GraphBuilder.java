@@ -1,9 +1,8 @@
-package com.giochi.arcade.logic.pacman.ai;
+package com.giochi.arcade.Pacman.ai;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
-import com.giochi.arcade.ui.PacmanScreen;
-
+import com.giochi.arcade.Ui.PacmanScreen;
 public class GraphBuilder {
     private final Array<Rectangle> walls;
     private final Graph graph = new Graph();

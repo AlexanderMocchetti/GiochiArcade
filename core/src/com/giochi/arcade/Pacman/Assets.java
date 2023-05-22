@@ -1,4 +1,4 @@
-package com.giochi.arcade.logic.pacman;
+package com.giochi.arcade.Pacman;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;

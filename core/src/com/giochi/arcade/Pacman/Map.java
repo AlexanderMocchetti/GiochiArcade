@@ -1,4 +1,4 @@
-package com.giochi.arcade.logic.pacman;
+package com.giochi.arcade.Pacman;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -10,8 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.giochi.arcade.logic.pacman.ai.Graph;
-import com.giochi.arcade.logic.pacman.ai.GraphBuilder;
+import com.giochi.arcade.Pacman.ai.*;
 
 public class Map implements Disposable {
     public static final int WALL_NUMBER = 37;

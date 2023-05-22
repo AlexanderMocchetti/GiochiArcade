@@ -1,4 +1,4 @@
-package com.giochi.arcade.logic.pacman.ai;
+package com.giochi.arcade.Pacman.ai;
 
 import java.util.*;
 

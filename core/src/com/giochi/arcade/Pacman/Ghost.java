@@ -1,10 +1,9 @@
-package com.giochi.arcade.logic.pacman;
+package com.giochi.arcade.Pacman;
 
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.giochi.arcade.logic.pacman.ai.Graph;
-import com.giochi.arcade.logic.pacman.ai.Node;
+import com.giochi.arcade.Pacman.ai.*;
 
 import java.util.Deque;
 import java.util.Random;

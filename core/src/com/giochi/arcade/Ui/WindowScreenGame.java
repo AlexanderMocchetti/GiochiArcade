@@ -99,6 +99,16 @@ public class WindowScreenGame extends ScreenAdapter
             }
         });
 
+        buttonPacman = new TextButton("Pacman" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
+
+        buttonPacman.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                dispose();
+                ((Game)Gdx.app.getApplicationListener()).setScreen(new PacmanScreen());
+                return true;
+            }
+        });
         buttonBack = new TextButton("Back" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
 
         buttonBack.addListener(new InputListener(){
@@ -129,6 +139,10 @@ public class WindowScreenGame extends ScreenAdapter
         table.row();
 
         table.add(buttonPong);
+
+        table.row();
+
+        table.add(buttonPacman);
 
         table.row();
 

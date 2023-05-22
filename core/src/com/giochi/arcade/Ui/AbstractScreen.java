@@ -1,24 +1,21 @@
-package com.giochi.arcade.ui;
+package com.giochi.arcade.Ui;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.giochi.arcade.ArcadeGame;
 
 abstract class AbstractScreen implements Screen {
     OrthographicCamera camera;
     Viewport viewport;
     final Batch batch;
     final ShapeRenderer shape;
-    final ArcadeGame parent;
 
-    public AbstractScreen(ArcadeGame parent){
-        this.parent = parent;
-        batch = parent.getBatch();
-        shape = parent.getShape();
+    public AbstractScreen(){
+        batch = new SpriteBatch();
+        shape = new ShapeRenderer();
     }
 
     @Override
