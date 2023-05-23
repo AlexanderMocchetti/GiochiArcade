@@ -7,7 +7,7 @@ import com.giochi.arcade.SpaceInvaders.SpaceInvadersDIRECTIONS;
 public class SpaceInvadersController
 {
 
-    private int score = 0;
+    private static int score = 0;
 
     public SpaceInvadersDIRECTIONS queryInputSpaceInvadersDirections ()
     {
@@ -50,7 +50,7 @@ public class SpaceInvadersController
 
     public Object setScore (int score)
     {
-        this.score = score;
+        SpaceInvadersController.score = score;
         return null;
     }
 

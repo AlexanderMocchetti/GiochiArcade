@@ -2,6 +2,7 @@ package com.giochi.arcade.Ui;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -66,7 +67,7 @@ public class PacmanScreen extends AbstractScreen{
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 pause();
-                //((Game) Gdx.app.getApplicationListener()).setScreen(new OptionWindowScreenAdapter(new OptionWindowScreenAdapter(getInstance())));
+               ((Game) Gdx.app.getApplicationListener()).setScreen(new OptionWindowScreenAdapter(new OptionWindowScreenAdapter(getInstance())));
                 return true;
             }
         });
@@ -74,8 +75,8 @@ public class PacmanScreen extends AbstractScreen{
         table.add(buttonPause);
         table.setPosition(40, 10);
         table.pack();
-
-        Gdx.input.setInputProcessor(pacmanController);
+        InputMultiplexer inputProcessors = new InputMultiplexer(pacmanController, stage);
+        Gdx.input.setInputProcessor(inputProcessors);
     }
 
     @Override

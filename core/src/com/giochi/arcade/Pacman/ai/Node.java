@@ -2,6 +2,9 @@ package com.giochi.arcade.Pacman.ai;
 
 import java.util.HashSet;
 
+/**
+ *
+ */
 public class Node implements Comparable<Node> {
     private final int x, y;
     private int hCost, gCost;
@@ -13,6 +16,10 @@ public class Node implements Comparable<Node> {
         this.y = y;
         label = x + " " + y;
     }
+
+    /**
+     * @param node
+     */
     public void addNeighbour(Node node){
         neighbours.add(node);
         node.neighbours.add(this);

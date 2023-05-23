@@ -274,7 +274,10 @@ public class SnakeScreenGame extends ScreenAdapter { // Main class for snake gam
         super.pause();
     }
 
-
+    @Override
+    public void resume() {
+        super.resume();
+    }
 
     public SnakeScreenGame getInstance()
     {

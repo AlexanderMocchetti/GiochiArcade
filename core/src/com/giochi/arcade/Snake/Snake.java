@@ -8,29 +8,28 @@ import org.jetbrains.annotations.NotNull;
 
 public class Snake {
 
-    private int x;
+    private static int x;
 
-    private int y;
+    private static int y;
 
-    private int xBeforeMove;
+    private static int xBeforeMove;
 
-    private int yBeforeMove;
+    private static int yBeforeMove;
 
     private final int SIZE;
 
-    private final int STEP;
+    private static  int STEP;
 
-    private SnakeDIRECTIONS direction = SnakeDIRECTIONS.RIGHT;
+    private static SnakeDIRECTIONS direction = SnakeDIRECTIONS.RIGHT;
 
-    private final float MOVE_TIMER;
+    private static  float MOVE_TIMER;
 
-    private float timer;
+    private static  float timer;
 
-    private SnakeSTATE snakeState = SnakeSTATE.PLAYING;
+    private static SnakeSTATE snakeState = SnakeSTATE.PLAYING;
 
-    private final Array<BodyPart> bodyParts;
-
-    private Viewport snakeViewPort;
+    private static final Array<BodyPart> bodyParts = new Array<>();
+    private static  Viewport snakeViewPort;
 
     public Snake(int size , int speed)
     {
@@ -43,10 +42,10 @@ public class Snake {
 
         timer = MOVE_TIMER;
 
-        bodyParts = new Array<>();
+        //Snake.bodyParts = new Array<>();
     }
 
-    private void move (SnakeDIRECTIONS direction)
+    private static void move (SnakeDIRECTIONS direction)
     {
 
         xBeforeMove = x;
@@ -73,7 +72,7 @@ public class Snake {
 
     }
 
-    public SnakeSTATE update(float deltaTime)
+    public static SnakeSTATE update(float deltaTime)
     {
         timer -= deltaTime;
 
@@ -94,7 +93,7 @@ public class Snake {
 
 
 
-    public void updateDirection (SnakeDIRECTIONS newDirection)
+    public static void updateDirection (SnakeDIRECTIONS newDirection)
     {
         if (direction != newDirection)
         {
@@ -122,7 +121,7 @@ public class Snake {
 
     }
 
-    public void reset ()
+    public static void reset ()
     {
 
         x = 0;
@@ -144,7 +143,7 @@ public class Snake {
 
     }
 
-    private void checkBounds ()
+    private static void checkBounds()
     {
         if (x >= snakeViewPort.getWorldWidth())
             x = 0;
@@ -159,7 +158,7 @@ public class Snake {
             y = Math.round(snakeViewPort.getWorldHeight()) - STEP;
     }
 
-    private void updateIfNotOpposite (SnakeDIRECTIONS newDirection , SnakeDIRECTIONS oppositeDirection)
+    private static void updateIfNotOpposite(SnakeDIRECTIONS newDirection, SnakeDIRECTIONS oppositeDirection)
     {
         if (direction != oppositeDirection || bodyParts.size == 0){
             direction = newDirection;
@@ -219,7 +218,7 @@ public class Snake {
         }
     }
 
-    public SnakeSTATE checkBodyCollision ()
+    public static SnakeSTATE checkBodyCollision()
     {
 
         for (BodyPart bodyPart : bodyParts)
@@ -232,7 +231,7 @@ public class Snake {
         return SnakeSTATE.PLAYING;
     }
 
-    public void updateBodyParts () {
+    public static void updateBodyParts() {
 
         if (bodyParts.size > 0) {
             BodyPart bodyPart = bodyParts.removeIndex(0);

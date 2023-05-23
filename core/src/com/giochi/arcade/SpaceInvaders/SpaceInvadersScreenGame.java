@@ -31,38 +31,38 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
     private static final int WORLD_WIDTH = 640;
     private static final int WORLD_HEIGHT = 480;
 
-    private final String GAME_OVER_TEXT = "GAME OVER! Press S to restart!";
+    private static final String GAME_OVER_TEXT = "GAME OVER! Press S to restart!";
 
-    private BitmapFont bitmap;
-    private final int numWidthAliens = 5;
-    private final int numHeightAliens = 5;
-    private final int spacingAliens = 40;
+    private static BitmapFont bitmap;
+    private static final int numWidthAliens = 5;
+    private static final int numHeightAliens = 5;
+    private static final int spacingAliens = 40;
 
-    private GlyphLayout layout;
+    private static GlyphLayout layout;
 
 
-    private Camera camera;
-    private Viewport viewport;
-    private Stage stage;
-    private SpriteBatch batch;
-    private Texture imgPlayer;
-    private Label labelScore;
+    private static Camera camera;
+    private static Viewport viewport;
+    private static Stage stage;
+    private static SpriteBatch batch;
+    private static Texture imgPlayer;
+    private static Label labelScore;
 
-    private Button buttonPause;
-    private Texture imgAlien;
+    private static Button buttonPause;
+    private static Texture imgAlien;
 
-    private SpaceInvadersSTATE state = SpaceInvadersSTATE.PLAYING;
-    private int amountAliveAliens = 0;
-    private Texture bulletImage;
-    private SpaceInvadersPlayer player;
-    private SpaceInvadersAlien[] aliens;
-    private int minXAliens;
-    private int maxXAliens;
-    private int minYAliens;
-    private int maxYAliens;
-    private Vector2 offsetAliens;
-    private int directionAliens = 1;
-    private float speedAliens = 100;
+    private static SpaceInvadersSTATE state = SpaceInvadersSTATE.PLAYING;
+    private static int amountAliveAliens = 0;
+    private static Texture bulletImage;
+    private static SpaceInvadersPlayer player;
+    private static SpaceInvadersAlien[] aliens;
+    private static int minXAliens;
+    private static int maxXAliens;
+    private static int minYAliens;
+    private static int maxYAliens;
+    private static Vector2 offsetAliens;
+    private static int directionAliens = 1;
+    private static float speedAliens = 100;
 
     @Override
     public void show()
@@ -90,7 +90,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
         buttonPause.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                pause();
+                hide();
                 saveScore();
                 ((Game) Gdx.app.getApplicationListener()).setScreen(new OptionWindowScreenAdapter(getInstance()));
                 return true;
@@ -105,7 +105,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
         createAliens();
     }
 
-    private void createAliens ()
+    private static void createAliens ()
     {
 
         int i = 0;
@@ -152,21 +152,18 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
             break;
             case GAMEOVER:
             {
-                //batch.begin();
-                System.out.println("cccc");
                 gameOver();
                 if (player.getController().checkForRestart())
                 {
                     restart();
                 }
-                //batch.end();
             }
             break;
         }
     }
 
 
-    public void gameOver()
+    public static void gameOver()
     {
         if (state == SpaceInvadersSTATE.GAMEOVER)
         {
@@ -180,7 +177,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
             batch.end();
         }
     }
-    private void restart ()
+    private static void restart ()
     {
         for (SpaceInvadersAlien alien : aliens)
         {
@@ -207,7 +204,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
         imgAlien.dispose();
     }
 
-    private void drawAliens()
+    private static void drawAliens()
     {
         for (SpaceInvadersAlien alien : aliens)
         {
@@ -222,7 +219,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
         }
     }
 
-    private void checkBounds (float delta)
+    private static void checkBounds (float delta)
     {
         batch.begin();
         offsetAliens.x += directionAliens * delta * speedAliens;
@@ -250,7 +247,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
         batch.end();
     }
 
-    private void checkAlienDead()
+    private static void checkAlienDead()
     {
         batch.begin();
         boolean stop = false;
@@ -271,7 +268,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
         batch.end();
     }
 
-    private void incrementAliens()
+    private static void incrementAliens()
     {
         batch.begin();
         for (int i = 0; i < aliens.length; i++)
@@ -293,7 +290,7 @@ public class SpaceInvadersScreenGame extends ScreenAdapter implements SaveScore
         batch.end();
     }
 
-    private void resetAliens()
+    private static void resetAliens()
     {
         if (amountAliveAliens == 0)
         {

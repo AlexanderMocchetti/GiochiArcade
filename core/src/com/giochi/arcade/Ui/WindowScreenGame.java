@@ -33,6 +33,8 @@ public class WindowScreenGame extends ScreenAdapter
 
     private Button buttonSpaceInvaders , buttonSnake , buttonPacman , buttonPong , buttonTron;
 
+    private static ScreenAdapter screenAdapterSpaceInvaders , screenAdapterSnake , screenAdapterPacman , screenAdapterPong , screenAdapterTron;
+
     private Button buttonBack;
 
     private Table table;
@@ -52,6 +54,15 @@ public class WindowScreenGame extends ScreenAdapter
 
         camera = new OrthographicCamera();
 
+        screenAdapterSpaceInvaders = new SpaceInvadersScreenGame();
+
+        screenAdapterSnake = new SnakeScreenGame();
+
+        screenAdapterTron = new TronScreen();
+
+        screenAdapterPong = new PongScreen();
+
+
         viewport = new FitViewport(WORLD_WIDTH , WORLD_HEIGHT , camera);
 
         buttonSpaceInvaders = new TextButton("Space invaders" , new Skin(Gdx.files.internal("gdx-skins-master/commodore64/skin/uiskin.json")));
@@ -61,7 +72,7 @@ public class WindowScreenGame extends ScreenAdapter
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 dispose();
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new SpaceInvadersScreenGame());
+                ((Game)Gdx.app.getApplicationListener()).setScreen(screenAdapterSpaceInvaders);
 
             }
         });
@@ -72,7 +83,7 @@ public class WindowScreenGame extends ScreenAdapter
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new SnakeScreenGame());
+                ((Game)Gdx.app.getApplicationListener()).setScreen(screenAdapterSnake);
             }
 
         });
@@ -83,7 +94,7 @@ public class WindowScreenGame extends ScreenAdapter
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 dispose();
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new TronScreen());
+                ((Game)Gdx.app.getApplicationListener()).setScreen(screenAdapterTron);
 
             }
         });
@@ -94,7 +105,7 @@ public class WindowScreenGame extends ScreenAdapter
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 dispose();
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new PongScreen());
+                ((Game)Gdx.app.getApplicationListener()).setScreen(screenAdapterPong);
 
             }
         });

@@ -12,8 +12,8 @@ public class SnakeFood
     private Viewport foodViewPort;
 
 
-    private int x;
-    private int y;
+    private static int x;
+    private static int y;
 
     private final Snake snake;
 

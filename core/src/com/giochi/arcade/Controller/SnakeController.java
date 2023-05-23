@@ -7,7 +7,7 @@ import com.giochi.arcade.Snake.SnakeDIRECTIONS;
 public class SnakeController
 {
 
-    private int score;
+    private static int score;
 
     public SnakeDIRECTIONS queryDirectionInput()
     {

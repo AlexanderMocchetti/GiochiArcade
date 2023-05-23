@@ -1,13 +1,13 @@
 package com.giochi.arcade.Ui;
 
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-abstract class AbstractScreen implements Screen {
+abstract class AbstractScreen extends ScreenAdapter {
     OrthographicCamera camera;
     Viewport viewport;
     final Batch batch;
