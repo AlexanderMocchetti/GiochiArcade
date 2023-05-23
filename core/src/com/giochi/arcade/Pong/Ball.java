@@ -5,7 +5,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.util.Random;
 
 public class Ball {
-    private float x,y,xSpeed,ySpeed,xBase,yBase,xSpeedBase,ySpeedBase;
+    private float x,y,xSpeed,ySpeed,xBase,yBase;
+    //private float xSpeedBase,ySpeedBase;
     private final float radius;
     private Player p1,p2;
     private Random randomGenerator;
@@ -18,8 +19,8 @@ public class Ball {
         this.radius = radius;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
-        ySpeedBase=ySpeed;
-        xSpeedBase=xSpeed;
+        //ySpeedBase=ySpeed;
+        //xSpeedBase=xSpeed;
         this.p1=p1;
         this.p2=p2;
         randomGenerator=new Random();
@@ -44,8 +45,8 @@ public class Ball {
         if(x-radius<(p1.getX()-radius*2)|| x>p2.getX()+radius*2) {
             x=xBase;
             y=yBase;
-            ySpeed=ySpeedBase;
-            xSpeed=xSpeedBase;
+           // ySpeed=ySpeedBase;
+            //xSpeed=xSpeedBase;
 
 
         }

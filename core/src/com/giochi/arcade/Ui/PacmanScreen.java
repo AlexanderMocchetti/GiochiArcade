@@ -3,12 +3,7 @@ package com.giochi.arcade.Ui;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -19,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.giochi.arcade.Pacman.GameManager;
 import com.giochi.arcade.Controller.PacmanController;
 import com.giochi.arcade.Pacman.*;
@@ -43,7 +38,6 @@ public class PacmanScreen extends AbstractScreen{
         super();
         camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-        //camera.rotate(false, WORLD_WIDTH, WORLD_HEIGHT);
         cameraControl = new OrthographicCamera();
     }
 
@@ -73,14 +67,19 @@ public class PacmanScreen extends AbstractScreen{
         });
         Table table = new Table();
         table.add(buttonPause);
-        table.setPosition(40, 10);
+        table.setPosition(WORLD_WIDTH /2, WORLD_HEIGHT /2);
         table.pack();
+        stage.addActor(table);
         InputMultiplexer inputProcessors = new InputMultiplexer(pacmanController, stage);
         Gdx.input.setInputProcessor(inputProcessors);
     }
 
     @Override
     public void render(float delta) {
+        ScreenUtils.clear(0, 0, 0, 1);
+        camera.update();
+        stage.act(Math.min(delta, 1 / 30f));
+        stage.draw();
         mapRenderer.render();
 
         map.update(delta);

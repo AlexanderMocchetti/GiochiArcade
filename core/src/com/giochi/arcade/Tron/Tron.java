@@ -24,7 +24,7 @@ public class Tron extends ScreenAdapter{
     private TronPlayer player2 = new TronPlayer(redBike, player2Position.set(140, 75), player2Direction.set(-1, 0), 25);
     private TronController input = new TronController(player1, player2);
     private ShapeRenderer shape = new ShapeRenderer();
-    public static final float worldWidth = 150, worldHeight = 150;
+    public static final float worldWidth = 640, worldHeight = 480;
     private FitViewport viewport;
     private boolean gameStarted, gameOver = false;
     private BitmapFont font;

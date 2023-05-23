@@ -16,22 +16,22 @@ public class SpaceInvadersPlayer
     private final float speedPlayer = 300;
     private final float bulletSpeed = 1000;
 
-    private Viewport spaceInvadersPlayerViewPort;
+    private static Viewport spaceInvadersPlayerViewPort;
 
-    private SpaceInvadersController controller;
-    private Vector2 positionPlayer;
-    private Vector2 bulletPosition;
-    private Sprite spritePlayer;
-    private Sprite spriteBullet;
-    private Sound shoot;
+    private static SpaceInvadersController controller;
+    private static Vector2 positionPlayer;
+    private static Vector2 bulletPosition;
+    private static Sprite spritePlayer;
+    private static Sprite spriteBullet;
+    private static Sound shoot;
 
     public SpaceInvadersPlayer(Texture img, Texture imgBullet, Color color, Sound shoot , Viewport spaceInvadersPlayerViewPort)
     {
         spritePlayer = new Sprite(img);
         spriteBullet = new Sprite(imgBullet);
         controller = new SpaceInvadersController();
-        this.shoot = shoot;
-        this.spaceInvadersPlayerViewPort = spaceInvadersPlayerViewPort;
+        SpaceInvadersPlayer.shoot = shoot;
+        SpaceInvadersPlayer.spaceInvadersPlayerViewPort = spaceInvadersPlayerViewPort;
         spritePlayer.setScale(1);
         spritePlayer.setSize(25 , 25);
         spriteBullet.setScale(1);

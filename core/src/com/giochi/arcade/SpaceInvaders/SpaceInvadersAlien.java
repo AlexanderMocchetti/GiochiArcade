@@ -10,20 +10,20 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class SpaceInvadersAlien
 {
 
-    private Vector2 positionAlien;
+    private static Vector2 positionAlien;
 
-    private Vector2 initialPosition;
+    private  Vector2 initialPosition;
 
-    private Sprite spriteAlien;
+    private  Sprite spriteAlien;
 
-    private Viewport spaceInvadersAlienViewport;
+    private static Viewport spaceInvadersAlienViewport;
 
     private boolean alive = true;
 
     public SpaceInvadersAlien(Vector2 positionAlien, Texture imgAlien, Color color , Viewport spaceInvadersAlienViewport)
     {
-        this.positionAlien = positionAlien;
-        this.spaceInvadersAlienViewport = spaceInvadersAlienViewport;
+        SpaceInvadersAlien.positionAlien = positionAlien;
+        SpaceInvadersAlien.spaceInvadersAlienViewport = spaceInvadersAlienViewport;
         initialPosition = positionAlien;
         spriteAlien = new Sprite(imgAlien);
         spriteAlien.setSize(20 , 20);
@@ -60,7 +60,7 @@ public class SpaceInvadersAlien
     }
 
     public void setPositionAlien(Vector2 positionAlien) {
-        this.positionAlien = positionAlien;
+        SpaceInvadersAlien.positionAlien = positionAlien;
     }
 
     public void resetAlien ()

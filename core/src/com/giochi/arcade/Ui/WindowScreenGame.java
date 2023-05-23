@@ -62,6 +62,8 @@ public class WindowScreenGame extends ScreenAdapter
 
         screenAdapterPong = new PongScreen();
 
+        screenAdapterPacman =  new PacmanScreen();
+
 
         viewport = new FitViewport(WORLD_WIDTH , WORLD_HEIGHT , camera);
 
@@ -116,7 +118,7 @@ public class WindowScreenGame extends ScreenAdapter
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 dispose();
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new PacmanScreen());
+                ((Game)Gdx.app.getApplicationListener()).setScreen(screenAdapterPacman);
                 return true;
             }
         });
